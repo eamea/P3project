@@ -9,5 +9,6 @@ int main()
 	cout << "Hello P3 people!" << endl;
 	cout << "this is amazing!!!" << endl;
 
+	waitKey(0);
 	return 0;
 }
