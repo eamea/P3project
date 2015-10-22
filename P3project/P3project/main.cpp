@@ -10,6 +10,7 @@ int main()
 	cout << "this is amazing!!!" << endl;
 	cout << "i'm running out of ideas" << endl;
 	cout << "how does this work?" << endl;
+	cout << "DJ. Jooks is da mastur!" << endl;
 
 
 	waitKey(0);
