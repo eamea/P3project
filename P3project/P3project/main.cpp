@@ -8,5 +8,6 @@ int main()
 {
 	cout << "Hello P3 people!" << endl;
 
+	waitKey(0);
 	return 0;
 }
