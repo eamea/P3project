@@ -11,7 +11,7 @@ int main()
 	cout << "i'm running out of ideas" << endl;
 	cout << "how does this work?" << endl;
 	cout << "This is Mads, rainbows make me cry!" << endl;
-
+	cout << "CATS RUUUUUUULE SEH WORLD!!!" << endl;
 
 	waitKey(0);
 	return 0;
