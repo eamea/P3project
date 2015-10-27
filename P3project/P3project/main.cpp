@@ -15,6 +15,8 @@ int main()
 	Mat capturedFrame;
 	Mat output;
 
+	dt.createTrackbars();
+
 	while (true){
 		stream.read(capturedFrame);
 
