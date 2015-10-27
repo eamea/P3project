@@ -1,8 +1,5 @@
 #include "Detector.h"
-#include "opencv2/highgui/highgui.hpp"
-#include "opencv2/imgproc/imgproc.hpp"
 
-using namespace cv;
 
 Detector::Detector(int tVal, int kSize)
 {
@@ -25,5 +22,7 @@ Mat Detector::segmentFrame(Mat src){
 	dilate(result, result, getStructuringElement(MORPH_ELLIPSE, Size(kernelSize, kernelSize)));
 	erode(result, result, getStructuringElement(MORPH_ELLIPSE, Size(kernelSize, kernelSize)));
 
-	return result;	
+	return src;	
 }
+
+

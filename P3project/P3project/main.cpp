@@ -7,6 +7,11 @@ using namespace cv;
 
 int main()
 {
+	Mat q;
+	Detector dt();
+	
+	//q = dt.segmentFrame(q);
+	//imshow("QQQ", q);
 
 	//Detector dt(140, 5); //instantiating a new Detector object
 
@@ -26,7 +31,7 @@ int main()
 	//		break;
 	//}
 
-	//waitKey();
+	waitKey(0);
 
 	return 0;
 }
