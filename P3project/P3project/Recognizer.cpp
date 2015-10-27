@@ -1,7 +1,18 @@
 #include "Recognizer.h"
 
 
-Recognizer::Recognizer()
-{
-	//yee imma recognize some shit up in here
+Recognizer::Recognizer(){
+	
 }
+
+void Recognizer::compareFeatures(){
+	
+
+}
+
+bool Recognizer::letterFound(){
+
+	return foundLetter;
+} 
+
+
