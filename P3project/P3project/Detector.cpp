@@ -1,6 +1,5 @@
 #include "Detector.h"
 
-
 Detector::Detector(int tVal, int kSize)
 {
 	thresholdValue = tVal;
@@ -10,7 +9,7 @@ Detector::Detector(int tVal, int kSize)
 Mat Detector::segmentFrame(Mat src){
 	Mat result;
 
-	cvtColor(src,result, CV_BGR2GRAY);
+	cvtColor(src, result, CV_BGR2GRAY);
 
 	threshold(result, result, thresholdValue, 255, CV_THRESH_BINARY);
 
@@ -22,7 +21,5 @@ Mat Detector::segmentFrame(Mat src){
 	dilate(result, result, getStructuringElement(MORPH_ELLIPSE, Size(kernelSize, kernelSize)));
 	erode(result, result, getStructuringElement(MORPH_ELLIPSE, Size(kernelSize, kernelSize)));
 
-	return src;	
+	return result;
 }
-
-

@@ -7,31 +7,24 @@ using namespace cv;
 
 int main()
 {
-	Mat q;
-	Detector dt();
-	
-	//q = dt.segmentFrame(q);
-	//imshow("QQQ", q);
 
-	//Detector dt(140, 5); //instantiating a new Detector object
+	Detector dt(140, 5); //instantiating a new Detector object
 
-	//VideoCapture stream(0);
+	VideoCapture stream(0);
 
-	//Mat frame;
-	//Mat output;
+	Mat capturedFrame;
+	Mat output;
 
-	//while (true){
-	//	stream.read(frame);
+	while (true){
+		stream.read(capturedFrame);
 
-	//	output = dt.segmentFrame(frame);
+		output = dt.segmentFrame(capturedFrame);
 
-	//	imshow("Output", output);
+		imshow("Output", output);
 
-	//	if (waitKey(30) == 27)
-	//		break;
-	//}
-
-	waitKey(0);
+		if (waitKey(30) == 27)
+			break;
+	}
 
 	return 0;
 }
