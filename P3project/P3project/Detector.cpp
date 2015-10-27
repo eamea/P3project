@@ -1,31 +1,33 @@
 #include "Detector.h"
 
-Detector::Detector(int tVal, int kSize)
+//Constructor
+Detector::Detector(int kSize)
 {
-	thresholdValue = tVal;
 	kernelSize = kSize;
 }
 
+//creates a windows called "control" with trackbars for setting HSV values.
 void Detector::createTrackbars()
 {
-	namedWindow("Control panel", CV_WINDOW_AUTOSIZE);
+	namedWindow("Control", CV_WINDOW_AUTOSIZE);
 
-	cvCreateTrackbar("low Hue", "Control panel", &iLowH, 179);
-	cvCreateTrackbar("High Hue", "Control panel", &iHighH, 179);
+	cvCreateTrackbar("LowH", "Control panel", &iLowH, 179);
+	cvCreateTrackbar("HighH", "Control panel", &iHighH, 179);
 
-	cvCreateTrackbar("Low sat", "Control panel", &iLowS, 255);
-	cvCreateTrackbar("High sat", "Control panel", &iHighS, 255);
+	cvCreateTrackbar("LowS", "Control panel", &iLowS, 255);
+	cvCreateTrackbar("HighS", "Control panel", &iHighS, 255);
 
-	cvCreateTrackbar("Low value", "Control panel", &iLowV, 255);
-	cvCreateTrackbar("High value", "Control panel", &iHighV, 255);
+	cvCreateTrackbar("LowV", "Control panel", &iLowV, 255);
+	cvCreateTrackbar("HighV", "Control panel", &iHighV, 255);
 }
 
+//Returns a Mat that has been segmented with HSV values.
 Mat Detector::segmentFrame(Mat src){
 	Mat result;
 
-	cvtColor(src, result, CV_BGR2HSV);
+	cvtColor(src, result, CV_BGR2HSV); //converting to HSV
 
-	inRange(result, Scalar(iLowH, iLowS, iLowV), Scalar(iHighH, iHighS, iHighV), result);
+	inRange(result, Scalar(iLowH, iLowS, iLowV), Scalar(iHighH, iHighS, iHighV), result); //thresholding based on HSV values
 
 	//opening
 	erode(result, result, getStructuringElement(MORPH_ELLIPSE, Size(kernelSize, kernelSize)));
@@ -35,5 +37,5 @@ Mat Detector::segmentFrame(Mat src){
 	dilate(result, result, getStructuringElement(MORPH_ELLIPSE, Size(kernelSize, kernelSize)));
 	erode(result, result, getStructuringElement(MORPH_ELLIPSE, Size(kernelSize, kernelSize)));
 
-	return result;
+	return result;	//returning the thresholded image.
 }
