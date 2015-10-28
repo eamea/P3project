@@ -8,7 +8,7 @@ using namespace cv;
 class Detector
 {
 public:
-	Detector(int tVal, int kSize);
+	Detector(int kSize);
 	Mat segmentFrame(Mat src);
 private:
 	int thresholdValue;
