@@ -12,7 +12,7 @@ public:
 	Detector(int kSize);			//Constructor that sets the kernel size
 	Mat segmentFrame(Mat src);		//Returns a Mat that has been segmented with HSV values.
 	void createTrackbars();			//creates a windows called "control" with trackbars for setting HSV values.
-	void setThreshold(char color);	//Thresholds based on the car inserted. b = blue, g = green, p = pink, r = red, y = yellow.
+	void setThreshold(char color);	//Thresholds based on the char inserted. b = blue, g = green, p = pink, r = red, y = yellow.
 private:
 	int kernelSize;				//the kernel size to use during morphological operations
 

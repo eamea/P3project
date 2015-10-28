@@ -80,8 +80,8 @@ void Detector::setThreshold(char color){
 
 		break;
 	default:
-		cout << "Cannot threshold the inserted char. Not valid.";
-			break;
+		cout << "Cannot threshold the inserted char. Not valid." << endl;
+		break;
 	}
 }
 

@@ -9,7 +9,7 @@ using namespace cv;
 
 int main()
 {
-	Detector detector( 5); //instantiating a new Detector object called detector
+	Detector detector(5); //instantiating a new Detector object called detector
 
 	VideoCapture stream(0); //capturing a stream from webcam 0.
 
