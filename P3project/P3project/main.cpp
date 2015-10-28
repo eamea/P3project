@@ -16,7 +16,9 @@ int main()
 	Mat capturedFrame;		//a mat for holding the current frame
 	Mat output;				//a mat for holding the processed frame
 
-	detector.createTrackbars();	//creating a window called trackbar
+	detector.setThreshold('b'); //setting threshold values to threshold blue
+
+	//detector.createTrackbars();	//creating a window called trackbar
 
 	while (true){ //infinite loop for constant frame update.
 		stream.read(capturedFrame);	//reading a frame from the stream
