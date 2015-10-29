@@ -22,28 +22,28 @@ void BLOBDetector::BLOBDetection(){
 void BLOBDetector::grassFire(size_t row, size_t col){
 	img.at<unsigned char>(row, col) = 0;
 	BLOB.at<unsigned char>(row, col) = object;
-	if (img.at<unsigned char>(row + 1, col) == 255){
-		grassFire(row + 1, col);
-	}
-	if (img.at<unsigned char>(row + 1, col + 1) == 255){
-		grassFire(row + 1, col + 1);
-	}
-	if (img.at<unsigned char>(row, col + 1) == 255){
+	if (img.at<unsigned char>(row, col + 1) == 255){			//checks the Pixel to the right
 		grassFire(row, col + 1);
 	}
-	if (img.at<unsigned char>(row - 1, col + 1) == 255){
-		grassFire(row - 1, col + 1);
+	if (img.at<unsigned char>(row + 1, col + 1) == 255){		//checks the Pixel to the right and down
+		grassFire(row + 1, col + 1);
 	}
-	if (img.at<unsigned char>(row - 1, col) == 255){
-		grassFire(row - 1, col);
+	if (img.at<unsigned char>(row + 1, col) == 255){			//checks the Pixel below
+		grassFire(row + 1, col);
 	}
-	if (img.at<unsigned char>(row -1, col - 1) == 255){
-		grassFire(row - 1, col - 1);
+	if (img.at<unsigned char>(row + 1, col - 1) == 255){		//checks the Pixel below and to the left
+		grassFire(row + 1, col - 1);
 	}
-	if (img.at<unsigned char>(row, col - 1) == 255){
+	if (img.at<unsigned char>(row, col - 1) == 255){			//checks the Pixel to the left
 		grassFire(row, col - 1);
 	}
-	if (img.at<unsigned char>(row + 1, col - 1) == 255){
+	if (img.at<unsigned char>(row -1, col - 1) == 255){			//checks the Pixel up and to the left
+		grassFire(row - 1, col - 1);
+	}
+	if (img.at<unsigned char>(row - 1, col) == 255){			//checks the Pixel above
+		grassFire(row - 1, col);
+	}
+	if (img.at<unsigned char>(row + 1, col - 1) == 255){		//checks the Pixel above and to the right
 		grassFire(row + 1, col - 1);
 	}
 }
