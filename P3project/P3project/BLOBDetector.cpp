@@ -10,7 +10,7 @@ void BLOBDetector::BLOBDetection(){
 		for (size_t col = 0; col < img.cols; col++){
 			if (img.at<unsigned char>(row, col) == 255){
 				grassFire(row, col);
-				BLOB = BLOB + 1;
+				object = object + 25;
 			}
 		}
 	}

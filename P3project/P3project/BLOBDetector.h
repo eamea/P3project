@@ -19,6 +19,6 @@ private:
 	Mat img;
 	vector < KeyPoint >  BLOBVectors;
 	Mat BLOB;
-	int object = 1;
+	int object = 50;
 };
 
