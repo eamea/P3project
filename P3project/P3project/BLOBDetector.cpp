@@ -6,13 +6,12 @@ BLOBDetector::BLOBDetector(Mat thresImg){
 }
 
 void BLOBDetector::BLOBDetection(){
-	for (size_t row = 0; row < img.row; row++){
-		for (size_t col = 0; col < img.col; col++){
+	for (size_t row = 0; row < img.rows; row++){
+		for (size_t col = 0; col < img.cols; col++){
 			if (img.at<unsigned char>(row, col) == 255){
 				grassFire(row, col);
 				BLOB = BLOB + 1;
 			}
-			
 		}
 	}
 }
