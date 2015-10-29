@@ -11,15 +11,14 @@ using namespace std;
 class BLOBDetector
 {
 public:
-	BLOBDetector(Mat thresImg);
-	void BLOBDetection();
-	void grassFire(size_t row, size_t col); //temporary method for detecting the BLOB's
-	Mat  returnBLOB();
+	BLOBDetector(Mat thresImg);					//Constructor sets the image.
+	void BLOBDetection();						//BLOB detection goes through rows and cols and checks for all 255 values.
+	void grassFire(size_t row, size_t col);		//Method for detecting BLOBs.
+	Mat  returnBLOB();							//Returns the BLOB image.
 
 private:
-	Mat img;
-	vector < KeyPoint >  BLOBVectors;
-	Mat BLOB;
-	int object = 1;
+	Mat img;									//The image we work with.
+	Mat BLOB;									//The image that contains the BLOBs.
+	int object = 1;								//int that categorizes the BLOBs.
 };
 

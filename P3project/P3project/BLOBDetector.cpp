@@ -1,10 +1,12 @@
 #include "BLOBDetector.h"
 
-
+//Constructor
 BLOBDetector::BLOBDetector(Mat thresImg){
 	Mat img = thresImg;
+	Mat BLOB = thresImg;
 }
 
+//Goes through each row and column and adds the grassfire algoritm. 
 void BLOBDetector::BLOBDetection(){
 	for (size_t row = 0; row < img.rows; row++){
 		for (size_t col = 0; col < img.cols; col++){
@@ -16,6 +18,7 @@ void BLOBDetector::BLOBDetection(){
 	}
 }
 
+//Checks whether the neighboring pixels are white. Burns the current pixel to set it to 0.
 void BLOBDetector::grassFire(size_t row, size_t col){
 	img.at<unsigned char>(row, col) = 0;
 	BLOB.at<unsigned char>(row, col) = object;
@@ -44,6 +47,8 @@ void BLOBDetector::grassFire(size_t row, size_t col){
 		grassFire(row + 1, col - 1);
 	}
 }
+
+//Returns the BLOB image.
 Mat BLOBDetector::returnBLOB(){
 	return BLOB;
 }
