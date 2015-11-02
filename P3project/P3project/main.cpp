@@ -16,7 +16,7 @@ int main()
 	Mat capturedFrame;		//a mat for holding the current frame
 	Mat output;				//a mat for holding the processed frame
 
-	detector.setThreshold('b'); //setting threshold values to threshold blue
+	detector.setThreshold('y'); //setting threshold values to threshold blue
 
 	//detector.createTrackbars();	//creating a window called trackbar
 
