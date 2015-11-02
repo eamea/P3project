@@ -1,13 +1,12 @@
 #include "BLOBDetector.h"
 
 //Constructor
-BLOBDetector::BLOBDetector(Mat thresImg){
-	Mat img = thresImg;
-	Mat BLOB = thresImg;
+BLOBDetector::BLOBDetector(){
+
 }
 
 //Goes through each row and column and adds the grassfire algoritm. 
-void BLOBDetector::BLOBDetection(){
+void BLOBDetector::BLOBDetection(Mat img){
 	for (size_t row = 0; row < img.rows; row++){
 		for (size_t col = 0; col < img.cols; col++){
 			if (img.at<unsigned char>(row, col) == 255){

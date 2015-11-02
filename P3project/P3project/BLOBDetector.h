@@ -11,8 +11,8 @@ using namespace std;
 class BLOBDetector
 {
 public:
-	BLOBDetector(Mat thresImg);					//Constructor sets the image.
-	void BLOBDetection();						//BLOB detection goes through rows and cols and checks for all 255 values.
+	BLOBDetector();								//Empty constructor sets the image.
+	void BLOBDetection(Mat img);				//BLOB detection goes through rows and cols and checks for all 255 values in the inserted image.
 	void grassFire(size_t row, size_t col);		//Method for detecting BLOBs.
 	Mat  returnBLOB();							//Returns the BLOB image.
 
