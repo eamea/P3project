@@ -1,12 +1,13 @@
 #include "Recognizer.h"
+#include "main.cpp"
 
 //TODO Uses getters from main function to set the threshold images.
 Recognizer::Recognizer(){
-	//blueThreshImg = getBlueThreshImg();
-	//greenThreshImg = getGreenThreshImg();
-	////pinkThreshImg = getPinkThreshImg();
-	//redThreshImg = getRedThreshImg();
-	//yellowThreshImg = getYellowThreshImg();
+	blueThreshImg = getBlueThreshImg();
+	greenThreshImg = getGreenThreshImg();
+	//pinkThreshImg = getPinkThreshImg();
+	redThreshImg = getRedThreshImg();
+	yellowThreshImg = getYellowThreshImg();
 }
 
 //BLOB analyzes the relevant threshimages based on the char input.
