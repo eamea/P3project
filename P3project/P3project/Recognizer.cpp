@@ -2,17 +2,29 @@
 
 
 Recognizer::Recognizer(){
-	
+	//blueThreshImg = getBlueThreshImg();
+	//greenThreshImg = getGreenThreshImg();
+	////pinkThreshImg = getPinkThreshImg();
+	//redThreshImg = getRedThreshImg();
+	//yellowThreshImg = getYellowThreshImg();
 }
 
-void Recognizer::compareFeatures(){
-	
+void Recognizer::BLOBAnalyze(char x)
+{
 
 }
 
-bool Recognizer::letterFound(){
+void Recognizer::extractFeatures(char x)
+{
 
-	return foundLetter;
-} 
+}
 
+void Recognizer::compareFeatures(char x)
+{
 
+}
+
+bool Recognizer::recognize(char x)
+{
+
+}
