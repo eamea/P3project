@@ -6,7 +6,7 @@ BLOBDetector::BLOBDetector(){
 }
 
 //Goes through each row and column and adds the grassfire algoritm. 
-void BLOBDetector::BLOBDetection(Mat img){
+Mat BLOBDetector::BLOBDetection(Mat img){
 	for (size_t row = 0; row < img.rows; row++){
 		for (size_t col = 0; col < img.cols; col++){
 			if (img.at<unsigned char>(row, col) == 255){
@@ -15,6 +15,8 @@ void BLOBDetector::BLOBDetection(Mat img){
 			}
 		}
 	}
+
+	return BLOB;
 }
 
 //Checks whether the neighboring pixels are white. Burns the current pixel to set it to 0.
@@ -48,7 +50,7 @@ void BLOBDetector::grassFire(size_t row, size_t col){
 }
 
 //Returns the BLOB image.
-Mat BLOBDetector::returnBLOB(){
-	return BLOB;
-}
+//Mat BLOBDetector::returnBLOB(){
+//	return BLOB;
+//}
 
