@@ -3,6 +3,7 @@
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/features2d.hpp"
 #include "BLOBDetector.h"
+#include "Detector.h"
 
 using namespace std;
 using namespace cv;
@@ -10,12 +11,17 @@ using namespace cv;
 class Recognizer
 {
 public:
-	Recognizer();
-	void BLOBAnalyze(char x);		//BLOB analyzes the relevant threshimages based on the char input.
-	void extractFeatures(char x);
-	bool compareFeatures(char x);
-	bool recognize(char x);			//Runs the functions in order and returns a bool based on whether it found the sign for the input char.
+	Recognizer(Detector d);
+	void BLOBAnalyze(char letter);		//BLOB analyzes the relevant threshimages based on the char input.
+	void extractFeatures(char letter);
+	bool compareFeatures(char letter);
+	bool recognize(char letter);			//Runs the functions in order and returns a bool based on whether it found the sign for the input char.
+	Mat getBlueBLOBImg();
+	Detector getDetector();
+	void setDetector(Detector d);
 private:
+	Detector dt;
+
 	//Matrices to hold the thresholded images.
 	Mat blueThreshImg;
 	Mat greenThreshImg;
@@ -24,6 +30,7 @@ private:
 	Mat yellowThreshImg;
 
 	//Matrices to hold the BLOB analysed images.
+
 	Mat BLOBBlueImg;
 	Mat BLOBGreenImg;
 	//Mat BLOBPinkImg;
