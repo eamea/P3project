@@ -73,29 +73,29 @@ void BLOBDetector::grassFire(size_t row, size_t col, Mat img, char color){
 	}
 
 	//NOTICE: when looking for "col + 1", it only works if the if-statement has "col > img.cols-1", for some reason. We don't know why.
-	if (col > img.cols-1 && img.at<unsigned char>(row, col + 1) == 255){						//checks the Pixel to the right
+	if (col < img.cols-1 && img.at<unsigned char>(row, col + 1) == 255){						//checks the pixel to the right
 		grassFire(row, col + 1, img, color);
 	}
-	if (row > img.rows-1 && col < img.cols-1 && img.at<unsigned char>(row + 1, col + 1) == 255){//checks the Pixel to the right and down
+	if (row < img.rows-1 && col < img.cols-1 && img.at<unsigned char>(row + 1, col + 1) == 255){//checks the pixel to the right and down
 		grassFire(row + 1, col + 1, img, color);
 	}
-	if (row < img.rows-1 && img.at<unsigned char>(row + 1, col) == 255){						//checks the Pixel below
+	if (row < img.rows-1 && img.at<unsigned char>(row + 1, col) == 255){						//checks the pixel below
 		grassFire(row + 1, col, img, color);
 	}
-	if (row < img.rows-1 && col > 0 && img.at<unsigned char>(row + 1, col - 1) == 255){			//checks the Pixel below and to the left
+	if (row < img.rows-1 && col > 0 && img.at<unsigned char>(row + 1, col - 1) == 255){			//checks the pixel below and to the left
 		grassFire(row + 1, col - 1, img, color);
 	}
-	if (col > 0 && img.at<unsigned char>(row, col - 1) == 255){									//checks the Pixel to the left
+	if (col > 0 && img.at<unsigned char>(row, col - 1) == 255){									//checks the pixel to the left
 		grassFire(row, col - 1, img, color);
 	}
-	if (row > 0 && col > 0 && img.at<unsigned char>(row -1, col - 1) == 255){					//checks the Pixel up and to the left
+	if (row > 0 && col > 0 && img.at<unsigned char>(row -1, col - 1) == 255){					//checks the pixel up and to the left
 		grassFire(row - 1, col - 1, img, color);
 	}
-	if (row > 0 && img.at<unsigned char>(row - 1, col) == 255){									//checks the Pixel above
+	if (row > 0 && img.at<unsigned char>(row - 1, col) == 255){									//checks the pixel above
 		grassFire(row - 1, col, img, color);
 	}
-	if (row < img.rows-1 && col > img.cols-1 && img.at<unsigned char>(row + 1, col + 1) == 255){//checks the Pixel above and to the right
-		grassFire(row + 1, col - 1, img, color);
+	if (row < img.rows-1 && col < img.cols-1 && img.at<unsigned char>(row - 1, col + 1) == 255){//checks the pixel above and to the right
+		grassFire(row - 1, col + 1, img, color);
 	}
 }
 
