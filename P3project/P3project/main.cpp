@@ -31,6 +31,8 @@ int main()
 		detector.thresholdImageFor(capturedFrame, 'a');
 
 		imshow("blue thresh", detector.getBlueThreshImg());
+		//imshow("red thresh", detector.getRedThreshImg());
+		imshow("yellow thresh", detector.getYellowThreshImg());
 
 		recognizer.setDetector(detector);
 
@@ -39,6 +41,8 @@ int main()
 		//imshow("original", capturedFrame);
 
 		imshow("blue blob", recognizer.getBlueBLOBImg());
+		//imshow("red blob", recognizer.getRedBLOBImg());
+		imshow("yellow blob", recognizer.getYellowBLOBImg());
 
 		//thresholding the colors for the letter input, and saving them in their respective matrices
 		//thresholdImagesFor(detector, capturedFrame, 'a');

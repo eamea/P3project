@@ -19,6 +19,9 @@ public:
 	Mat getBlueBLOBImg();
 	Detector getDetector();
 	void setDetector(Detector d);
+	Mat getYellowBLOBImg();
+	Mat getGreenBLOBImg();
+	Mat getRedBLOBImg();
 private:
 	Detector dt;
 

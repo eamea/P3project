@@ -9,6 +9,18 @@ Mat Recognizer::getBlueBLOBImg(){
 	return BLOBBlueImg;
 }
 
+Mat Recognizer::getGreenBLOBImg(){
+	return BLOBGreenImg;
+}
+
+Mat Recognizer::getRedBLOBImg(){
+	return BLOBRedImg;
+}
+
+Mat Recognizer::getYellowBLOBImg(){
+	return BLOBYellowImg;
+}
+
 Detector Recognizer::getDetector(){
 	return dt;
 }
@@ -23,32 +35,31 @@ void Recognizer::BLOBAnalyze(char letter)
 	switch (letter)
 	{
 	case 'a':
-		//imshow("blue thresh from recognizer", dt.getBlueThreshImg());
-		BLOBBlueImg = detector.BLOBDetection(dt.getBlueThreshImg());
-		BLOBYellowImg = detector.BLOBDetection(dt.getYellowThreshImg());
+		BLOBBlueImg = detector.BLOBDetection(dt.getBlueThreshImg(), 'b');
+		BLOBYellowImg = detector.BLOBDetection(dt.getYellowThreshImg(), 'y');
 		break;
 	case 'b':
-		BLOBRedImg = detector.BLOBDetection(dt.getRedThreshImg());
-		BLOBYellowImg = detector.BLOBDetection(dt.getYellowThreshImg());
+		BLOBRedImg = detector.BLOBDetection(dt.getRedThreshImg(), 'r');
+		BLOBYellowImg = detector.BLOBDetection(dt.getYellowThreshImg(), 'y');
 		break;
 	case 'f':
-		BLOBBlueImg = detector.BLOBDetection(dt.getBlueThreshImg());
-		BLOBGreenImg = detector.BLOBDetection(dt.getGreenThreshImg());
-		BLOBRedImg = detector.BLOBDetection(dt.getRedThreshImg());
-		BLOBYellowImg = detector.BLOBDetection(dt.getYellowThreshImg());
+		BLOBBlueImg = detector.BLOBDetection(dt.getBlueThreshImg(), 'b');
+		BLOBGreenImg = detector.BLOBDetection(dt.getGreenThreshImg(), 'g');
+		BLOBRedImg = detector.BLOBDetection(dt.getRedThreshImg(), 'r');
+		BLOBYellowImg = detector.BLOBDetection(dt.getYellowThreshImg(), 'y');
 		break;
 	case 'l':
-		BLOBBlueImg = detector.BLOBDetection(dt.getBlueThreshImg());
-		BLOBRedImg = detector.BLOBDetection(dt.getRedThreshImg());
-		BLOBYellowImg = detector.BLOBDetection(dt.getYellowThreshImg());
+		BLOBBlueImg = detector.BLOBDetection(dt.getBlueThreshImg(), 'b');
+		BLOBRedImg = detector.BLOBDetection(dt.getRedThreshImg(), 'r');
+		BLOBYellowImg = detector.BLOBDetection(dt.getYellowThreshImg(), 'y');
 		break;
 	case 's':
-		BLOBBlueImg = detector.BLOBDetection(dt.getBlueThreshImg());
-		BLOBYellowImg = detector.BLOBDetection(dt.getYellowThreshImg());
+		BLOBBlueImg = detector.BLOBDetection(dt.getBlueThreshImg(), 'b');
+		BLOBYellowImg = detector.BLOBDetection(dt.getYellowThreshImg(), 'y');
 		break;
 	case 't':
-		BLOBBlueImg = detector.BLOBDetection(dt.getBlueThreshImg());
-		BLOBYellowImg = detector.BLOBDetection(dt.getYellowThreshImg());
+		BLOBBlueImg = detector.BLOBDetection(dt.getBlueThreshImg(), 'b');
+		BLOBYellowImg = detector.BLOBDetection(dt.getYellowThreshImg(), 'y');
 		break;
 	}
 }
