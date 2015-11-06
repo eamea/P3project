@@ -1,82 +1,78 @@
 #include "Recognizer.h"
 
-//TODO Uses getters from main function to set the threshold images.
+//When declaring a recognizer, tell it which detector to use (a.k.a. which thresholdImages to use)
 Recognizer::Recognizer(Detector d){
 	dt = d;
 }
 
 Mat Recognizer::getBlueBLOBImg(){
-	return BLOBBlueImg;
+	return blueBLOBImg;
 }
-
 Mat Recognizer::getGreenBLOBImg(){
-	return BLOBGreenImg;
+	return greenBLOBImg;
 }
-
 Mat Recognizer::getRedBLOBImg(){
-	return BLOBRedImg;
+	return redBLOBImg;
 }
-
 Mat Recognizer::getYellowBLOBImg(){
-	return BLOBYellowImg;
+	return yellowBLOBImg;
 }
 
 Detector Recognizer::getDetector(){
 	return dt;
 }
-
 void Recognizer::setDetector(Detector d){
 	dt = d;
 }
 
 //BLOB analyzes the relevant threshimages based on the char input.
-void Recognizer::BLOBAnalyze(char letter)
-{
-	switch (letter)
-	{
+void Recognizer::BLOBAnalyze(char letter) {
+	switch (letter) {
 	case 'a':
-		BLOBBlueImg = detector.BLOBDetection(dt.getBlueThreshImg(), 'b');
-		BLOBYellowImg = detector.BLOBDetection(dt.getYellowThreshImg(), 'y');
+		blueBLOBImg = BLOBdt.BLOBDetection(dt.getBlueThreshImg(), 'b');
+		yellowBLOBImg = BLOBdt.BLOBDetection(dt.getYellowThreshImg(), 'y');
 		break;
 	case 'b':
-		BLOBRedImg = detector.BLOBDetection(dt.getRedThreshImg(), 'r');
-		BLOBYellowImg = detector.BLOBDetection(dt.getYellowThreshImg(), 'y');
+		redBLOBImg = BLOBdt.BLOBDetection(dt.getRedThreshImg(), 'r');
+		yellowBLOBImg = BLOBdt.BLOBDetection(dt.getYellowThreshImg(), 'y');
 		break;
 	case 'f':
-		BLOBBlueImg = detector.BLOBDetection(dt.getBlueThreshImg(), 'b');
-		BLOBGreenImg = detector.BLOBDetection(dt.getGreenThreshImg(), 'g');
-		BLOBRedImg = detector.BLOBDetection(dt.getRedThreshImg(), 'r');
-		BLOBYellowImg = detector.BLOBDetection(dt.getYellowThreshImg(), 'y');
+		blueBLOBImg = BLOBdt.BLOBDetection(dt.getBlueThreshImg(), 'b');
+		greenBLOBImg = BLOBdt.BLOBDetection(dt.getGreenThreshImg(), 'g');
+		redBLOBImg = BLOBdt.BLOBDetection(dt.getRedThreshImg(), 'r');
+		yellowBLOBImg = BLOBdt.BLOBDetection(dt.getYellowThreshImg(), 'y');
 		break;
 	case 'l':
-		BLOBBlueImg = detector.BLOBDetection(dt.getBlueThreshImg(), 'b');
-		BLOBRedImg = detector.BLOBDetection(dt.getRedThreshImg(), 'r');
-		BLOBYellowImg = detector.BLOBDetection(dt.getYellowThreshImg(), 'y');
+		blueBLOBImg = BLOBdt.BLOBDetection(dt.getBlueThreshImg(), 'b');
+		redBLOBImg = BLOBdt.BLOBDetection(dt.getRedThreshImg(), 'r');
+		yellowBLOBImg = BLOBdt.BLOBDetection(dt.getYellowThreshImg(), 'y');
 		break;
 	case 's':
-		BLOBBlueImg = detector.BLOBDetection(dt.getBlueThreshImg(), 'b');
-		BLOBYellowImg = detector.BLOBDetection(dt.getYellowThreshImg(), 'y');
+		blueBLOBImg = BLOBdt.BLOBDetection(dt.getBlueThreshImg(), 'b');
+		yellowBLOBImg = BLOBdt.BLOBDetection(dt.getYellowThreshImg(), 'y');
 		break;
 	case 't':
-		BLOBBlueImg = detector.BLOBDetection(dt.getBlueThreshImg(), 'b');
-		BLOBYellowImg = detector.BLOBDetection(dt.getYellowThreshImg(), 'y');
+		blueBLOBImg = BLOBdt.BLOBDetection(dt.getBlueThreshImg(), 'b');
+		yellowBLOBImg = BLOBdt.BLOBDetection(dt.getYellowThreshImg(), 'y');
+		break;
+	default:
+		cout << "ERROR: Recognizer has not been parsed a valid char in BLOBAnalyze." << endl;
 		break;
 	}
 }
 
-void Recognizer::extractFeatures(char letter)
-{
+//TODO
+void Recognizer::extractFeatures(char letter){
 
 }
 
-bool Recognizer::compareFeatures(char letter)
-{
+//TODO
+bool Recognizer::compareFeatures(char letter){
 	return false;
 }
 
 //Runs the functions in order and returns a bool based on whether it found the sign for the input char.
-bool Recognizer::recognize(char letter)
-{
+bool Recognizer::recognize(char letter){
 	BLOBAnalyze(letter);
 	extractFeatures(letter);
 	

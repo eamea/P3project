@@ -2,14 +2,27 @@
 
 //Default constructor
 Detector::Detector(){
-	cout << "Detector has default constructor. kernelSize set to 3." << endl;
 	kernelSize = 3;
 }
 
 //Constructor
-Detector::Detector(int kSize)
-{
+Detector::Detector(int kSize){
+	cout << "Detector: kernelSize set to " << kSize << "." << endl;
 	kernelSize = kSize;
+}
+
+//Getter functions for each thresholded image
+Mat Detector::getBlueThreshImg(){
+	return blueThreshImg;
+}
+Mat Detector::getGreenThreshImg(){
+	return greenThreshImg;
+}
+Mat Detector::getRedThreshImg(){
+	return redThreshImg;
+}
+Mat Detector::getYellowThreshImg(){
+	return yellowThreshImg;
 }
 
 //creates a windows called "control" with trackbars for setting HSV values.
@@ -108,25 +121,6 @@ Mat Detector::segmentFrame(Mat src){
 	erode(result, result, getStructuringElement(MORPH_ELLIPSE, Size(kernelSize, kernelSize)));
 
 	return result;	//returning the thresholded image.
-}
-
-//Getter functions for each thresholded image
-Mat Detector::getBlueThreshImg(){
-	return blueThreshImg;
-}
-Mat Detector::getGreenThreshImg(){
-	return greenThreshImg;
-}
-/* Pink is not used
-Mat getPinkThreshImg(){
-return pinkThreshImg;
-}
-*/
-Mat Detector::getRedThreshImg(){
-	return redThreshImg;
-}
-Mat Detector::getYellowThreshImg(){
-	return yellowThreshImg;
 }
 
 //Thresholds only the colors that are needed for the specific letter.

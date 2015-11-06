@@ -16,34 +16,31 @@ public:
 	void extractFeatures(char letter);
 	bool compareFeatures(char letter);
 	bool recognize(char letter);			//Runs the functions in order and returns a bool based on whether it found the sign for the input char.
+
 	Mat getBlueBLOBImg();
-	Detector getDetector();
-	void setDetector(Detector d);
-	Mat getYellowBLOBImg();
 	Mat getGreenBLOBImg();
 	Mat getRedBLOBImg();
+	Mat getYellowBLOBImg();
+
+	Detector getDetector();
+	void setDetector(Detector d);
 private:
 	Detector dt;
+	BLOBDetector BLOBdt;
 
 	//Matrices to hold the thresholded images.
 	Mat blueThreshImg;
 	Mat greenThreshImg;
-	//Mat pinkThreshImg;
 	Mat redThreshImg;
 	Mat yellowThreshImg;
 
 	//Matrices to hold the BLOB analysed images.
+	Mat blueBLOBImg;
+	Mat greenBLOBImg;
+	Mat redBLOBImg;
+	Mat yellowBLOBImg;
 
-	Mat BLOBBlueImg;
-	Mat BLOBGreenImg;
-	//Mat BLOBPinkImg;
-	Mat BLOBRedImg;
-	Mat BLOBYellowImg;
-
-	BLOBDetector detector;
-	
 	//Need variables for basic features.
-
 	//Need variables for extracted features.
 };
 

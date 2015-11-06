@@ -21,31 +21,23 @@ int main()
 	Mat capturedFrame;		//a mat for holding the current frame
 	Mat output;				//a mat for holding the processed frame
 
-	//detector.setThreshold('y'); //setting threshold values to threshold blue
-
-	//detector.createTrackbars();	//creating a window called trackbar
-
 	while (true){ //infinite loop for constant frame update.
 		stream.read(capturedFrame);	//reading a frame from the stream
 
+		//Thresholding for the chosen letter.
 		detector.thresholdImageFor(capturedFrame, 'a');
 
+		//Showing thresholded images.
 		imshow("blue thresh", detector.getBlueThreshImg());
-		//imshow("red thresh", detector.getRedThreshImg());
 		imshow("yellow thresh", detector.getYellowThreshImg());
 
+		//Setting the detector for the recognizer, and BLOB-analyzing for the chosen letter.
 		recognizer.setDetector(detector);
-
 		recognizer.BLOBAnalyze('a');
 
-		//imshow("original", capturedFrame);
-
+		//Showing BLOB-analyzed images.
 		imshow("blue blob", recognizer.getBlueBLOBImg());
-		//imshow("red blob", recognizer.getRedBLOBImg());
 		imshow("yellow blob", recognizer.getYellowBLOBImg());
-
-		//thresholding the colors for the letter input, and saving them in their respective matrices
-		//thresholdImagesFor(detector, capturedFrame, 'a');
 
 		//imshow("Original", capturedFrame);	//showing the original image
 

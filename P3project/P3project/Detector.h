@@ -18,7 +18,6 @@ public:
 
 	Mat getBlueThreshImg();
 	Mat getGreenThreshImg();
-	//Mat getPinkThreshImg();
 	Mat getRedThreshImg();
 	Mat getYellowThreshImg();
 private:
@@ -31,11 +30,9 @@ private:
 	int iLowV = 0;
 	int iHighV = 255;
 
-
 	//Creating a Matrix to hold the thresholded images
 	Mat blueThreshImg;
 	Mat greenThreshImg;
-	//Mat pinkThreshImg; //this one is outcommented because its not used
 	Mat redThreshImg;
 	Mat yellowThreshImg;
 };
