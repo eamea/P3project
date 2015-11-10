@@ -4,6 +4,7 @@
 #include "Recognizer.h"
 #include "UIHandler.h"
 #include "BLOBDetector.h"
+#include "Bounder.h"
 
 using namespace std;
 using namespace cv;
@@ -15,11 +16,14 @@ int main()
 {
 	Detector detector(5); //instantiating a new Detector object called detector
 	Recognizer recognizer(detector); //instantiating a new Recognizer object called recognizer
+	Bounder bounder;
 
 	VideoCapture stream(1); //capturing a stream from webcam 0.
 
 	Mat capturedFrame;		//a mat for holding the current frame
 	Mat output;				//a mat for holding the processed frame
+
+	Mat boundImage = Mat::zeros(1,1,CV_8UC3);
 
 	//detector.createTrackbars();
 
@@ -29,14 +33,20 @@ int main()
 		//Thresholding for the chosen letter.
 		detector.thresholdImageFor(capturedFrame, 'f');
 
+		bounder.setInputImg(detector.getBlueThreshImg());	//updating the input image of the bounder
+
+		boundImage = bounder.boundingBox(200);
+
+		imshow("Bounding boxes", boundImage);
+
 		//output = detector.segmentFrame(capturedFrame);
 		//imshow("Thresholded", output);
 
 		//Showing thresholded images.
 		imshow("blue thresh", detector.getBlueThreshImg());
-		imshow("green thresh", detector.getGreenThreshImg());
-		imshow("red thresh", detector.getRedThreshImg());
-		imshow("yellow thresh", detector.getYellowThreshImg());
+		//imshow("green thresh", detector.getGreenThreshImg());
+		//imshow("red thresh", detector.getRedThreshImg());
+		//imshow("yellow thresh", detector.getYellowThreshImg());
 
 		//Setting the detector for the recognizer, and BLOB-analyzing for the chosen letter.
 		recognizer.setDetector(detector);

@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BLOBDetector.cpp" />
+    <ClCompile Include="Bounder.cpp" />
     <ClCompile Include="Detector.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Recognizer.cpp" />
@@ -19,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BLOBDetector.h" />
+    <ClInclude Include="Bounder.h" />
     <ClInclude Include="Detector.h" />
     <ClInclude Include="Recognizer.h" />
     <ClInclude Include="UIHandler.h" />
