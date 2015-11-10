@@ -28,7 +28,7 @@ Mat Detector::getYellowThreshImg(){
 //creates a windows called "control" with trackbars for setting HSV values.
 void Detector::createTrackbars()
 {
-	namedWindow("Control", CV_WINDOW_AUTOSIZE);
+	namedWindow("Control panel", CV_WINDOW_AUTOSIZE);
 
 	cvCreateTrackbar("LowH", "Control panel", &iLowH, 179);
 	cvCreateTrackbar("HighH", "Control panel", &iHighH, 179);
@@ -45,23 +45,23 @@ void Detector::setThreshold(char color){
 	switch (color){
 	case 'b':
 		iLowH = 105;
-		iHighH = 121;
+		iHighH = 113;
 
-		iLowS = 75;
+		iLowS = 115;
 		iHighS = 255;
 
-		iLowV = 0;
+		iLowV = 110;
 		iHighV = 255;
 
 		break;
 	case 'g':
-		iLowH = 23;
-		iHighH = 82;
+		iLowH = 42;
+		iHighH = 80;
 
-		iLowS = 77;
-		iHighS = 162;
+		iLowS = 110;
+		iHighS = 255;
 
-		iLowV = 42;
+		iLowV = 0;
 		iHighV = 255;
 
 		break;
@@ -77,24 +77,24 @@ void Detector::setThreshold(char color){
 
 		break;
 	case 'r':
-		iLowH = 0;
-		iHighH = 9;
+		iLowH = 167;
+		iHighH = 179;
 
-		iLowS = 138;
+		iLowS = 222;
 		iHighS = 255;
 
-		iLowV = 86;
+		iLowV = 0;
 		iHighV = 255;
 
 		break;
 	case 'y':
-		iLowH = 17;
-		iHighH = 36;
+		iLowH = 28;
+		iHighH = 38;
 
-		iLowS = 98;
-		iHighS = 213;
+		iLowS = 110;
+		iHighS = 255;
 
-		iLowV = 126;
+		iLowV = 0;
 		iHighV = 255;
 
 		break;
