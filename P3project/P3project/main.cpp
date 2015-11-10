@@ -23,7 +23,8 @@ int main()
 	Mat capturedFrame;		//a mat for holding the current frame
 	Mat output;				//a mat for holding the processed frame
 
-	Mat boundImage = Mat::zeros(1,1,CV_8UC3);
+	Mat fBoundImage = Mat::zeros(1,1,CV_8UC3);
+	Mat rBoundImage = Mat::zeros(1, 1, CV_8UC3);
 
 	//detector.createTrackbars();
 
@@ -33,11 +34,15 @@ int main()
 		//Thresholding for the chosen letter.
 		detector.thresholdImageFor(capturedFrame, 'f');
 
-		bounder.setInputImg(detector.getBlueThreshImg());	//updating the input image of the bounder
+		bounder.setInputImg(detector.getRedThreshImg());	//updating the input image of the bounder
 
-		boundImage = bounder.boundingBox(200);
+		fBoundImage = bounder.fixedBoundingBox(5);
 
-		imshow("Bounding boxes", boundImage);
+		imshow("Fixed bounding boxes", fBoundImage);
+
+		rBoundImage = bounder.rotatedBoundingBox(5);
+
+		imshow("Rotated bounding boxes", rBoundImage);
 
 		//output = detector.segmentFrame(capturedFrame);
 		//imshow("Thresholded", output);
