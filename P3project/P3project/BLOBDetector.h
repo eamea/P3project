@@ -15,11 +15,14 @@ public:
 	BLOBDetector();												//Empty constructor sets the image.
 	Mat BLOBDetection(Mat img, char color);						//BLOB detection goes through rows and cols and checks for all 255 values in the inserted image.
 	void grassFire(size_t row, size_t col, Mat img, char color);//Method for detecting BLOBs.
-	void seqGrassFire(size_t row, size_t col, Mat img, char color);	//experimental
+	void visSeqGrassFire(size_t row, size_t col, Mat img, char color);	//visual representation of labeling objects
+	void listSeqGrassFire(size_t row, size_t col, Mat img, char color);	//non-visual grassfire. Puts the objects into lists.
 	void objectPixelIn(size_t row, size_t col, char color);
+	vector<vector<Point>> getBLOBList(char color);
 private:
 	Mat BLOB;			//Default BLOB image. Will mainly be used in case of an error.
-	int object = 1;		//int that categorizes the BLOBs.
+	int object = 50;		//int that categorizes the BLOBs.
+	int pointNum;
 
 	Mat blueBLOBImg;
 	Mat greenBLOBImg;
@@ -28,6 +31,13 @@ private:
 
 	list<size_t> xCoor;
 	list<size_t> yCoor;
+
+	vector<vector<Point>> BLOBList;
+	vector<vector<Point>> blueBLOBList;
+	vector<vector<Point>> greenBLOBList;
+	vector<vector<Point>> redBLOBList;
+	vector<vector<Point>> yellowBLOBList;
+	vector<Point> points;
 
 	int n = 0;
 	int m = 10;

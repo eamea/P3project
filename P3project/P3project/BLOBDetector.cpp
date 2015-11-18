@@ -5,6 +5,22 @@ BLOBDetector::BLOBDetector(){
 
 }
 
+vector<vector<Point>> BLOBDetector::getBLOBList(char color){
+	switch (color){	//returns the analyzed image.
+	case 'b':
+		return blueBLOBList;
+	case 'g':
+		return greenBLOBList;
+	case 'r':
+		return redBLOBList;
+	case 'y':
+		return yellowBLOBList;
+	default:
+		cout << "ERROR: getBLOBList has not been parsed a valid color char." << endl;
+		return BLOBList;
+	}
+}
+
 //Goes through each row and column and adds the grassfire algoritm. 
 Mat BLOBDetector::BLOBDetection(Mat img, char color){
 	BLOB = Mat::zeros(img.rows, img.cols, CV_8UC1);	//Sets the default BLOB image to be a black, empty image.
@@ -26,18 +42,30 @@ Mat BLOBDetector::BLOBDetection(Mat img, char color){
 		cout << "ERROR: BLOBDetection has not been parsed a valid color char." << endl;
 		break;
 	}
+
+	BLOBList.empty(); //emptying and resizing the two vector lists
+	points.empty();
+	BLOBList.resize(1);
+	points.resize(1);
 	
 	for (size_t row = 0; row < img.rows; row++){	//runs the grassFire algorithm on the relevant image.
 		for (size_t col = 0; col < img.cols; col++){
 			if (img.at<unsigned char>(row, col) == 255){
 				/*grassFire(row, col, img, color);
 				object = object + 1;*/
-				seqGrassFire(row, col, img, color); //calling seqGrassFire on the first object pixel we hit
+				visSeqGrassFire(row, col, img, color); //calling seqGrassFire on the first object pixel we hit
 				while (!xCoor.empty() && !yCoor.empty()){ //during seqGrassFire, neighboring object pixels have been added to lists xCoor & yCoor.
-					seqGrassFire(xCoor.front(), yCoor.front(), img, color); //calling seqGrassFire on the first element in the lists.
+					visSeqGrassFire(xCoor.front(), yCoor.front(), img, color); //calling seqGrassFire on the first element in the lists.
+					Point point; //for converting xCoor and yCoor into a single point.
+					point.x = xCoor.front(); //converting to a single point
+					point.y = yCoor.front();
+					//cout << "Object-1: " << object - 1 << " || pointNum: " << pointNum << endl;
+					points.push_back(point); // pushing the point to the vector<Point>
 					xCoor.pop_front(); //removing the element from the list
 					yCoor.pop_front(); //removing the element from the list
 				}
+				if (points.size() > 50) //filtering out blobs with less than 50 pixels in the lists of pixels
+					BLOBList.push_back(points); //pushing the vector points we've created to the contours.
 				object += 1; //increasing label by 1
 			}
 		}
@@ -45,12 +73,16 @@ Mat BLOBDetector::BLOBDetection(Mat img, char color){
 
 	switch (color){	//returns the analyzed image.
 	case 'b':
+		blueBLOBList = BLOBList;
 		return blueBLOBImg;
 	case 'g':
+		greenBLOBList = BLOBList;
 		return greenBLOBImg;
 	case 'r':
+		redBLOBList = BLOBList;
 		return redBLOBImg;
 	case 'y':
+		yellowBLOBList = BLOBList;
 		return yellowBLOBImg;
 	default:
 		cout << "ERROR: BLOBDetection has not been parsed a valid color char." << endl;
@@ -58,7 +90,7 @@ Mat BLOBDetector::BLOBDetection(Mat img, char color){
 	}
 }
 
-void BLOBDetector::seqGrassFire(size_t row, size_t col, Mat img, char color){	//experimental
+void BLOBDetector::visSeqGrassFire(size_t row, size_t col, Mat img, char color){	//experimental
 	img.at<uchar>(row, col) = 0; //burns the current pixel
 	objectPixelIn(row, col, color);	//setting the pixel in output image to an object pixel
 	if (col < img.cols - 1){
@@ -67,6 +99,75 @@ void BLOBDetector::seqGrassFire(size_t row, size_t col, Mat img, char color){	//
 			objectPixelIn(row, col + 1, color); //setting the pixel in output image to an object pixel
 			xCoor.push_back(row); //adding this pixel's x-coordinate to the end of the list
 			yCoor.push_back(col+1); //adding this pixel's y-coordinate to the end of the list
+		}
+	}
+	if (row < img.rows - 1 && col < img.cols - 1){
+		if (img.at<unsigned char>(row + 1, col + 1) == 255){//checks the pixel to the right and down
+			img.at<uchar>(row + 1, col + 1) = 0;
+			objectPixelIn(row + 1, col + 1, color);
+			xCoor.push_back(row + 1);
+			yCoor.push_back(col + 1);
+		}
+	}
+	if (row < img.rows - 1){
+		if (img.at<unsigned char>(row + 1, col) == 255){						//checks the pixel below
+			img.at<uchar>(row + 1, col) = 0;
+			objectPixelIn(row + 1, col, color);
+			xCoor.push_back(row + 1);
+			yCoor.push_back(col);
+		}
+	}
+	if (row < img.rows - 1 && col > 0){
+		if (img.at<unsigned char>(row + 1, col - 1) == 255){			//checks the pixel below and to the left
+			img.at<uchar>(row + 1, col - 1) = 0;
+			objectPixelIn(row + 1, col - 1, color);
+			xCoor.push_back(row + 1);
+			yCoor.push_back(col - 1);
+		}
+	}
+	if (col > 0){
+		if (img.at<unsigned char>(row, col - 1) == 255){									//checks the pixel to the left
+			img.at<uchar>(row, col - 1) = 0;
+			objectPixelIn(row, col - 1, color);
+			xCoor.push_back(row);
+			yCoor.push_back(col - 1);
+		}
+	}
+	if (row > 0 && col > 0){
+		if (img.at<unsigned char>(row - 1, col - 1) == 255){					//checks the pixel up and to the left
+			img.at<uchar>(row - 1, col - 1) = 0;
+			objectPixelIn(row - 1, col - 1, color);
+			xCoor.push_back(row - 1);
+			yCoor.push_back(col - 1);
+		}
+	}
+	if (row > 0){
+		if (img.at<unsigned char>(row - 1, col) == 255){									//checks the pixel above
+			img.at<uchar>(row - 1, col) = 0;
+			objectPixelIn(row - 1, col, color);
+			xCoor.push_back(row - 1);
+			yCoor.push_back(col);
+		}
+	}
+	if (row > 0 && col < img.cols - 1){
+		if (img.at<unsigned char>(row - 1, col + 1) == 255){//checks the pixel above and to the right
+			img.at<uchar>(row - 1, col + 1) = 0;
+			objectPixelIn(row - 1, col + 1, color);
+			xCoor.push_back(row - 1);
+			yCoor.push_back(col + 1);
+		}
+	}
+}
+
+void BLOBDetector::listSeqGrassFire(size_t row, size_t col, Mat img, char color){	//experimental
+	img.at<uchar>(row, col) = 0; //burns the current pixel
+	objectPixelIn(row, col, color);	//setting the pixel in output image to an object pixel
+	if (col < img.cols - 1){
+		if (img.at<unsigned char>(row, col + 1) == 255){						//checks the pixel to the right
+			img.at<uchar>(row, col + 1) = 0; //burns the pixel in the input image
+			objectPixelIn(row, col + 1, color); //setting the pixel in output image to an object pixel
+			xCoor.push_back(row); //adding this pixel's x-coordinate to the end of the list
+			yCoor.push_back(col + 1); //adding this pixel's y-coordinate to the end of the list
 		}
 	}
 	if (row < img.rows - 1 && col < img.cols - 1){

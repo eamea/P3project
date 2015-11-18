@@ -63,7 +63,37 @@ void Recognizer::BLOBAnalyze(char letter) {
 
 //TODO
 void Recognizer::extractFeatures(char letter){
+	switch (letter){
+	case 'a':
+		blueBLOBList = BLOBdt.getBLOBList('b');
+		yellowBLOBList = BLOBdt.getBLOBList('y');
 
+
+		break;
+	case 'b':
+		redBLOBList = BLOBdt.getBLOBList('r');
+		yellowBLOBList = BLOBdt.getBLOBList('y');
+		break;
+	case 'f':
+		blueBLOBList = BLOBdt.getBLOBList('b');
+		greenBLOBList = BLOBdt.getBLOBList('g');
+		redBLOBList = BLOBdt.getBLOBList('r');
+		yellowBLOBList = BLOBdt.getBLOBList('y');
+		break;
+	case 'l':
+		blueBLOBList = BLOBdt.getBLOBList('b');
+		redBLOBList = BLOBdt.getBLOBList('r');
+		yellowBLOBList = BLOBdt.getBLOBList('y');
+		break;
+	case 's':
+		blueBLOBList = BLOBdt.getBLOBList('b');
+		yellowBLOBList = BLOBdt.getBLOBList('y');
+		break;
+	case 't':
+		blueBLOBList = BLOBdt.getBLOBList('b');
+		yellowBLOBList = BLOBdt.getBLOBList('y');
+		break;
+	}
 }
 
 //TODO

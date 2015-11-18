@@ -28,6 +28,11 @@ private:
 	Detector dt;
 	BLOBDetector BLOBdt;
 
+	vector<vector<Point>> blueBLOBList;
+	vector<vector<Point>> greenBLOBList;
+	vector<vector<Point>> redBLOBList;
+	vector<vector<Point>> yellowBLOBList;
+
 	//Matrices to hold the thresholded images.
 	Mat blueThreshImg;
 	Mat greenThreshImg;

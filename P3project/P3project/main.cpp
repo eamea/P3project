@@ -34,15 +34,15 @@ int main()
 		//Thresholding for the chosen letter.
 		detector.thresholdImageFor(capturedFrame, 'f');
 
-		bounder.setInputImg(detector.getRedThreshImg());	//updating the input image of the bounder
+		//bounder.setInputImg(detector.getRedThreshImg());	//updating the input image of the bounder
 
-		fBoundImage = bounder.fixedBoundingBox(5);
+		//fBoundImage = bounder.fixedBoundingBox(150);
 
-		imshow("Fixed bounding boxes", fBoundImage);
+		//imshow("Fixed bounding boxes", fBoundImage);
 
-		rBoundImage = bounder.rotatedBoundingBox(5);
+		//rBoundImage = bounder.rotatedBoundingBox(150);
 
-		imshow("Rotated bounding boxes", rBoundImage);
+		//imshow("Rotated bounding boxes", rBoundImage);
 
 		//output = detector.segmentFrame(capturedFrame);
 		//imshow("Thresholded", output);
@@ -55,11 +55,11 @@ int main()
 
 		//Setting the detector for the recognizer, and BLOB-analyzing for the chosen letter.
 		recognizer.setDetector(detector);
-		//recognizer.BLOBAnalyze('a');
+		recognizer.BLOBAnalyze('a');
 
 		//Showing BLOB-analyzed images.
-		//imshow("blue blob", recognizer.getBlueBLOBImg());
-		//imshow("yellow blob", recognizer.getYellowBLOBImg());
+		imshow("blue blob", recognizer.getBlueBLOBImg());
+		imshow("yellow blob", recognizer.getYellowBLOBImg());
 
 		imshow("Original", capturedFrame);	//showing the original image
 
