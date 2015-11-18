@@ -45,6 +45,14 @@ private:
 	Mat redBLOBImg;
 	Mat yellowBLOBImg;
 
+	Mat hasBeenFound;
+
+	Point blueSmallestX;
+	Point blueLargestX;
+	Point yellowSmallestX;
+	Point yellowLargestX;
+
+
 	//Need variables for basic features.
 	//Need variables for extracted features.
 };

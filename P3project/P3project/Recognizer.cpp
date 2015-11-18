@@ -68,6 +68,33 @@ void Recognizer::extractFeatures(char letter){
 		blueBLOBList = BLOBdt.getBLOBList('b');
 		yellowBLOBList = BLOBdt.getBLOBList('y');
 
+		blueSmallestX = Point(blueBLOBImg.cols, blueBLOBImg.rows);
+		yellowSmallestX = Point(blueBLOBImg.cols, blueBLOBImg.rows);
+		blueLargestX = Point(0,0);
+		blueLargestX = Point(0,0);
+
+		for (int i = 0; i < blueBLOBList.size(); i++){
+			for (int j = 1; j < blueBLOBList[i].size(); j++){
+				if (blueBLOBList[i][j].x < blueSmallestX.x){
+					blueSmallestX = blueBLOBList[i][j];
+					//cout << "smallestX: " << smallestX << " | Point-x: " << blueBLOBList[i][j].x << " | Point-y: " << blueBLOBList[i][j].y << endl;
+				}
+				if (blueBLOBList[i][j].x > blueLargestX.x){
+					blueLargestX = blueBLOBList[i][j];
+				}
+			}
+		}
+
+		for (int i = 0; i < yellowBLOBList.size(); i++){
+			for (int j = 1; j < yellowBLOBList[i].size(); j++){
+				if (yellowBLOBList[i][j].x < yellowSmallestX.x){
+					yellowSmallestX = yellowBLOBList[i][j];
+				}
+				if (yellowBLOBList[i][j].x > yellowLargestX.x){
+					yellowLargestX = yellowBLOBList[i][j];
+				}
+			}
+		}
 
 		break;
 	case 'b':
@@ -98,7 +125,52 @@ void Recognizer::extractFeatures(char letter){
 
 //TODO
 bool Recognizer::compareFeatures(char letter){
-	return false;
+	bool letterFound = false;
+	hasBeenFound = Mat::zeros(blueBLOBImg.rows/4, blueBLOBImg.cols/4, CV_8UC3);
+
+	switch (letter){
+	case 'a':
+		if (blueLargestX.x <= yellowSmallestX.x && (yellowSmallestX.x - blueLargestX.x) <= 50)
+			letterFound = true;
+		break;
+	/*case 'b':
+		if ()
+			letterFound = true;
+		break;
+	case 'f':
+		if ()
+			letterFound = true;
+		break;
+	case 'l':
+		if ()
+			letterFound = true;
+		break;
+	case 's':
+		if ()
+			letterFound = true;
+		break;
+	case 't':
+		if ()
+			letterFound = true;
+		break;*/
+	default:
+		cout << "compareFeatures has not been parsed a valid char." << endl;
+	}
+
+	Point center;
+	center.x = hasBeenFound.cols / 2;
+	center.y = hasBeenFound.rows / 2;
+
+	Scalar color;
+	if (letterFound)
+		color = CV_RGB(0, 255, 0);
+	else
+		color = CV_RGB(255, 0, 0);
+
+	line(hasBeenFound, center, center, color, 6);
+	imshow("Found", hasBeenFound);
+
+	return letterFound;
 }
 
 //Runs the functions in order and returns a bool based on whether it found the sign for the input char.

@@ -55,7 +55,7 @@ int main()
 
 		//Setting the detector for the recognizer, and BLOB-analyzing for the chosen letter.
 		recognizer.setDetector(detector);
-		recognizer.BLOBAnalyze('a');
+		recognizer.recognize('a');
 
 		//Showing BLOB-analyzed images.
 		imshow("blue blob", recognizer.getBlueBLOBImg());

@@ -55,7 +55,7 @@ Mat BLOBDetector::BLOBDetection(Mat img, char color){
 				object = object + 1;*/
 				visSeqGrassFire(row, col, img, color); //calling seqGrassFire on the first object pixel we hit
 				while (!xCoor.empty() && !yCoor.empty()){ //during seqGrassFire, neighboring object pixels have been added to lists xCoor & yCoor.
-					visSeqGrassFire(xCoor.front(), yCoor.front(), img, color); //calling seqGrassFire on the first element in the lists.
+					visSeqGrassFire(yCoor.front(), xCoor.front(), img, color); //calling seqGrassFire on the first element in the lists.
 					Point point; //for converting xCoor and yCoor into a single point.
 					point.x = xCoor.front(); //converting to a single point
 					point.y = yCoor.front();
@@ -70,6 +70,13 @@ Mat BLOBDetector::BLOBDetection(Mat img, char color){
 			}
 		}
 	}
+
+	//Printing the list of BLOBs
+	/*for (int i = 0; i < BLOBList.size(); i++){
+		for (int j = 0; j < BLOBList[i].size(); j++){
+			cout << "Color: " << color << " | " << BLOBList[i][j] << endl;
+		}
+	}*/
 
 	switch (color){	//returns the analyzed image.
 	case 'b':
@@ -97,64 +104,64 @@ void BLOBDetector::visSeqGrassFire(size_t row, size_t col, Mat img, char color){
 		if (img.at<unsigned char>(row, col + 1) == 255){						//checks the pixel to the right
 			img.at<uchar>(row, col + 1) = 0; //burns the pixel in the input image
 			objectPixelIn(row, col + 1, color); //setting the pixel in output image to an object pixel
-			xCoor.push_back(row); //adding this pixel's x-coordinate to the end of the list
-			yCoor.push_back(col+1); //adding this pixel's y-coordinate to the end of the list
+			yCoor.push_back(row); //adding this pixel's x-coordinate to the end of the list
+			xCoor.push_back(col+1); //adding this pixel's y-coordinate to the end of the list
 		}
 	}
 	if (row < img.rows - 1 && col < img.cols - 1){
 		if (img.at<unsigned char>(row + 1, col + 1) == 255){//checks the pixel to the right and down
 			img.at<uchar>(row + 1, col + 1) = 0;
 			objectPixelIn(row + 1, col + 1, color);
-			xCoor.push_back(row + 1);
-			yCoor.push_back(col + 1);
+			yCoor.push_back(row + 1);
+			xCoor.push_back(col + 1);
 		}
 	}
 	if (row < img.rows - 1){
 		if (img.at<unsigned char>(row + 1, col) == 255){						//checks the pixel below
 			img.at<uchar>(row + 1, col) = 0;
 			objectPixelIn(row + 1, col, color);
-			xCoor.push_back(row + 1);
-			yCoor.push_back(col);
+			yCoor.push_back(row + 1);
+			xCoor.push_back(col);
 		}
 	}
 	if (row < img.rows - 1 && col > 0){
 		if (img.at<unsigned char>(row + 1, col - 1) == 255){			//checks the pixel below and to the left
 			img.at<uchar>(row + 1, col - 1) = 0;
 			objectPixelIn(row + 1, col - 1, color);
-			xCoor.push_back(row + 1);
-			yCoor.push_back(col - 1);
+			yCoor.push_back(row + 1);
+			xCoor.push_back(col - 1);
 		}
 	}
 	if (col > 0){
 		if (img.at<unsigned char>(row, col - 1) == 255){									//checks the pixel to the left
 			img.at<uchar>(row, col - 1) = 0;
 			objectPixelIn(row, col - 1, color);
-			xCoor.push_back(row);
-			yCoor.push_back(col - 1);
+			yCoor.push_back(row);
+			xCoor.push_back(col - 1);
 		}
 	}
 	if (row > 0 && col > 0){
 		if (img.at<unsigned char>(row - 1, col - 1) == 255){					//checks the pixel up and to the left
 			img.at<uchar>(row - 1, col - 1) = 0;
 			objectPixelIn(row - 1, col - 1, color);
-			xCoor.push_back(row - 1);
-			yCoor.push_back(col - 1);
+			yCoor.push_back(row - 1);
+			xCoor.push_back(col - 1);
 		}
 	}
 	if (row > 0){
 		if (img.at<unsigned char>(row - 1, col) == 255){									//checks the pixel above
 			img.at<uchar>(row - 1, col) = 0;
 			objectPixelIn(row - 1, col, color);
-			xCoor.push_back(row - 1);
-			yCoor.push_back(col);
+			yCoor.push_back(row - 1);
+			xCoor.push_back(col);
 		}
 	}
 	if (row > 0 && col < img.cols - 1){
 		if (img.at<unsigned char>(row - 1, col + 1) == 255){//checks the pixel above and to the right
 			img.at<uchar>(row - 1, col + 1) = 0;
 			objectPixelIn(row - 1, col + 1, color);
-			xCoor.push_back(row - 1);
-			yCoor.push_back(col + 1);
+			yCoor.push_back(row - 1);
+			xCoor.push_back(col + 1);
 		}
 	}
 }
