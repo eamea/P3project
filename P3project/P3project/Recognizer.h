@@ -49,8 +49,17 @@ private:
 
 	Point blueSmallestX;
 	Point blueLargestX;
+
+	Point redSmallestX;
+	Point redLargestX;
+	Point redLargestY;
+	int redDistanceX;
+
 	Point yellowSmallestX;
 	Point yellowLargestX;
+	Point yellowSmallestY;
+	Point yellowLargestY;
+	Point yellowCenter;
 
 
 	//Need variables for basic features.

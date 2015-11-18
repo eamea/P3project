@@ -44,22 +44,24 @@ int main()
 
 		//imshow("Rotated bounding boxes", rBoundImage);
 
-		//output = detector.segmentFrame(capturedFrame);
-		//imshow("Thresholded", output);
+		/*output = detector.segmentFrame(capturedFrame);
+		imshow("Thresholded", output);*/
 
 		//Showing thresholded images.
-		imshow("blue thresh", detector.getBlueThreshImg());
-		//imshow("green thresh", detector.getGreenThreshImg());
-		//imshow("red thresh", detector.getRedThreshImg());
-		//imshow("yellow thresh", detector.getYellowThreshImg());
+		/*imshow("blue thresh", detector.getBlueThreshImg());
+		imshow("green thresh", detector.getGreenThreshImg());
+		imshow("red thresh", detector.getRedThreshImg());
+		imshow("yellow thresh", detector.getYellowThreshImg());*/
 
 		//Setting the detector for the recognizer, and BLOB-analyzing for the chosen letter.
 		recognizer.setDetector(detector);
-		recognizer.recognize('a');
+		recognizer.recognize('b');
 
-		//Showing BLOB-analyzed images.
-		imshow("blue blob", recognizer.getBlueBLOBImg());
+		////Showing BLOB-analyzed images.
+		//imshow("blue blob", recognizer.getBlueBLOBImg());
 		imshow("yellow blob", recognizer.getYellowBLOBImg());
+		//imshow("green blob", recognizer.getGreenBLOBImg());
+		imshow("red blob", recognizer.getRedBLOBImg());
 
 		imshow("Original", capturedFrame);	//showing the original image
 

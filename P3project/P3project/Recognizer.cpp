@@ -100,6 +100,48 @@ void Recognizer::extractFeatures(char letter){
 	case 'b':
 		redBLOBList = BLOBdt.getBLOBList('r');
 		yellowBLOBList = BLOBdt.getBLOBList('y');
+
+		redSmallestX = Point(redBLOBImg.cols, redBLOBImg.rows);
+		redLargestX = Point(0,0);
+		redLargestY = Point(0,0);
+		yellowSmallestX = Point(yellowBLOBImg.cols, yellowBLOBImg.rows);
+		yellowLargestX = Point(0,0);
+		yellowSmallestY = Point(yellowBLOBImg.cols, yellowBLOBImg.rows);
+		yellowLargestY = Point(0,0);
+
+		for (int i = 0; i < redBLOBList.size(); i++){
+			for (int j = 1; j < redBLOBList[i].size(); j++){
+				if (redBLOBList[i][j].x < redSmallestX.x){
+					redSmallestX = redBLOBList[i][j];
+				}
+				if (redBLOBList[i][j].x > redLargestX.x){
+					redLargestX = redBLOBList[i][j];
+				}
+				if (redBLOBList[i][j].y > redLargestY.y){
+					redLargestY = redBLOBList[i][j];
+				}
+			}
+		}
+
+		for (int i = 0; i < yellowBLOBList.size(); i++){
+			for (int j = 1; j < yellowBLOBList[i].size(); j++){
+				if (yellowBLOBList[i][j].x < yellowSmallestX.x){
+					yellowSmallestX = yellowBLOBList[i][j];
+				}
+				if (yellowBLOBList[i][j].x > yellowLargestX.x){
+					yellowLargestX = yellowBLOBList[i][j];
+				}
+				if (yellowBLOBList[i][j].y < yellowSmallestY.y){
+					yellowSmallestY = yellowBLOBList[i][j];
+				}
+				if (yellowBLOBList[i][j].y > yellowLargestY.y){
+					yellowLargestY = yellowBLOBList[i][j];
+				}
+			}
+		}
+
+		yellowCenter = Point(yellowSmallestX.x + (yellowLargestX.x-yellowSmallestX.x)/2, yellowSmallestY.y + (yellowLargestY.y-yellowSmallestY.y)/2);
+
 		break;
 	case 'f':
 		blueBLOBList = BLOBdt.getBLOBList('b');
@@ -126,18 +168,19 @@ void Recognizer::extractFeatures(char letter){
 //TODO
 bool Recognizer::compareFeatures(char letter){
 	bool letterFound = false;
-	hasBeenFound = Mat::zeros(blueBLOBImg.rows/4, blueBLOBImg.cols/4, CV_8UC3);
+	hasBeenFound = Mat::zeros(50,50, CV_8UC3);
 
 	switch (letter){
 	case 'a':
 		if (blueLargestX.x <= yellowSmallestX.x && (yellowSmallestX.x - blueLargestX.x) <= 50)
 			letterFound = true;
 		break;
-	/*case 'b':
-		if ()
+	case 'b':
+		redDistanceX = redLargestX.x - redSmallestX.x;
+		if (yellowCenter.x < redLargestX.x-redDistanceX/4 && yellowCenter.x > redSmallestX.x+redDistanceX/4)
 			letterFound = true;
 		break;
-	case 'f':
+	/*case 'f':
 		if ()
 			letterFound = true;
 		break;
