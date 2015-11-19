@@ -26,6 +26,7 @@ private:
 
 	Mat blueBLOBImg;
 	Mat greenBLOBImg;
+	Mat pinkBLOBImg;
 	Mat redBLOBImg;
 	Mat yellowBLOBImg;
 
@@ -35,6 +36,7 @@ private:
 	vector<vector<Point>> BLOBList;
 	vector<vector<Point>> blueBLOBList;
 	vector<vector<Point>> greenBLOBList;
+	vector<vector<Point>> pinkBLOBList;
 	vector<vector<Point>> redBLOBList;
 	vector<vector<Point>> yellowBLOBList;
 	vector<Point> points;

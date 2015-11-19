@@ -11,6 +11,8 @@ vector<vector<Point>> BLOBDetector::getBLOBList(char color){
 		return blueBLOBList;
 	case 'g':
 		return greenBLOBList;
+	case 'p':
+		return pinkBLOBList;
 	case 'r':
 		return redBLOBList;
 	case 'y':
@@ -31,6 +33,9 @@ Mat BLOBDetector::BLOBDetection(Mat img, char color){
 		break;
 	case 'g':
 		greenBLOBImg = Mat::zeros(img.rows, img.cols, CV_8UC1);
+		break;
+	case 'p':
+		pinkBLOBImg = Mat::zeros(img.rows, img.cols, CV_8UC1);
 		break;
 	case 'r':
 		redBLOBImg = Mat::zeros(img.rows, img.cols, CV_8UC1);
@@ -85,6 +90,9 @@ Mat BLOBDetector::BLOBDetection(Mat img, char color){
 	case 'g':
 		greenBLOBList = BLOBList;
 		return greenBLOBImg;
+	case 'p':
+		pinkBLOBList = BLOBList;
+		return pinkBLOBImg;
 	case 'r':
 		redBLOBList = BLOBList;
 		return redBLOBImg;
@@ -290,6 +298,9 @@ void BLOBDetector::objectPixelIn(size_t row, size_t col, char color){
 		break;
 	case 'g':
 		greenBLOBImg.at<unsigned char>(row, col) = object;
+		break;
+	case 'p':
+		pinkBLOBImg.at<unsigned char>(row, col) = object;
 		break;
 	case 'r':
 		redBLOBImg.at<unsigned char>(row, col) = object;

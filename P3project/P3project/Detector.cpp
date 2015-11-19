@@ -18,6 +18,9 @@ Mat Detector::getBlueThreshImg(){
 Mat Detector::getGreenThreshImg(){
 	return greenThreshImg;
 }
+Mat Detector::getPinkThreshImg(){
+	return pinkThreshImg;
+}
 Mat Detector::getRedThreshImg(){
 	return redThreshImg;
 }
@@ -44,43 +47,43 @@ void Detector::createTrackbars()
 void Detector::setThreshold(char color){
 	switch (color){
 	case 'b':
-		iLowH = 110;
+		iLowH = 105;
 		iHighH = 121;
 
-		iLowS = 150;
-		iHighS = 218;
+		iLowS = 161;
+		iHighS = 255;
+
+		iLowV = 80;
+		iHighV = 255;
+
+		break;
+	case 'g':
+		iLowH = 31;
+		iHighH = 55;
+
+		iLowS = 0;
+		iHighS = 255;
 
 		iLowV = 0;
 		iHighV = 255;
 
 		break;
-	case 'g':
-		iLowH = 27;
-		iHighH = 65;
-
-		iLowS = 66;
-		iHighS = 248;
-
-		iLowV = 0;
-		iHighV = 175;
-
-		break;
 	case 'p':
-		iLowH = 130;
-		iHighH = 179;
+		iLowH = 157;
+		iHighH = 172;
 
-		iLowS = 58;
-		iHighS = 157;
+		iLowS = 82;
+		iHighS = 255;
 
-		iLowV = 54;
-		iHighV = 243;
+		iLowV = 73;
+		iHighV = 255;
 
 		break;
 	case 'r':
-		iLowH = 175;
+		iLowH = 173;
 		iHighH = 179;
 
-		iLowS = 240;
+		iLowS = 204;
 		iHighS = 255;
 
 		iLowV = 0;
@@ -88,13 +91,13 @@ void Detector::setThreshold(char color){
 
 		break;
 	case 'y':
-		iLowH = 20;
-		iHighH = 34;
+		iLowH = 17;
+		iHighH = 32;
 
-		iLowS = 168;
+		iLowS = 210;
 		iHighS = 255;
 
-		iLowV = 0;
+		iLowV = 105;
 		iHighV = 255;
 
 		break;
@@ -193,4 +196,22 @@ void Detector::thresholdImageFor(Mat src, char letter){
 		cout << "ERROR: thresholdImageFor has not been parsed a valid char." << endl;
 		break;
 	}
+}
+
+void Detector::thresholdForGlove2(Mat src){
+
+	setThreshold('b');
+	blueThreshImg = segmentFrame(src);
+
+	setThreshold('g');
+	greenThreshImg = segmentFrame(src);
+
+	setThreshold('p');
+	pinkThreshImg = segmentFrame(src);
+
+	setThreshold('r');
+	redThreshImg = segmentFrame(src);
+
+	setThreshold('y');
+	yellowThreshImg = segmentFrame(src);
 }

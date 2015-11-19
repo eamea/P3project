@@ -28,40 +28,63 @@ int main()
 
 	//detector.createTrackbars();
 
+	int GloveNumber = 2; //CHANGE THIS BASED ON WHAT GLOVE YOU'RE TESTING!
+
 	while (true){ //infinite loop for constant frame update.
 		stream.read(capturedFrame);	//reading a frame from the stream
 
-		//Thresholding for the chosen letter.
-		detector.thresholdImageFor(capturedFrame, 'f');
+		if (GloveNumber == 1){
 
-		//bounder.setInputImg(detector.getRedThreshImg());	//updating the input image of the bounder
+			//Thresholding for the chosen letter.
+			detector.thresholdImageFor(capturedFrame, 'f');
 
-		//fBoundImage = bounder.fixedBoundingBox(150);
+			//bounder.setInputImg(detector.getRedThreshImg());	//updating the input image of the bounder
+			//fBoundImage = bounder.fixedBoundingBox(150);
+			//imshow("Fixed bounding boxes", fBoundImage);
+			//rBoundImage = bounder.rotatedBoundingBox(150);
+			//imshow("Rotated bounding boxes", rBoundImage);
 
-		//imshow("Fixed bounding boxes", fBoundImage);
+			//Showing thresholded images.
+			/*imshow("blue thresh", detector.getBlueThreshImg());
+			imshow("green thresh", detector.getGreenThreshImg());
+			imshow("red thresh", detector.getRedThreshImg());
+			imshow("yellow thresh", detector.getYellowThreshImg());*/
 
-		//rBoundImage = bounder.rotatedBoundingBox(150);
+			//Setting the detector for the recognizer, and recognizing for the chosen letter.
+			recognizer.setDetector(detector);
+			recognizer.recognize('s');
 
-		//imshow("Rotated bounding boxes", rBoundImage);
+			////Showing BLOB-analyzed images.
+			//imshow("blue blob", recognizer.getBlueBLOBImg());
+			//imshow("green blob", recognizer.getGreenBLOBImg());
+			//imshow("red blob", recognizer.getRedBLOBImg());
+			//imshow("yellow blob", recognizer.getYellowBLOBImg());
+		}
+		else if (GloveNumber == 2){
+			detector.thresholdForGlove2(capturedFrame); //thresholding
 
-		/*output = detector.segmentFrame(capturedFrame);
-		imshow("Thresholded", output);*/
+			//Showing thresholded images.
+			//imshow("blue thresh", detector.getBlueThreshImg());
+			//imshow("green thresh", detector.getGreenThreshImg());
+			//imshow("pink thresh", detector.getPinkThreshImg());
+			//imshow("red thresh", detector.getRedThreshImg());
+			//imshow("yellow thresh", detector.getYellowThreshImg());
 
-		//Showing thresholded images.
-		/*imshow("blue thresh", detector.getBlueThreshImg());
-		imshow("green thresh", detector.getGreenThreshImg());
-		imshow("red thresh", detector.getRedThreshImg());
-		imshow("yellow thresh", detector.getYellowThreshImg());*/
+			//Setting the detector for the recognizer, and recognizing for the chosen letter.
+			recognizer.setDetector(detector);
+			recognizer.recognizeGlove2('b');
 
-		//Setting the detector for the recognizer, and BLOB-analyzing for the chosen letter.
-		recognizer.setDetector(detector);
-		recognizer.recognize('b');
-
-		////Showing BLOB-analyzed images.
-		//imshow("blue blob", recognizer.getBlueBLOBImg());
-		imshow("yellow blob", recognizer.getYellowBLOBImg());
-		//imshow("green blob", recognizer.getGreenBLOBImg());
-		imshow("red blob", recognizer.getRedBLOBImg());
+			////Showing BLOB-analyzed images.
+			imshow("blue blob", recognizer.getBlueBLOBImg());
+			imshow("green blob", recognizer.getGreenBLOBImg());
+			imshow("pink blob", recognizer.getPinkBLOBImg());
+			imshow("red blob", recognizer.getRedBLOBImg());
+			imshow("yellow blob", recognizer.getYellowBLOBImg());
+		}
+		else{
+			output = detector.segmentFrame(capturedFrame);
+			imshow("Thresholded", output);
+		}
 
 		imshow("Original", capturedFrame);	//showing the original image
 

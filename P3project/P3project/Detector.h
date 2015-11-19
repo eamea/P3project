@@ -15,9 +15,11 @@ public:
 	void createTrackbars();			//creates a windows called "control" with trackbars for setting HSV values.
 	void setThreshold(char color);	//Thresholds based on the char inserted. b = blue, g = green, p = pink, r = red, y = yellow.
 	void thresholdImageFor(Mat src, char letter);
+	void thresholdForGlove2(Mat src);
 
 	Mat getBlueThreshImg();
 	Mat getGreenThreshImg();
+	Mat getPinkThreshImg();
 	Mat getRedThreshImg();
 	Mat getYellowThreshImg();
 private:
@@ -33,6 +35,7 @@ private:
 	//Creating a Matrix to hold the thresholded images
 	Mat blueThreshImg;
 	Mat greenThreshImg;
+	Mat pinkThreshImg;
 	Mat redThreshImg;
 	Mat yellowThreshImg;
 };
