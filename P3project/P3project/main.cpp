@@ -5,6 +5,7 @@
 #include "UIHandler.h"
 #include "BLOBDetector.h"
 #include "Bounder.h"
+#include "Evaluator.h"
 
 using namespace std;
 using namespace cv;
@@ -17,6 +18,7 @@ int main()
 	Detector detector(5); //instantiating a new Detector object called detector
 	Recognizer recognizer(detector); //instantiating a new Recognizer object called recognizer
 	Bounder bounder;
+	Evaluator eval;
 
 	VideoCapture stream(1); //capturing a stream from webcam 0.
 
