@@ -69,7 +69,7 @@ Mat BLOBDetector::BLOBDetection(Mat img, char color){
 					xCoor.pop_front(); //removing the element from the list
 					yCoor.pop_front(); //removing the element from the list
 				}
-				if (points.size() > 50) //filtering out blobs with less than 50 pixels in the lists of pixels
+				if (points.size() > BLOBsizeToFilterOut) //filtering out blobs with less than 50 pixels in the lists of pixels
 					BLOBList.push_back(points); //pushing the vector points we've created to the contours.
 				object += 1; //increasing label by 1
 			}

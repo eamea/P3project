@@ -336,38 +336,71 @@ void Recognizer::extractFeatures(char letter){
 	}
 }
 
-bool Recognizer::compareFeatures(char letter){
+bool Recognizer::compareFeatures(char letter, bool leftHand){
 	bool letterFound = false;
 	hasBeenFound = Mat::zeros(50,50, CV_8UC3);
 
-	switch (letter){
-	case 'a':
-		if (blueLargestX <= yellowSmallestX && (yellowSmallestX - blueLargestX) <= 50)
-			letterFound = true;
-		break;
-	case 'b':
-		redDistanceX = redLargestX - redSmallestX;
-		if (yellowCenter.x < redLargestX-redDistanceX/4 && yellowCenter.x > redSmallestX+redDistanceX/4)
-			letterFound = true;
-		break;
-	case 'f':
-		if (yellowSmallestY > blueLargestY && (yellowLargestX < blueLargestX + 50 && yellowLargestX > blueLargestX  - 50) && yellowSmallestY > redLargestY && redLargestX < blueLargestX && redBLOBList.size() >= 3)
-			letterFound = true;
-		break;
-	case 'l':
-		if (blueLargestX < redLargestX && redLargestX < yellowSmallestX && yellowSmallestY > blueSmallestY && blueBLOBList.size() >= 4 && redBLOBList.size() >= 2)
-			letterFound = true;
-		break;
-	case 's':
-		if (yellowLargestX < blueLargestX && yellowSmallestY > blueSmallestY && yellowSmallestY < blueLargestY && blueBLOBList.size() >= 3)
-			letterFound = true;
-		break;
-	case 't':
-		if (yellowLargestY < blueLargestY && yellowCenter.x > blueSmallestX + 3*(blueDistanceX/4) - 10 && yellowCenter.x < blueLargestX && blueBLOBList.size() >= 5)
-			letterFound = true;
-		break;
-	default:
-		cout << "compareFeatures has not been parsed a valid char." << endl;
+	if (leftHand){
+		switch (letter){
+		case 'a':
+			if (blueLargestX <= yellowSmallestX && (yellowSmallestX - blueLargestX) <= 50)
+				letterFound = true;
+			break;
+		case 'b':
+			redDistanceX = redLargestX - redSmallestX;
+			if (yellowCenter.x < redLargestX - redDistanceX / 4 && yellowCenter.x > redSmallestX + redDistanceX / 4)
+				letterFound = true;
+			break;
+		case 'f':
+			if (yellowSmallestY > blueLargestY && (yellowLargestX < blueLargestX + 50 && yellowLargestX > blueLargestX - 50) && yellowSmallestY > redLargestY && redLargestX < blueLargestX && redBLOBList.size() >= 3)
+				letterFound = true;
+			break;
+		case 'l':
+			if (blueLargestX < redLargestX && redLargestX < yellowSmallestX && yellowSmallestY > blueSmallestY && blueBLOBList.size() >= 4 && redBLOBList.size() >= 2)
+				letterFound = true;
+			break;
+		case 's':
+			if (yellowLargestX < blueLargestX && yellowSmallestY > blueSmallestY && yellowSmallestY < blueLargestY && blueBLOBList.size() >= 3)
+				letterFound = true;
+			break;
+		case 't':
+			if (yellowLargestY < blueLargestY && yellowCenter.x > blueSmallestX + 3 * (blueDistanceX / 4) - 10 && yellowCenter.x < blueLargestX && blueBLOBList.size() >= 5)
+				letterFound = true;
+			break;
+		default:
+			cout << "compareFeatures has not been parsed a valid char." << endl;
+		}
+	}
+	else{
+		switch (letter){
+		case 'a':
+			if (blueSmallestX >= yellowLargestX && (blueSmallestX - yellowLargestX) <= 50)
+				letterFound = true;
+			break;
+		case 'b':
+			redDistanceX = redLargestX - redSmallestX;
+			if (yellowCenter.x < redLargestX - redDistanceX / 4 && yellowCenter.x > redSmallestX + redDistanceX / 4)
+				letterFound = true;
+			break;
+		case 'f':
+			if (yellowSmallestY > blueLargestY && (yellowLargestX < blueLargestX + 50 && yellowLargestX > blueLargestX - 50) && yellowSmallestY > redLargestY && redLargestX < blueLargestX && redBLOBList.size() >= 3)
+				letterFound = true;
+			break;
+		case 'l':
+			if (blueSmallestX > redSmallestX && redSmallestX > yellowLargestX && yellowSmallestY > blueSmallestY && blueBLOBList.size() >= 4 && redBLOBList.size() >= 2)
+				letterFound = true;
+			break;
+		case 's':
+			if (yellowLargestX < blueLargestX && yellowSmallestY > blueSmallestY && yellowSmallestY < blueLargestY && blueBLOBList.size() >= 3)
+				letterFound = true;
+			break;
+		case 't':
+			if (yellowLargestY < blueLargestY && yellowCenter.x < blueLargestX - 2 * (blueDistanceX / 4) + 10 && yellowCenter.x > blueSmallestX && blueBLOBList.size() >= 5)
+				letterFound = true;
+			break;
+		default:
+			cout << "compareFeatures has not been parsed a valid char." << endl;
+		}
 	}
 
 	Point center;
@@ -511,45 +544,103 @@ void Recognizer::extractFeaturesGlove2(){
 	yellowCenter = Point(yellowSmallestX + (yellowLargestX - yellowSmallestX) / 2, yellowSmallestY + (yellowLargestY - yellowSmallestY) / 2);
 }
 
-bool Recognizer::compareFeaturesGlove2(char letter){
+bool Recognizer::compareFeaturesGlove2(char letter, bool leftHand){
 	bool letterFound = false;
 	hasBeenFound = Mat::zeros(50, 50, CV_8UC3);
 
-	switch (letter){ //IMPLEMENTED FOR LEFT HAND ONLY SO FAR
-	case 'a':
-		if (yellowCenter.x < blueCenter.x && blueCenter.x < pinkCenter.x && pinkCenter.x < greenCenter.x && greenCenter.x < redCenter.x /*if the fingers are in the right succession*/
-			&& yellowCenter.y > blueCenter.y - errorAllowance && yellowCenter.y < blueCenter.y + errorAllowance
-			&& blueCenter.y > pinkCenter.y - errorAllowance && blueCenter.y < pinkCenter.y + errorAllowance
-			&& pinkCenter.y > greenCenter.y - errorAllowance && pinkCenter.y < pinkCenter.y + errorAllowance
-			&& greenCenter.y > redCenter.y - errorAllowance && greenCenter.y < redCenter.y + errorAllowance /*and their y-centers are the same, +-20 pixels*/){
-			letterFound = true;
+	if (leftHand){
+		switch (letter){
+		case 'a':
+			if (yellowCenter.x < blueCenter.x && blueCenter.x < pinkCenter.x && pinkCenter.x < greenCenter.x && greenCenter.x < redCenter.x /*if the fingers are in the right succession*/
+				&& yellowCenter.y > blueCenter.y - multiplier2*errorAllowance && yellowCenter.y < blueCenter.y + multiplier2*errorAllowance
+				&& blueCenter.y > pinkCenter.y - multiplier2*errorAllowance && blueCenter.y < pinkCenter.y + multiplier2*errorAllowance
+				&& pinkCenter.y > greenCenter.y - multiplier2*errorAllowance && pinkCenter.y < pinkCenter.y + multiplier2*errorAllowance
+				&& greenCenter.y > redCenter.y - multiplier2*errorAllowance && greenCenter.y < redCenter.y + multiplier2*errorAllowance /*and their y-centers are the same, +-20 pixels*/){
+				letterFound = true;
+			}
+			break;
+		case 'b':
+			if (redCenter.y > yellowCenter.y && redCenter.x > yellowCenter.x && redCenter.x < greenCenter.x)
+				letterFound = true;
+			break;
+		case 'f':
+			if (yellowCenter.x < blueCenter.x && blueCenter.x < pinkCenter.x && pinkCenter.x < greenCenter.x /*if the fingers are in the right succession*/
+				&& greenLargestY > redSmallestY - errorAllowance && greenLargestY < redSmallestY + errorAllowance)
+				letterFound = true;
+			break;
+		case 'l':
+			if (yellowCenter.x < blueCenter.x && blueCenter.x < pinkCenter.x && pinkCenter.x < greenCenter.x && greenCenter.x < redCenter.x /*if the fingers are in the right succession*/
+				&& redCenter.y > pinkCenter.y && greenCenter.y < pinkCenter.y)
+				letterFound = true;
+			break;
+		case 's':
+			if (yellowCenter.x < blueCenter.x && blueCenter.x < pinkCenter.x && pinkCenter.x < greenCenter.x /*if the fingers are in the right succession*/
+				&& yellowSmallestY > blueSmallestY - errorAllowance*multiplier && yellowSmallestY < blueSmallestY + errorAllowance*multiplier
+				&& blueSmallestY > pinkSmallestY - errorAllowance*multiplier && blueSmallestY < pinkSmallestY + errorAllowance*multiplier
+				&& pinkSmallestY > greenSmallestY - errorAllowance*multiplier && pinkSmallestY < greenSmallestY + errorAllowance*multiplier
+				&& redCenter.x < greenLargestX && redCenter.x > pinkSmallestX
+				&& greenCenter.y < yellowCenter.y)
+				letterFound = true;
+			break;
+		case 't':
+
+			if (yellowCenter.x < blueCenter.x && blueCenter.x < pinkCenter.x && pinkCenter.x < greenCenter.x /*if the fingers are in the right succession*/
+				&& yellowSmallestY > blueSmallestY - errorAllowance*multiplier && yellowSmallestY < blueSmallestY + errorAllowance*multiplier
+				&& blueSmallestY > pinkSmallestY - errorAllowance*multiplier && blueSmallestY < pinkSmallestY + errorAllowance*multiplier
+				&& pinkSmallestY > greenSmallestY - errorAllowance*multiplier && pinkSmallestY < greenSmallestY + errorAllowance*multiplier
+				&& redCenter.x < greenLargestX && redCenter.x > pinkSmallestX)
+				letterFound = true;
+			break;
+		default:
+			cout << "compareFeatures has not been parsed a valid char." << endl;
 		}
-		break;
-	case 'b':
+	}
+	else{
+		switch (letter){
+		case 'a':
+			if (yellowCenter.x > blueCenter.x && blueCenter.x > pinkCenter.x && pinkCenter.x > greenCenter.x && greenCenter.x > redCenter.x /*if the fingers are in the right succession*/
+				&& yellowCenter.y > blueCenter.y - multiplier2*errorAllowance && yellowCenter.y < blueCenter.y + multiplier2*errorAllowance
+				&& blueCenter.y > pinkCenter.y - multiplier2*errorAllowance && blueCenter.y < pinkCenter.y + multiplier2*errorAllowance
+				&& pinkCenter.y > greenCenter.y - multiplier2*errorAllowance && pinkCenter.y < pinkCenter.y + multiplier2*errorAllowance
+				&& greenCenter.y > redCenter.y - multiplier2*errorAllowance && greenCenter.y < redCenter.y + multiplier2*errorAllowance /*and their y-centers are the same, +-20 pixels*/){
+				letterFound = true;
+			}
+			break;
+		case 'b':
+			if (redCenter.y > yellowCenter.y && redCenter.x < yellowCenter.x && redCenter.x > greenCenter.x)
+				letterFound = true;
+			break;
+		case 'f':
+			if (yellowCenter.x > blueCenter.x && blueCenter.x > pinkCenter.x && pinkCenter.x > greenCenter.x /*if the fingers are in the right succession*/
+				&& greenLargestY > redSmallestY - errorAllowance && greenLargestY < redSmallestY + errorAllowance)
+				letterFound = true;
+			break;
+		case 'l':
+			if (yellowCenter.x > blueCenter.x && blueCenter.x > pinkCenter.x && pinkCenter.x > greenCenter.x && greenCenter.x > redCenter.x /*if the fingers are in the right succession*/
+				&& redCenter.y > pinkCenter.y && greenCenter.y < pinkCenter.y)
+				letterFound = true;
+			break;
+		case 's':
+			if (yellowCenter.x > blueCenter.x && blueCenter.x > pinkCenter.x && pinkCenter.x > greenCenter.x /*if the fingers are in the right succession*/
+				&& yellowSmallestY > blueSmallestY - errorAllowance*multiplier && yellowSmallestY < blueSmallestY + errorAllowance*multiplier
+				&& blueSmallestY > pinkSmallestY - errorAllowance*multiplier && blueSmallestY < pinkSmallestY + errorAllowance*multiplier
+				&& pinkSmallestY > greenSmallestY - errorAllowance*multiplier && pinkSmallestY < greenSmallestY + errorAllowance*multiplier
+				&& redCenter.x > greenSmallestX && redCenter.x < pinkLargestX
+				&& greenCenter.y < yellowCenter.y)
+				letterFound = true;
+			break;
+		case 't':
 
-	//NOT WORKING
-
-		if (redCenter.y < yellowCenter.y && redCenter.x > yellowCenter.x && redCenter.x < greenCenter.x)
-			letterFound = true;
-		break;
-	/*case 'f':
-		if ()
-			letterFound = true;
-		break;
-	case 'l':
-		if ()
-			letterFound = true;
-		break;
-	case 's':
-		if ()
-			letterFound = true;
-		break;
-	case 't':
-		if ()
-			letterFound = true;
-		break;*/
-	default:
-		cout << "compareFeatures has not been parsed a valid char." << endl;
+			if (yellowCenter.x > blueCenter.x && blueCenter.x > pinkCenter.x && pinkCenter.x > greenCenter.x /*if the fingers are in the right succession*/
+				&& yellowSmallestY > blueSmallestY - errorAllowance*multiplier && yellowSmallestY < blueSmallestY + errorAllowance*multiplier
+				&& blueSmallestY > pinkSmallestY - errorAllowance*multiplier && blueSmallestY < pinkSmallestY + errorAllowance*multiplier
+				&& pinkSmallestY > greenSmallestY - errorAllowance*multiplier && pinkSmallestY < greenSmallestY + errorAllowance*multiplier
+				&& redCenter.x > greenSmallestX && redCenter.x < pinkLargestX)
+				letterFound = true;
+			break;
+		default:
+			cout << "compareFeatures has not been parsed a valid char." << endl;
+		}
 	}
 
 	Point center;
@@ -569,16 +660,16 @@ bool Recognizer::compareFeaturesGlove2(char letter){
 }
 
 //Runs the functions in order and returns a bool based on whether it found the sign for the input char.
-bool Recognizer::recognize(char letter){
+bool Recognizer::recognize(char letter, bool leftHand){
 	BLOBAnalyze(letter);
 	extractFeatures(letter);
 	
-	return compareFeatures(letter);
+	return compareFeatures(letter, leftHand);
 }
 
-bool Recognizer::recognizeGlove2(char letter){
+bool Recognizer::recognizeGlove2(char letter, bool leftHand){
 	BLOBAnalyzeGlove2();
 	extractFeaturesGlove2();
 
-	return compareFeaturesGlove2(letter);
+	return compareFeaturesGlove2(letter, leftHand);
 }

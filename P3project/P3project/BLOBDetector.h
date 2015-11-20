@@ -30,6 +30,8 @@ private:
 	Mat redBLOBImg;
 	Mat yellowBLOBImg;
 
+	int BLOBsizeToFilterOut = 80;
+
 	list<size_t> xCoor;
 	list<size_t> yCoor;
 

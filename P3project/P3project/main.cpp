@@ -27,8 +27,8 @@ int main()
 	Mat rBoundImage = Mat::zeros(1, 1, CV_8UC3);
 
 	//detector.createTrackbars();
-
 	int GloveNumber = 2; //CHANGE THIS BASED ON WHAT GLOVE YOU'RE TESTING!
+	bool leftHand = true;
 
 	while (true){ //infinite loop for constant frame update.
 		stream.read(capturedFrame);	//reading a frame from the stream
@@ -52,7 +52,7 @@ int main()
 
 			//Setting the detector for the recognizer, and recognizing for the chosen letter.
 			recognizer.setDetector(detector);
-			recognizer.recognize('s');
+			recognizer.recognize('t', leftHand);
 
 			////Showing BLOB-analyzed images.
 			//imshow("blue blob", recognizer.getBlueBLOBImg());
@@ -64,15 +64,15 @@ int main()
 			detector.thresholdForGlove2(capturedFrame); //thresholding
 
 			//Showing thresholded images.
-			//imshow("blue thresh", detector.getBlueThreshImg());
-			//imshow("green thresh", detector.getGreenThreshImg());
-			//imshow("pink thresh", detector.getPinkThreshImg());
-			//imshow("red thresh", detector.getRedThreshImg());
-			//imshow("yellow thresh", detector.getYellowThreshImg());
+			/*imshow("blue thresh", detector.getBlueThreshImg());
+			imshow("green thresh", detector.getGreenThreshImg());
+			imshow("pink thresh", detector.getPinkThreshImg());
+			imshow("red thresh", detector.getRedThreshImg());
+			imshow("yellow thresh", detector.getYellowThreshImg());*/
 
 			//Setting the detector for the recognizer, and recognizing for the chosen letter.
 			recognizer.setDetector(detector);
-			recognizer.recognizeGlove2('b');
+			recognizer.recognizeGlove2('t', leftHand);
 
 			////Showing BLOB-analyzed images.
 			imshow("blue blob", recognizer.getBlueBLOBImg());

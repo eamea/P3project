@@ -16,10 +16,10 @@ public:
 	void BLOBAnalyzeGlove2();
 	void extractFeatures(char letter);
 	void extractFeaturesGlove2();
-	bool compareFeatures(char letter);
-	bool compareFeaturesGlove2(char letter);
-	bool recognize(char letter);			//Runs the functions in order and returns a bool based on whether it found the sign for the input char.
-	bool recognizeGlove2(char letter);
+	bool compareFeatures(char letter, bool leftHand);
+	bool compareFeaturesGlove2(char letter, bool leftHand);
+	bool recognize(char letter, bool leftHand);			//Runs the functions in order and returns a bool based on whether it found the sign for the input char.
+	bool recognizeGlove2(char letter, bool leftHand);
 
 	Mat getBlueBLOBImg();
 	Mat getGreenBLOBImg();
@@ -32,6 +32,7 @@ public:
 private:
 	Detector dt;
 	BLOBDetector BLOBdt;
+	bool leftHanded = true;
 
 	vector<vector<Point>> blueBLOBList;
 	vector<vector<Point>> greenBLOBList;
@@ -87,7 +88,9 @@ private:
 	int yellowLargestY;
 	Point yellowCenter;
 
-	int errorAllowance = 20;
+	int errorAllowance = 10;
+	int multiplier2 = 2;
+	int multiplier = 3;
 
 
 	//Need variables for basic features.
