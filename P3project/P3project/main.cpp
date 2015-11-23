@@ -29,7 +29,7 @@ int main()
 	Mat rBoundImage = Mat::zeros(1, 1, CV_8UC3);
 
 	//detector.createTrackbars();
-	int GloveNumber = 2; //CHANGE THIS BASED ON WHAT GLOVE YOU'RE TESTING!
+	int GloveNumber = 1; //CHANGE THIS BASED ON WHAT GLOVE YOU'RE TESTING!
 	bool leftHand = true;
 
 	while (true){ //infinite loop for constant frame update.
@@ -38,7 +38,7 @@ int main()
 		if (GloveNumber == 1){
 
 			//Thresholding for the chosen letter.
-			detector.thresholdImageFor(capturedFrame, 'f');
+			detector.thresholdImageFor(capturedFrame, 'a');
 
 			//bounder.setInputImg(detector.getRedThreshImg());	//updating the input image of the bounder
 			//fBoundImage = bounder.fixedBoundingBox(150);

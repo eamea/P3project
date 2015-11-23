@@ -343,27 +343,73 @@ bool Recognizer::compareFeatures(char letter, bool leftHand){
 	if (leftHand){
 		switch (letter){
 		case 'a':
+			if (blueLargestX > yellowSmallestX)
+				cout << "Your thumb has to be on the right side of your index finger" << endl;
+			if ((yellowSmallestX - blueLargestX) > 50)
+				cout << "move your thumb closer to your index finger" << endl;
 			if (blueLargestX <= yellowSmallestX && (yellowSmallestX - blueLargestX) <= 50)
 				letterFound = true;
 			break;
 		case 'b':
 			redDistanceX = redLargestX - redSmallestX;
+			if (yellowCenter.x > redLargestX - redDistanceX / 4)
+				cout << "move your thumb to the other side of the index finger" << endl;
+			if (yellowCenter.x < redSmallestX + redDistanceX / 4)
+				cout << "how did you do this? O.O" << endl;
 			if (yellowCenter.x < redLargestX - redDistanceX / 4 && yellowCenter.x > redSmallestX + redDistanceX / 4)
 				letterFound = true;
 			break;
 		case 'f':
+			if (yellowSmallestY > blueLargestY)
+				cout << "your thumb has to be below your index finger" << endl;
+			if (yellowLargestX > blueLargestX + 50)
+				cout << "move your thumb closer to your index finger" << endl;
+			if (yellowLargestX < blueLargestX - 50)
+				cout << "move your thumb closer to your index finger" << endl;
+			if (yellowSmallestY < redLargestY)
+				cout << "strecth out your middle, ring and little finger" << endl;
+			if (redLargestX > blueLargestX)
+				cout << "your index finger has to be below your little finger" << endl;
+			if (redBLOBList.size() < 3)
+				cout << "make sure all your fingers are visible in the image" << endl;
 			if (yellowSmallestY > blueLargestY && (yellowLargestX < blueLargestX + 50 && yellowLargestX > blueLargestX - 50) && yellowSmallestY > redLargestY && redLargestX < blueLargestX && redBLOBList.size() >= 3)
 				letterFound = true;
 			break;
 		case 'l':
+			if (blueLargestX > redLargestX)
+				cout << "move your index finger more to your right" << endl;
+			if (redLargestX > yellowSmallestX)
+				cout << "strecth your thumb" << endl;
+			if (yellowSmallestY < blueSmallestY)
+				cout << "strecth your thumb" << endl;
+			if (blueBLOBList.size() < 4)
+				cout << "make sure all your finger are visible in the image" << endl;
+			if (redBLOBList.size() < 2)
+				cout << "make sure all your finger are visible in the image" << endl;
 			if (blueLargestX < redLargestX && redLargestX < yellowSmallestX && yellowSmallestY > blueSmallestY && blueBLOBList.size() >= 4 && redBLOBList.size() >= 2)
 				letterFound = true;
 			break;
 		case 's':
+			if (yellowLargestX > blueLargestX)
+				cout << "move your thumb in front of your index finger" << endl;
+			if (yellowSmallestY < blueSmallestY)
+				cout << "move your thumb down" << endl;
+			if (yellowSmallestY > blueLargestY)
+				cout << "move your thumb up" << endl;
+			if (blueBLOBList.size() < 3)
+				cout << "make sure all your finger are visible in the image" << endl;
 			if (yellowLargestX < blueLargestX && yellowSmallestY > blueSmallestY && yellowSmallestY < blueLargestY && blueBLOBList.size() >= 3)
 				letterFound = true;
 			break;
 		case 't':
+			if (yellowLargestY > blueLargestY)
+				cout << "move your thumb up a bit" << endl;
+			if (yellowCenter.x < blueSmallestX + 3 * (blueDistanceX / 4) - 10)
+				cout << "move your thumb in between your index and middle finger" << endl;
+			if (yellowCenter.x > blueLargestX)
+				cout << "move your thumb in between your index and middle finger" << endl;
+			if (blueBLOBList.size() < 5)
+				cout << "make sure all your finger are visible in the image" << endl;
 			if (yellowLargestY < blueLargestY && yellowCenter.x > blueSmallestX + 3 * (blueDistanceX / 4) - 10 && yellowCenter.x < blueLargestX && blueBLOBList.size() >= 5)
 				letterFound = true;
 			break;
@@ -374,27 +420,73 @@ bool Recognizer::compareFeatures(char letter, bool leftHand){
 	else{
 		switch (letter){
 		case 'a':
+			if (blueLargestX < yellowSmallestX)
+				cout << "Your thumb has to be on the left side of your index finger" << endl;
+			if ((blueSmallestX - yellowLargestX) > 50)
+				cout << "move your thumb closer to your index finger" << endl;
 			if (blueSmallestX >= yellowLargestX && (blueSmallestX - yellowLargestX) <= 50)
 				letterFound = true;
 			break;
 		case 'b':
 			redDistanceX = redLargestX - redSmallestX;
+			if (yellowCenter.x > redLargestX - redDistanceX / 4)
+				cout << "How did you do this? o.O" << endl;
+			if (yellowCenter.x < redSmallestX + redDistanceX / 4)
+				cout << "move your thumb to the other side of your index finger" << endl;
 			if (yellowCenter.x < redLargestX - redDistanceX / 4 && yellowCenter.x > redSmallestX + redDistanceX / 4)
 				letterFound = true;
 			break;
 		case 'f':
-			if (yellowSmallestY > blueLargestY && (yellowLargestX < blueLargestX + 50 && yellowLargestX > blueLargestX - 50) && yellowSmallestY > redLargestY && redLargestX < blueLargestX && redBLOBList.size() >= 3)
+			if (yellowSmallestY > blueLargestY)
+				cout << "your thumb has to be below your index finger" << endl;
+			if (yellowLargestX > blueLargestX + 50)
+				cout << "move your thumb closer to your index finger" << endl;
+			if (yellowLargestX < blueLargestX - 50)
+				cout << "move your thumb closer to your index finger" << endl;
+			if (yellowSmallestY < redLargestY)
+				cout << "strecth out your middle, ring and little finger" << endl;
+			if (redSmallestX < blueLargestX)
+				cout << "your index finger has to be left of your ring finger" << endl;
+			if (redBLOBList.size() < 3)
+				cout << "make sure all your fingers are visible in the image" << endl;
+			if (yellowSmallestY > blueLargestY && (yellowLargestX < blueLargestX + 50 && yellowLargestX > blueLargestX - 50) && yellowSmallestY > redLargestY && redSmallestX > blueLargestX && redBLOBList.size() >= 3)
 				letterFound = true;
 			break;
 		case 'l':
+			if (blueSmallestX < redSmallestX)
+				cout << "move your index finger more to your left" << endl;
+			if (redSmallestX < yellowLargestX)
+				cout << "strecth your thumb" << endl;
+			if (yellowSmallestY < blueSmallestY)
+				cout << "strecth your thumb" << endl;
+			if (blueBLOBList.size() < 4)
+				cout << "make sure all your finger are visible in the image" << endl;
+			if (redBLOBList.size() < 2)
+				cout << "make sure all your finger are visible in the image" << endl;
 			if (blueSmallestX > redSmallestX && redSmallestX > yellowLargestX && yellowSmallestY > blueSmallestY && blueBLOBList.size() >= 4 && redBLOBList.size() >= 2)
 				letterFound = true;
 			break;
 		case 's':
+			if (yellowLargestX > blueLargestX)
+				cout << "move your thumb in front of your index finger" << endl;
+			if (yellowSmallestY < blueSmallestY)
+				cout << "move your thumb down" << endl;
+			if (yellowSmallestY > blueLargestY)
+				cout << "move your thumb up" << endl;
+			if (blueBLOBList.size() < 3)
+				cout << "make sure all your finger are visible in the image" << endl;
 			if (yellowLargestX < blueLargestX && yellowSmallestY > blueSmallestY && yellowSmallestY < blueLargestY && blueBLOBList.size() >= 3)
 				letterFound = true;
 			break;
 		case 't':
+			if (yellowLargestY > blueLargestY)
+				cout << "move your thumb up a bit" << endl;
+			if (yellowCenter.x > blueLargestX - 2 * (blueDistanceX / 4) + 10)
+				cout << "move your thumb in between your index and middle finger" << endl;
+			if (yellowCenter.x < blueSmallestX)
+				cout << "move your thumb in between your index and middle finger" << endl;
+			if (blueBLOBList.size() < 5)
+				cout << "make sure all your finger are visible in the image" << endl;
 			if (yellowLargestY < blueLargestY && yellowCenter.x < blueLargestX - 2 * (blueDistanceX / 4) + 10 && yellowCenter.x > blueSmallestX && blueBLOBList.size() >= 5)
 				letterFound = true;
 			break;
@@ -551,6 +643,25 @@ bool Recognizer::compareFeaturesGlove2(char letter, bool leftHand){
 	if (leftHand){
 		switch (letter){
 		case 'a':
+			if (yellowCenter.x > blueCenter.x || blueCenter.x > pinkCenter.x || pinkCenter.x > greenCenter.x || greenCenter.x > redCenter.x)
+				cout << "please make sure your fingers are in the right succession" << endl;
+			if (yellowCenter.y < blueCenter.y - multiplier2*errorAllowance)
+				cout << "make sure your fingers are alligned" << endl;
+			if (yellowCenter.y > blueCenter.y + multiplier2*errorAllowance)
+				cout << "make sure your fingers are alligned" << endl;
+			if (blueCenter.y < pinkCenter.y - multiplier2*errorAllowance)
+				cout << "make sure your fingers are alligned" << endl;
+			if (blueCenter.y > pinkCenter.y + multiplier2*errorAllowance)
+				cout << "make sure your fingers are alligned" << endl;
+			if (pinkCenter.y < greenCenter.y - multiplier2*errorAllowance)
+				cout << "make sure your fingers are alligned" << endl;
+			if (pinkCenter.y > greenCenter.y + multiplier2*errorAllowance)
+				cout << "make sure your fingers are alligned" << endl;
+			if (greenCenter.y < yellowCenter.y - multiplier2*errorAllowance)
+				cout << "make sure your fingers are alligned" << endl;
+			if (greenCenter.y > yellowCenter.y + multiplier2*errorAllowance)
+				cout << "make sure your fingers are alligned" << endl;
+
 			if (yellowCenter.x < blueCenter.x && blueCenter.x < pinkCenter.x && pinkCenter.x < greenCenter.x && greenCenter.x < redCenter.x /*if the fingers are in the right succession*/
 				&& yellowCenter.y > blueCenter.y - multiplier2*errorAllowance && yellowCenter.y < blueCenter.y + multiplier2*errorAllowance
 				&& blueCenter.y > pinkCenter.y - multiplier2*errorAllowance && blueCenter.y < pinkCenter.y + multiplier2*errorAllowance
@@ -560,20 +671,62 @@ bool Recognizer::compareFeaturesGlove2(char letter, bool leftHand){
 			}
 			break;
 		case 'b':
+			if (redCenter.y < yellowCenter.y)
+				cout << "make sure your thumb is below your little finger" << endl; 
+			if (redCenter.x < yellowCenter.x)
+				cout << "how di you do this o.O" << endl;
+			if (redCenter.x > greenCenter.x)
+				cout << "move your thumb to the other side of you index finger" << endl;
+
 			if (redCenter.y > yellowCenter.y && redCenter.x > yellowCenter.x && redCenter.x < greenCenter.x)
 				letterFound = true;
 			break;
 		case 'f':
+			if (yellowCenter.x > blueCenter.x || blueCenter.x > pinkCenter.x || pinkCenter.x > greenCenter.x)
+				cout << "please make sure your fingers are in the right succession" << endl;
+			if (greenLargestY < redSmallestY - errorAllowance)
+				cout << "make sure your tumb is below your index finger" << endl;
+			if (greenLargestY > redSmallestY + errorAllowance)
+				cout << "move your thumb closer to your index finger" << endl;
+
 			if (yellowCenter.x < blueCenter.x && blueCenter.x < pinkCenter.x && pinkCenter.x < greenCenter.x /*if the fingers are in the right succession*/
 				&& greenLargestY > redSmallestY - errorAllowance && greenLargestY < redSmallestY + errorAllowance)
 				letterFound = true;
 			break;
 		case 'l':
+			if (yellowCenter.x > blueCenter.x || blueCenter.x > pinkCenter.x || pinkCenter.x > greenCenter.x || greenCenter.x > redCenter.x)
+				cout << "please make sure your fingers are in the right succession" << endl;
+			if (redCenter.y < pinkCenter.y)
+				cout << "stretch out your thumb" << endl;
+			if (greenCenter.y > pinkCenter.y)
+				cout << "stretch out your index finger" << endl;
+
 			if (yellowCenter.x < blueCenter.x && blueCenter.x < pinkCenter.x && pinkCenter.x < greenCenter.x && greenCenter.x < redCenter.x /*if the fingers are in the right succession*/
 				&& redCenter.y > pinkCenter.y && greenCenter.y < pinkCenter.y)
 				letterFound = true;
 			break;
 		case 's':
+			if (yellowCenter.x > blueCenter.x || blueCenter.x > pinkCenter.x || pinkCenter.x > greenCenter.x)
+				cout << "please make sure your fingers are in the right succession" << endl;
+			if (yellowSmallestY < blueSmallestY - errorAllowance*multiplier)
+				cout << "make sure your fingers are alligned" << endl;
+			if (yellowSmallestY > blueSmallestY + errorAllowance*multiplier)
+				cout << "make sure your fingers are alligned" << endl;
+			if (blueSmallestY < pinkSmallestY - errorAllowance*multiplier)
+				cout << "make sure your fingers are alligned" << endl;
+			if (blueSmallestY > pinkSmallestY + errorAllowance*multiplier)
+				cout << "make sure your fingers are alligned" << endl;
+			if (pinkSmallestY < greenSmallestY - errorAllowance*multiplier)
+				cout << "make sure your fingers are alligned" << endl;
+			if (pinkSmallestY > greenSmallestY + errorAllowance*multiplier)
+				cout << "make sure your fingers are alligned" << endl;
+			if (redCenter.x > greenLargestX)
+				cout << "move your thumb in front of your index finger" << endl;
+			if (redCenter.x < pinkSmallestX)
+				cout << "move your thumb in front of your index finger" << endl;
+			if (greenCenter.y > yellowCenter.y)
+				cout << "move your thumb in front of your index finger" << endl;
+
 			if (yellowCenter.x < blueCenter.x && blueCenter.x < pinkCenter.x && pinkCenter.x < greenCenter.x /*if the fingers are in the right succession*/
 				&& yellowSmallestY > blueSmallestY - errorAllowance*multiplier && yellowSmallestY < blueSmallestY + errorAllowance*multiplier
 				&& blueSmallestY > pinkSmallestY - errorAllowance*multiplier && blueSmallestY < pinkSmallestY + errorAllowance*multiplier
@@ -583,6 +736,22 @@ bool Recognizer::compareFeaturesGlove2(char letter, bool leftHand){
 				letterFound = true;
 			break;
 		case 't':
+			if (yellowCenter.x > blueCenter.x || blueCenter.x > pinkCenter.x || pinkCenter.x > greenCenter.x)
+				cout << "please make sure your fingers are in the right succession" << endl;
+			if (yellowSmallestY < blueSmallestY - errorAllowance*multiplier)
+				cout << "make sure your fingers are alligned" << endl;
+			if (yellowSmallestY > blueSmallestY + errorAllowance*multiplier)
+				cout << "make sure your fingers are alligned" << endl;
+			if (blueSmallestY < pinkSmallestY - errorAllowance*multiplier)
+				cout << "make sure your fingers are alligned" << endl;
+			if (blueSmallestY > pinkSmallestY + errorAllowance*multiplier)
+				cout << "make sure your fingers are alligned" << endl;
+			if (pinkSmallestY < greenSmallestY - errorAllowance*multiplier)
+				cout << "make sure your fingers are alligned" << endl;
+			if (pinkSmallestY > greenSmallestY + errorAllowance*multiplier)
+				cout << "make sure your fingers are alligned" << endl;
+			if (redCenter.x > greenLargestX || redCenter.x < pinkSmallestX)
+				cout << "move your thumb between your index and middle finger" << endl;
 
 			if (yellowCenter.x < blueCenter.x && blueCenter.x < pinkCenter.x && pinkCenter.x < greenCenter.x /*if the fingers are in the right succession*/
 				&& yellowSmallestY > blueSmallestY - errorAllowance*multiplier && yellowSmallestY < blueSmallestY + errorAllowance*multiplier
@@ -598,6 +767,25 @@ bool Recognizer::compareFeaturesGlove2(char letter, bool leftHand){
 	else{
 		switch (letter){
 		case 'a':
+			if (yellowCenter.x < blueCenter.x || blueCenter.x < pinkCenter.x || pinkCenter.x < greenCenter.x || greenCenter.x < redCenter.x)
+				cout << "please make sure your fingers are in the right succession" << endl;
+			if (yellowCenter.y < blueCenter.y - multiplier2*errorAllowance)
+				cout << "make sure your fingers are alligned" << endl;
+			if (yellowCenter.y > blueCenter.y + multiplier2*errorAllowance)
+				cout << "make sure your fingers are alligned" << endl;
+			if (blueCenter.y < pinkCenter.y - multiplier2*errorAllowance)
+				cout << "make sure your fingers are alligned" << endl;
+			if (blueCenter.y > pinkCenter.y + multiplier2*errorAllowance)
+				cout << "make sure your fingers are alligned" << endl;
+			if (pinkCenter.y < greenCenter.y - multiplier2*errorAllowance)
+				cout << "make sure your fingers are alligned" << endl;
+			if (pinkCenter.y > greenCenter.y + multiplier2*errorAllowance)
+				cout << "make sure your fingers are alligned" << endl;
+			if (greenCenter.y < yellowCenter.y - multiplier2*errorAllowance)
+				cout << "make sure your fingers are alligned" << endl;
+			if (greenCenter.y > yellowCenter.y + multiplier2*errorAllowance)
+				cout << "make sure your fingers are alligned" << endl;
+
 			if (yellowCenter.x > blueCenter.x && blueCenter.x > pinkCenter.x && pinkCenter.x > greenCenter.x && greenCenter.x > redCenter.x /*if the fingers are in the right succession*/
 				&& yellowCenter.y > blueCenter.y - multiplier2*errorAllowance && yellowCenter.y < blueCenter.y + multiplier2*errorAllowance
 				&& blueCenter.y > pinkCenter.y - multiplier2*errorAllowance && blueCenter.y < pinkCenter.y + multiplier2*errorAllowance
@@ -607,20 +795,62 @@ bool Recognizer::compareFeaturesGlove2(char letter, bool leftHand){
 			}
 			break;
 		case 'b':
+			if (redCenter.y < yellowCenter.y)
+				cout << "make sure your thumb is below your little finger" << endl;
+			if (redCenter.x > yellowCenter.x)
+				cout << "how did you do this o.O" << endl;
+			if (redCenter.x < greenCenter.x)
+				cout << "move your thumb to the other side of you index finger" << endl;
+
 			if (redCenter.y > yellowCenter.y && redCenter.x < yellowCenter.x && redCenter.x > greenCenter.x)
 				letterFound = true;
 			break;
 		case 'f':
+			if (yellowCenter.x < blueCenter.x || blueCenter.x < pinkCenter.x || pinkCenter.x < greenCenter.x)
+				cout << "please make sure your fingers are in the right succession" << endl;
+			if (greenLargestY < redSmallestY - errorAllowance)
+				cout << "make sure your tumb is below your index finger" << endl;
+			if (greenLargestY > redSmallestY + errorAllowance)
+				cout << "move your thumb closer to your index finger" << endl;
+
 			if (yellowCenter.x > blueCenter.x && blueCenter.x > pinkCenter.x && pinkCenter.x > greenCenter.x /*if the fingers are in the right succession*/
 				&& greenLargestY > redSmallestY - errorAllowance && greenLargestY < redSmallestY + errorAllowance)
 				letterFound = true;
 			break;
 		case 'l':
+			if (yellowCenter.x < blueCenter.x || blueCenter.x < pinkCenter.x || pinkCenter.x < greenCenter.x || greenCenter.x < redCenter.x)
+				cout << "please make sure your fingers are in the right succession" << endl;
+			if (redCenter.y < pinkCenter.y)
+				cout << "stretch out your thumb" << endl;
+			if (greenCenter.y > pinkCenter.y)
+				cout << "stretch out your index finger" << endl;
+
 			if (yellowCenter.x > blueCenter.x && blueCenter.x > pinkCenter.x && pinkCenter.x > greenCenter.x && greenCenter.x > redCenter.x /*if the fingers are in the right succession*/
 				&& redCenter.y > pinkCenter.y && greenCenter.y < pinkCenter.y)
 				letterFound = true;
 			break;
 		case 's':
+			if (yellowCenter.x < blueCenter.x || blueCenter.x < pinkCenter.x || pinkCenter.x < greenCenter.x)
+				cout << "please make sure your fingers are in the right succession" << endl;
+			if (yellowSmallestY < blueSmallestY - errorAllowance*multiplier)
+				cout << "make sure your fingers are alligned" << endl;
+			if (yellowSmallestY > blueSmallestY + errorAllowance*multiplier)
+				cout << "make sure your fingers are alligned" << endl;
+			if (blueSmallestY < pinkSmallestY - errorAllowance*multiplier)
+				cout << "make sure your fingers are alligned" << endl;
+			if (blueSmallestY > pinkSmallestY + errorAllowance*multiplier)
+				cout << "make sure your fingers are alligned" << endl;
+			if (pinkSmallestY < greenSmallestY - errorAllowance*multiplier)
+				cout << "make sure your fingers are alligned" << endl;
+			if (pinkSmallestY > greenSmallestY + errorAllowance*multiplier)
+				cout << "make sure your fingers are alligned" << endl;
+			if (redCenter.x < greenSmallestX)
+				cout << "move your thumb in front of your index finger" << endl;
+			if (redCenter.x > pinkLargestX)
+				cout << "move your thumb in front of your index finger" << endl;
+			if (greenCenter.y > yellowCenter.y)
+				cout << "move your thumb in front of your index finger" << endl;
+
 			if (yellowCenter.x > blueCenter.x && blueCenter.x > pinkCenter.x && pinkCenter.x > greenCenter.x /*if the fingers are in the right succession*/
 				&& yellowSmallestY > blueSmallestY - errorAllowance*multiplier && yellowSmallestY < blueSmallestY + errorAllowance*multiplier
 				&& blueSmallestY > pinkSmallestY - errorAllowance*multiplier && blueSmallestY < pinkSmallestY + errorAllowance*multiplier
@@ -630,6 +860,22 @@ bool Recognizer::compareFeaturesGlove2(char letter, bool leftHand){
 				letterFound = true;
 			break;
 		case 't':
+			if (yellowCenter.x < blueCenter.x || blueCenter.x < pinkCenter.x || pinkCenter.x < greenCenter.x)
+				cout << "please make sure your fingers are in the right succession" << endl;
+			if (yellowSmallestY < blueSmallestY - errorAllowance*multiplier)
+				cout << "make sure your fingers are alligned" << endl;
+			if (yellowSmallestY > blueSmallestY + errorAllowance*multiplier)
+				cout << "make sure your fingers are alligned" << endl;
+			if (blueSmallestY < pinkSmallestY - errorAllowance*multiplier)
+				cout << "make sure your fingers are alligned" << endl;
+			if (blueSmallestY > pinkSmallestY + errorAllowance*multiplier)
+				cout << "make sure your fingers are alligned" << endl;
+			if (pinkSmallestY < greenSmallestY - errorAllowance*multiplier)
+				cout << "make sure your fingers are alligned" << endl;
+			if (pinkSmallestY > greenSmallestY + errorAllowance*multiplier)
+				cout << "make sure your fingers are alligned" << endl;
+			if (redCenter.x < greenSmallestX || redCenter.x > pinkLargestX)
+				cout << "move your thumb between your index and middle finger" << endl;
 
 			if (yellowCenter.x > blueCenter.x && blueCenter.x > pinkCenter.x && pinkCenter.x > greenCenter.x /*if the fingers are in the right succession*/
 				&& yellowSmallestY > blueSmallestY - errorAllowance*multiplier && yellowSmallestY < blueSmallestY + errorAllowance*multiplier
