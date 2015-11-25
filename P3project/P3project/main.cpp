@@ -38,7 +38,7 @@ int main()
 		if (GloveNumber == 1){
 
 			//Thresholding for the chosen letter.
-			detector.thresholdImageFor(capturedFrame, 'a');
+			detector.thresholdImageFor(capturedFrame, 'f');
 
 			//bounder.setInputImg(detector.getRedThreshImg());	//updating the input image of the bounder
 			//fBoundImage = bounder.fixedBoundingBox(150);
@@ -47,20 +47,20 @@ int main()
 			//imshow("Rotated bounding boxes", rBoundImage);
 
 			//Showing thresholded images.
-			/*imshow("blue thresh", detector.getBlueThreshImg());
+			imshow("blue thresh", detector.getBlueThreshImg());
 			imshow("green thresh", detector.getGreenThreshImg());
 			imshow("red thresh", detector.getRedThreshImg());
-			imshow("yellow thresh", detector.getYellowThreshImg());*/
+			imshow("yellow thresh", detector.getYellowThreshImg());
 
 			//Setting the detector for the recognizer, and recognizing for the chosen letter.
 			recognizer.setDetector(detector);
 			//recognizer.recognize('t', leftHand);
-			recognizer.vectorRecognizer('a', leftHand);
+			recognizer.vectorRecognizer('b', leftHand);
 
 			////Showing BLOB-analyzed images.
-			imshow("blue blob", recognizer.getBlueBLOBImg());
+			//imshow("blue blob", recognizer.getBlueBLOBImg());
 			//imshow("green blob", recognizer.getGreenBLOBImg());
-			//imshow("red blob", recognizer.getRedBLOBImg());
+			imshow("red blob", recognizer.getRedBLOBImg());
 			imshow("yellow blob", recognizer.getYellowBLOBImg());
 		}
 		else if (GloveNumber == 2){

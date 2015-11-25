@@ -1043,21 +1043,26 @@ void Recognizer::extractFeaturesVector(){
 void Recognizer::vectorRecognizer(char letter, bool leftHand){
 	BLOBAnalyze(letter);
 	extractFeaturesVector();
+
+	bool letterFound = false;
+	hasBeenFound = Mat::zeros(50, 50, CV_8UC3);
+
 	if (leftHand){
 		switch (letter){
 		case 'a':
-			currentSign.push_back(lengthYelBlue);
-			currentSign.push_back(blueBLOBList.size());
+			currentSign.push_back((float) lengthYelBlue);
+			currentSign.push_back((float) blueBLOBList.size());
 			
 			idealSign.push_back (7);
 			idealSign.push_back(4);
-
-			currentSign = normalizeValues(currentSign);
 			
 			euclidianDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f) + pow(idealSign[1] - currentSign[1], 2.0f));
 
-			cout << currentSign[0] << " : " << currentSign[1] << endl;
+			cout << "length : " << currentSign[0] << ", Number of BLOBS: " << currentSign[1] << endl;
 			cout << "euclidian distance: " << euclidianDistance << endl;
+
+			if (euclidianDistance < 5 && blueBLOBList.size() >= 4)
+				letterFound = true;
 
 			currentSign.empty();
 			currentSign.resize(0);
@@ -1067,14 +1072,40 @@ void Recognizer::vectorRecognizer(char letter, bool leftHand){
 
 			break;
 		case 'b':
+			if (yellowCenter.x < redLargestX - redDistanceX / 4 && yellowCenter.x > redSmallestX + redDistanceX / 4)
+				currentSign.push_back(1);
+			else
+				currentSign.push_back(0);
+
+			idealSign.push_back(1);
+
+			euclidianDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
+
+			if (euclidianDistance < 1 && redBLOBList.size() >= 4)
+				letterFound = true;
+
+			currentSign.empty();
+			currentSign.resize(0);
+
+			idealSign.empty();
+			idealSign.resize(0);
+				
 			break;
 		case 'f':
+			//length between blueMaxX and yellowCenterX 
+			//length between redCenter and blue center
 			break;
 		case 'l':
+			//length between yellow center and red center
+			//distance between blue cebter and red center
 			break;
 		case 's':
+			//length between yellowMinX and blueMinX
+			//length between yellowMinY and blueMinY
 			break;
 		case 't':
+			//length between yellowMaxX and blueMaxX
+			//length between yellowMinX and blueMinX
 			break;
 		default:
 			cout << "vectorRecognizer was not passed a valid letter" << endl;
@@ -1098,15 +1129,41 @@ void Recognizer::vectorRecognizer(char letter, bool leftHand){
 			cout << "vectorRecognizer was not passed a valid letter" << endl;
 		}
 	}
+
+	Point center;
+	center.x = hasBeenFound.cols / 2;
+	center.y = hasBeenFound.rows / 2;
+
+	Scalar color;
+	if (letterFound)
+		color = CV_RGB(0, 255, 0);
+	else
+		color = CV_RGB(255, 0, 0);
+
+	line(hasBeenFound, center, center, color, 6);
+	imshow("Found", hasBeenFound);
 }
 
 vector<float> Recognizer::normalizeValues(vector<float> vc){
-	float min = min_element(vc[0], (float)vc.size());
-	float max = max_element(vc[0], (float)vc.size());
+	float min = vc[0];
+	float max = vc[0];
 
 	for (int i = 0; i < vc.size(); i++){
+		if (vc[i] > max){
+			max = vc[i];
+		}
+		if (vc[i] < min){
+			min = vc[i];
+		}
+	}
+
+	for (size_t i = 0; i < vc.size(); i++){
 		vc[i] = (vc[i] - min) / (max - min);
 	}
+
+	cout << "Normalised vector: " << vc[0] << " : " << vc[1] << endl;
+
+	return vc;
 }
 
 //Runs the functions in order and returns a bool based on whether it found the sign for the input char.
