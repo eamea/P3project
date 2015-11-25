@@ -4,6 +4,7 @@
 #include "opencv2/features2d.hpp"
 #include "BLOBDetector.h"
 #include "Detector.h"
+#include <vector>
 
 using namespace std;
 using namespace cv;
@@ -29,6 +30,8 @@ public:
 
 	Detector getDetector();
 	void setDetector(Detector d);
+
+	void vectorRecognizer(char letter, bool leftHand);
 private:
 	Detector dt;
 	BLOBDetector BLOBdt;
@@ -39,6 +42,9 @@ private:
 	vector<vector<Point>> pinkBLOBList;
 	vector<vector<Point>> redBLOBList;
 	vector<vector<Point>> yellowBLOBList;
+
+	vector<int> currentSign;
+	vector<int> idealSign;
 
 	//Matrices to hold the thresholded images.
 	Mat blueThreshImg;

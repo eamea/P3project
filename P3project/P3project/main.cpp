@@ -74,7 +74,8 @@ int main()
 
 			//Setting the detector for the recognizer, and recognizing for the chosen letter.
 			recognizer.setDetector(detector);
-			recognizer.recognizeGlove2('t', leftHand);
+			//recognizer.recognizeGlove2('t', leftHand);
+			recognizer.vectorRecognizer('a', leftHand);
 
 			////Showing BLOB-analyzed images.
 			imshow("blue blob", recognizer.getBlueBLOBImg());

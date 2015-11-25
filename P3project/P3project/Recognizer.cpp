@@ -905,6 +905,59 @@ bool Recognizer::compareFeaturesGlove2(char letter, bool leftHand){
 	return letterFound;
 }
 
+void Recognizer::vectorRecognizer(char letter, bool leftHand){
+	BLOBAnalyze(letter);
+	extractFeatures(letter);
+	if (leftHand){
+		switch (letter){
+		case 'a':
+			int lengthYelBlue = yellowSmallestX - blueLargestX;
+			currentSign.push_back(lengthYelBlue);
+			currentSign.push_back(blueBLOBList.size());
+
+			cout << currentSign[0] << " : " << currentSign[1];
+
+			idealSign;
+			
+			int euclidianDistance;
+
+
+
+			break;
+		case 'b':
+			break;
+		case 'f':
+			break;
+		case 'l':
+			break;
+		case 's':
+			break;
+		case 't':
+			break;
+		default:
+			cout << "vectorRecognizer was not passed a valid letter" << endl;
+		}
+	}
+	else{
+		switch (letter){
+		case 'a':
+			break;
+		case 'b':
+			break;
+		case 'f':
+			break;
+		case 'l':
+			break;
+		case 's':
+			break;
+		case 't':
+			break;
+		default:
+			cout << "vectorRecognizer was not passed a valid letter" << endl;
+		}
+	}
+}
+
 //Runs the functions in order and returns a bool based on whether it found the sign for the input char.
 bool Recognizer::recognize(char letter, bool leftHand){
 	BLOBAnalyze(letter);
