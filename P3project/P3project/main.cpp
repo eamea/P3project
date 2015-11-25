@@ -54,13 +54,14 @@ int main()
 
 			//Setting the detector for the recognizer, and recognizing for the chosen letter.
 			recognizer.setDetector(detector);
-			recognizer.recognize('t', leftHand);
+			//recognizer.recognize('t', leftHand);
+			recognizer.vectorRecognizer('a', leftHand);
 
 			////Showing BLOB-analyzed images.
-			//imshow("blue blob", recognizer.getBlueBLOBImg());
+			imshow("blue blob", recognizer.getBlueBLOBImg());
 			//imshow("green blob", recognizer.getGreenBLOBImg());
 			//imshow("red blob", recognizer.getRedBLOBImg());
-			//imshow("yellow blob", recognizer.getYellowBLOBImg());
+			imshow("yellow blob", recognizer.getYellowBLOBImg());
 		}
 		else if (GloveNumber == 2){
 			detector.thresholdForGlove2(capturedFrame); //thresholding

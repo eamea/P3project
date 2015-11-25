@@ -5,6 +5,7 @@
 #include "BLOBDetector.h"
 #include "Detector.h"
 #include <vector>
+#include <cmath>
 
 using namespace std;
 using namespace cv;
@@ -17,10 +18,13 @@ public:
 	void BLOBAnalyzeGlove2();
 	void extractFeatures(char letter);
 	void extractFeaturesGlove2();
+	void extractFeaturesVector();
 	bool compareFeatures(char letter, bool leftHand);
 	bool compareFeaturesGlove2(char letter, bool leftHand);
 	bool recognize(char letter, bool leftHand);			//Runs the functions in order and returns a bool based on whether it found the sign for the input char.
 	bool recognizeGlove2(char letter, bool leftHand);
+
+	vector<float> normalizeValues(vector<float> vc);
 
 	Mat getBlueBLOBImg();
 	Mat getGreenBLOBImg();
@@ -42,9 +46,6 @@ private:
 	vector<vector<Point>> pinkBLOBList;
 	vector<vector<Point>> redBLOBList;
 	vector<vector<Point>> yellowBLOBList;
-
-	vector<int> currentSign;
-	vector<int> idealSign;
 
 	//Matrices to hold the thresholded images.
 	Mat blueThreshImg;
@@ -97,6 +98,13 @@ private:
 	int errorAllowance = 10;
 	int multiplier2 = 2;
 	int multiplier = 3;
+
+	vector<float> currentSign;
+	vector<float> idealSign;
+
+	float euclidianDistance;
+
+	int lengthYelBlue;
 
 
 	//Need variables for basic features.

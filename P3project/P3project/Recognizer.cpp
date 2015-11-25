@@ -905,23 +905,165 @@ bool Recognizer::compareFeaturesGlove2(char letter, bool leftHand){
 	return letterFound;
 }
 
+void Recognizer::extractFeaturesVector(){
+	blueBLOBList.resize(0);
+	greenBLOBList.resize(0);
+	pinkBLOBList.resize(0);
+	redBLOBList.resize(0);
+	yellowBLOBList.resize(0);
+
+	blueBLOBList = BLOBdt.getBLOBList('b');
+	greenBLOBList = BLOBdt.getBLOBList('g');
+	pinkBLOBList = BLOBdt.getBLOBList('p');
+	redBLOBList = BLOBdt.getBLOBList('r');
+	yellowBLOBList = BLOBdt.getBLOBList('y');
+
+	blueSmallestX = blueBLOBImg.cols;
+	blueSmallestY = blueBLOBImg.rows;
+	greenSmallestX = greenBLOBImg.cols;
+	greenSmallestY = greenBLOBImg.rows;
+	pinkSmallestX = pinkBLOBImg.cols;
+	pinkSmallestY = pinkBLOBImg.rows;
+	redSmallestX = redBLOBImg.cols;
+	redSmallestY = redBLOBImg.rows;
+	yellowSmallestX = yellowBLOBImg.cols;
+	yellowSmallestY = yellowBLOBImg.rows;
+
+	blueLargestX = 0;
+	blueLargestY = 0;
+	greenLargestX = 0;
+	greenLargestY = 0;
+	pinkLargestX = 0;
+	pinkLargestY = 0;
+	redLargestX = 0;
+	redLargestY = 0;
+	yellowLargestX = 0;
+	yellowLargestY = 0;
+
+	lengthYelBlue = 0;
+
+	for (int i = 0; i < blueBLOBList.size(); i++){
+		for (int j = 1; j < blueBLOBList[i].size(); j++){
+			if (blueBLOBList[i][j].x < blueSmallestX){
+				blueSmallestX = blueBLOBList[i][j].x;
+			}
+			if (blueBLOBList[i][j].x > blueLargestX){
+				blueLargestX = blueBLOBList[i][j].x;
+			}
+			if (blueBLOBList[i][j].y < blueSmallestY){
+				blueSmallestY = blueBLOBList[i][j].y;
+			}
+			if (blueBLOBList[i][j].y > blueLargestY){
+				blueLargestY = blueBLOBList[i][j].y;
+			}
+		}
+	}
+
+	blueCenter = Point(blueSmallestX + (blueLargestX - blueSmallestX) / 2, blueSmallestY + (blueLargestY - blueSmallestY) / 2);
+
+	for (int i = 0; i < greenBLOBList.size(); i++){
+		for (int j = 1; j < greenBLOBList[i].size(); j++){
+			if (greenBLOBList[i][j].x < greenSmallestX){
+				greenSmallestX = greenBLOBList[i][j].x;
+			}
+			if (greenBLOBList[i][j].x > greenLargestX){
+				greenLargestX = greenBLOBList[i][j].x;
+			}
+			if (greenBLOBList[i][j].y < greenSmallestY){
+				greenSmallestY = greenBLOBList[i][j].y;
+			}
+			if (greenBLOBList[i][j].y > greenLargestY){
+				greenLargestY = greenBLOBList[i][j].y;
+			}
+		}
+	}
+
+	greenCenter = Point(greenSmallestX + (greenLargestX - greenSmallestX) / 2, greenSmallestY + (greenLargestY - greenSmallestY) / 2);
+
+	for (int i = 0; i < pinkBLOBList.size(); i++){
+		for (int j = 1; j < pinkBLOBList[i].size(); j++){
+			if (pinkBLOBList[i][j].x < pinkSmallestX){
+				pinkSmallestX = pinkBLOBList[i][j].x;
+			}
+			if (pinkBLOBList[i][j].x > pinkLargestX){
+				pinkLargestX = pinkBLOBList[i][j].x;
+			}
+			if (pinkBLOBList[i][j].y < pinkSmallestY){
+				pinkSmallestY = pinkBLOBList[i][j].y;
+			}
+			if (pinkBLOBList[i][j].y > pinkLargestY){
+				pinkLargestY = pinkBLOBList[i][j].y;
+			}
+		}
+	}
+
+	pinkCenter = Point(pinkSmallestX + (pinkLargestX - pinkSmallestX) / 2, pinkSmallestY + (pinkLargestY - pinkSmallestY) / 2);
+
+	for (int i = 0; i < redBLOBList.size(); i++){
+		for (int j = 1; j < redBLOBList[i].size(); j++){
+			if (redBLOBList[i][j].x < redSmallestX){
+				redSmallestX = redBLOBList[i][j].x;
+			}
+			if (redBLOBList[i][j].x > redLargestX){
+				redLargestX = redBLOBList[i][j].x;
+			}
+			if (redBLOBList[i][j].y < redSmallestY){
+				redSmallestY = redBLOBList[i][j].y;
+			}
+			if (redBLOBList[i][j].y > redLargestY){
+				redLargestY = redBLOBList[i][j].y;
+			}
+		}
+	}
+
+	redCenter = Point(redSmallestX + (redLargestX - redSmallestX) / 2, redSmallestY + (redLargestY - redSmallestY) / 2);
+
+	for (int i = 0; i < yellowBLOBList.size(); i++){
+		for (int j = 1; j < yellowBLOBList[i].size(); j++){
+			if (yellowBLOBList[i][j].x < yellowSmallestX){
+				yellowSmallestX = yellowBLOBList[i][j].x;
+			}
+			if (yellowBLOBList[i][j].x > yellowLargestX){
+				yellowLargestX = yellowBLOBList[i][j].x;
+			}
+			if (yellowBLOBList[i][j].y < yellowSmallestY){
+				yellowSmallestY = yellowBLOBList[i][j].y;
+			}
+			if (yellowBLOBList[i][j].y > yellowLargestY){
+				yellowLargestY = yellowBLOBList[i][j].y;
+			}
+		}
+	}
+
+	yellowCenter = Point(yellowSmallestX + (yellowLargestX - yellowSmallestX) / 2, yellowSmallestY + (yellowLargestY - yellowSmallestY) / 2);
+
+	lengthYelBlue = yellowSmallestX - blueLargestX;
+}
+
 void Recognizer::vectorRecognizer(char letter, bool leftHand){
 	BLOBAnalyze(letter);
-	extractFeatures(letter);
+	extractFeaturesVector();
 	if (leftHand){
 		switch (letter){
 		case 'a':
-			int lengthYelBlue = yellowSmallestX - blueLargestX;
 			currentSign.push_back(lengthYelBlue);
 			currentSign.push_back(blueBLOBList.size());
-
-			cout << currentSign[0] << " : " << currentSign[1];
-
-			idealSign;
 			
-			int euclidianDistance;
+			idealSign.push_back (7);
+			idealSign.push_back(4);
 
+			currentSign = normalizeValues(currentSign);
+			
+			euclidianDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f) + pow(idealSign[1] - currentSign[1], 2.0f));
 
+			cout << currentSign[0] << " : " << currentSign[1] << endl;
+			cout << "euclidian distance: " << euclidianDistance << endl;
+
+			currentSign.empty();
+			currentSign.resize(0);
+
+			idealSign.empty();
+			idealSign.resize(0);
 
 			break;
 		case 'b':
@@ -955,6 +1097,15 @@ void Recognizer::vectorRecognizer(char letter, bool leftHand){
 		default:
 			cout << "vectorRecognizer was not passed a valid letter" << endl;
 		}
+	}
+}
+
+vector<float> Recognizer::normalizeValues(vector<float> vc){
+	float min = min_element(vc[0], (float)vc.size());
+	float max = max_element(vc[0], (float)vc.size());
+
+	for (int i = 0; i < vc.size(); i++){
+		vc[i] = (vc[i] - min) / (max - min);
 	}
 }
 

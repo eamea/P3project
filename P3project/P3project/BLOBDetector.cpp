@@ -50,8 +50,8 @@ Mat BLOBDetector::BLOBDetection(Mat img, char color){
 
 	BLOBList.empty(); //emptying and resizing the two vector lists
 	points.empty();
-	BLOBList.resize(1);
-	points.resize(1);
+	BLOBList.resize(0);
+	points.resize(0);
 	
 	for (size_t row = 0; row < img.rows; row++){	//runs the grassFire algorithm on the relevant image.
 		for (size_t col = 0; col < img.cols; col++){
@@ -85,6 +85,7 @@ Mat BLOBDetector::BLOBDetection(Mat img, char color){
 
 	switch (color){	//returns the analyzed image.
 	case 'b':
+		blueBLOBList.resize(0);
 		blueBLOBList = BLOBList;
 		return blueBLOBImg;
 	case 'g':
@@ -97,6 +98,7 @@ Mat BLOBDetector::BLOBDetection(Mat img, char color){
 		redBLOBList = BLOBList;
 		return redBLOBImg;
 	case 'y':
+		yellowBLOBList.resize(0);
 		yellowBLOBList = BLOBList;
 		return yellowBLOBImg;
 	default:
