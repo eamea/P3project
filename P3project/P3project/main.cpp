@@ -20,7 +20,7 @@ int main()
 	Bounder bounder;
 	Evaluator eval;
 
-	VideoCapture stream(1); //capturing a stream from webcam 0.
+	VideoCapture stream(0); //capturing a stream from webcam 0.
 
 	Mat capturedFrame;		//a mat for holding the current frame
 	Mat output;				//a mat for holding the processed frame
@@ -47,20 +47,20 @@ int main()
 			//imshow("Rotated bounding boxes", rBoundImage);
 
 			//Showing thresholded images.
-			imshow("blue thresh", detector.getBlueThreshImg());
+			/*imshow("blue thresh", detector.getBlueThreshImg());
 			imshow("green thresh", detector.getGreenThreshImg());
 			imshow("red thresh", detector.getRedThreshImg());
-			imshow("yellow thresh", detector.getYellowThreshImg());
+			imshow("yellow thresh", detector.getYellowThreshImg());*/
 
 			//Setting the detector for the recognizer, and recognizing for the chosen letter.
 			recognizer.setDetector(detector);
 			//recognizer.recognize('t', leftHand);
-			recognizer.vectorRecognizer('f', leftHand);
+			recognizer.vectorRecognizer('t', leftHand);
 
 			////Showing BLOB-analyzed images.
-			//imshow("blue blob", recognizer.getBlueBLOBImg());
+			imshow("blue blob", recognizer.getBlueBLOBImg());
 			//imshow("green blob", recognizer.getGreenBLOBImg());
-			imshow("red blob", recognizer.getRedBLOBImg());
+			//imshow("red blob", recognizer.getRedBLOBImg());
 			imshow("yellow blob", recognizer.getYellowBLOBImg());
 		}
 		else if (GloveNumber == 2){

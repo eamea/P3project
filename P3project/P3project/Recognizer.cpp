@@ -945,12 +945,15 @@ void Recognizer::extractFeaturesVector(){
 	for (int i = 0; i < blueBLOBList.size(); i++){
 		for (int j = 1; j < blueBLOBList[i].size(); j++){
 			if (blueBLOBList[i][j].x < blueSmallestX){
+				blueSmallestXPoint = blueBLOBList[i][j];
 				blueSmallestX = blueBLOBList[i][j].x;
 			}
 			if (blueBLOBList[i][j].x > blueLargestX){
+				blueLargestXPoint = blueBLOBList[i][j];
 				blueLargestX = blueBLOBList[i][j].x;
 			}
 			if (blueBLOBList[i][j].y < blueSmallestY){
+				blueSmallestYPoint = blueBLOBList[i][j];
 				blueSmallestY = blueBLOBList[i][j].y;
 			}
 			if (blueBLOBList[i][j].y > blueLargestY){
@@ -1026,6 +1029,7 @@ void Recognizer::extractFeaturesVector(){
 				yellowSmallestX = yellowBLOBList[i][j].x;
 			}
 			if (yellowBLOBList[i][j].x > yellowLargestX){
+				yellowLargestXPoint = yellowBLOBList[i][j];
 				yellowLargestX = yellowBLOBList[i][j].x;
 			}
 			if (yellowBLOBList[i][j].y < yellowSmallestY){
@@ -1083,6 +1087,11 @@ void Recognizer::vectorRecognizer(char letter, bool leftHand){
 
 			euclidianDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
 
+			cout << euclidianDistance << endl;
+
+			if (euclidianDistance < 1)
+				letterFound = true;
+
 			currentSign.empty();
 			currentSign.resize(0);
 
@@ -1091,41 +1100,124 @@ void Recognizer::vectorRecognizer(char letter, bool leftHand){
 				
 			break;
 		case 'f':
-			//length between blueMaxX and yellowCenterX 
-			//length between redCenter and blue center
-
-			//currentSign.push_back(sqrt(pow(blueLargestYPoint.x - yellowCenter.x, 2.0f) + pow(blueLargestYPoint.y - yellowCenter.y, 2.0f)));
-
-			//cout << "blueyellow distance: " << currentSign[0] << endl;
-
-			//handRatio = ((float)yellowLargestX - (float)redSmallestX) / ((float)yellowLargestY - (float)redSmallestY);
-
-			//idealSign.push_back();
-
 			lengthYelBlue = sqrt(pow(blueLargestYPoint.x - yellowCenter.x, 2.0f) + pow(blueLargestYPoint.y - yellowCenter.y, 2.0f));
 			lengthYelRed = sqrt(pow(redLargestPoint.x - yellowCenter.x, 2.0f) + pow(redLargestPoint.y - yellowCenter.y, 2.0f));
 
 			ratio = (float)lengthYelBlue / (float)lengthYelRed;
 
-			cout << "ratio: " << ratio << endl;
+			currentSign.push_back(ratio);
+			idealSign.push_back(0.3f);
+
+			euclidianDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
+
+			cout << "ratio: " << ratio << " | euc: " << euclidianDistance << endl;
+
+			if (euclidianDistance < 0.09f)
+				letterFound = true;
 
 			currentSign.empty();
 			currentSign.resize(0);
-			handRatio = 0;
+			idealSign.empty();
+			idealSign.resize(0);
+			lengthYelBlue = 0;
+			lengthYelRed = 0;
 			ratio = 0;
 
 			break;
 		case 'l':
 			//length between yellow center and red center
 			//distance between blue cebter and red center
+
+			lengthYelRed = sqrt(pow(redCenter.x - yellowCenter.x, 2.0f) + pow(redCenter.y - yellowCenter.y, 2.0f));
+			lengthBlueRed = sqrt(pow(redCenter.x - blueSmallestXPoint.x, 2.0f) + pow(redCenter.y - blueSmallestXPoint.y, 2.0f));
+
+			ratio = lengthYelRed / lengthBlueRed;
+
+			currentSign.push_back(ratio);
+			idealSign.push_back(1.0f);
+
+			euclidianDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
+
+			if (euclidianDistance < 0.5f)
+				letterFound = true;
+
+			cout << euclidianDistance << endl;
+			
+			currentSign.empty();
+			currentSign.resize(0);
+			idealSign.empty();
+			idealSign.resize(0);
+			ratio = 0;
+			lengthYelRed = 0;
+			lengthBlueRed = 0;
+
 			break;
 		case 's':
 			//length between yellowMinX and blueMinX
 			//length between yellowMinY and blueMinY
+
+			lengthYelBlue = sqrt(pow(yellowCenter.x - blueSmallestXPoint.x, 2.0f) + pow(yellowCenter.y - blueSmallestXPoint.y, 2.0f));
+			//lengthBlueYel = sqrt(pow(yellowLargestXPoint.x - blueSmallestXPoint.x, 2.0f) + pow(yellowLargestXPoint.y - blueSmallestXPoint.y, 2.0f));
+
+			blueSmallestYPoint.x = yellowCenter.x;
+			blueLargestYPoint.x = yellowCenter.x;
+
+			lengthBlue = sqrt(pow(yellowCenter.x - blueCenter.x, 2.0f) + pow(yellowCenter.y - blueCenter.y, 2.0f));
+
+			//lengthBlueYel = sqrt(pow(yellowCenter.x - blueCenter.x, 2.0f) + pow(yellowCenter.y - blueCenter.y, 2.0f));
+
+			ratio = lengthYelBlue / lengthBlue;
+
+			currentSign.push_back(ratio);
+			idealSign.push_back(1.6f);
+
+			euclidianDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
+
+			if (euclidianDistance < 0.03f)
+				letterFound = true;
+
+			cout << "ratio: " << ratio << " | euc: " << euclidianDistance << endl;
+
+			currentSign.empty();
+			currentSign.resize(0);
+			idealSign.empty();
+			idealSign.resize(0);
+			ratio = 0;
+			lengthYelBlue = 0;
+			lengthBlueYel = 0;
+			euclidianDistance = 0;
+
 			break;
 		case 't':
-			//length between yellowMaxX and blueMaxX
-			//length between yellowMinX and blueMinX
+			//ratio between yellowCenter/blueLargestX and yellowCenter/blueSmallestX
+
+			yellowCenter.y = blueSmallestXPoint.y;
+			blueLargestXPoint.y = blueSmallestXPoint.y;
+
+			lengthYelBlue = sqrt(pow(yellowCenter.x - blueSmallestXPoint.x, 2.0f) + pow(yellowCenter.y - blueSmallestXPoint.y, 2.0f));
+			lengthBlueYel = sqrt(pow(yellowCenter.x - blueLargestXPoint.x, 2.0f) + pow(yellowCenter.y - blueLargestXPoint.y, 2.0f));
+
+			ratio = lengthYelBlue / lengthBlueYel;
+
+			currentSign.push_back(ratio);
+			idealSign.push_back(3.7f);
+
+			euclidianDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
+
+			if (euclidianDistance < 0.03f)
+				letterFound = true;
+
+			cout << "ratio: " << ratio << " | euc: " << euclidianDistance << endl;
+
+			currentSign.empty();
+			currentSign.resize(0);
+			idealSign.empty();
+			idealSign.resize(0);
+			ratio = 0;
+			lengthYelBlue = 0;
+			lengthBlueYel = 0;
+			euclidianDistance = 0;
+
 			break;
 		default:
 			cout << "vectorRecognizer was not passed a valid letter" << endl;
