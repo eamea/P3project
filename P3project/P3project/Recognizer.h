@@ -19,29 +19,29 @@ public:
 	void extractFeatures(char letter);
 	void extractFeaturesGlove2();
 	void extractFeaturesVector();
-	bool compareFeatures(char letter, bool leftHand);
-	bool compareFeaturesGlove2(char letter, bool leftHand);
-	bool recognize(char letter, bool leftHand);			//Runs the functions in order and returns a bool based on whether it found the sign for the input char.
-	bool recognizeGlove2(char letter, bool leftHand);
+	void compareFeatures(char letter, bool leftHand);
+	void compareFeaturesGlove2(char letter, bool leftHand);
+	void recognize(char letter, bool leftHand);			//Runs the functions in order and returns a bool based on whether it found the sign for the input char.
+	void recognizeGlove2(char letter, bool leftHand);
+
+	void vectorRecognizer(char letter, bool leftHand);
 
 	vector<float> normalizeValues(vector<float> vc);
 
+	bool getLetterFound();									//getters and setters for various variables
+	float getEuclideanDistance();
 	Mat getBlueBLOBImg();
 	Mat getGreenBLOBImg();
 	Mat getPinkBLOBImg();
 	Mat getRedBLOBImg();
 	Mat getYellowBLOBImg();
-	float getEuclideanDistance();
-	bool getLetterWasFound();
-
 	Detector getDetector();
 	void setDetector(Detector d);
-
-	void vectorRecognizer(char letter, bool leftHand);
 private:
 	Detector dt;
 	BLOBDetector BLOBdt;
 	bool leftHanded = true;
+	bool letterFound = false;
 
 	vector<vector<Point>> blueBLOBList;
 	vector<vector<Point>> greenBLOBList;

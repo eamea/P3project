@@ -1,10 +1,8 @@
 #include <iostream>
 #include "opencv2/opencv.hpp"
 #include "Detector.h"
-#include "Recognizer.h"
-#include "UIHandler.h"
 #include "BLOBDetector.h"
-#include "Bounder.h"
+#include "Recognizer.h"
 #include "Evaluator.h"
 
 using namespace std;
@@ -53,7 +51,7 @@ int main()
 			//recognizer.recognize(letter, leftHand);					//recognizing for the chosen letter.
 			recognizer.vectorRecognizer(letter, leftHand);
 
-			if (recognizer.getLetterWasFound() == true){				//if recognizer found the sign we looked for
+			if (recognizer.getLetterFound() == true){				//if recognizer found the sign we looked for
 				evaluator.setEuclideanDistance(recognizer.getEuclideanDistance());	//set euclidean distance
 /*CHANGE HERE*/	evaluator.stopTimer("FILENAME");						//stop timer and write to file
 			}
@@ -81,7 +79,7 @@ int main()
 			recognizer.recognizeGlove2(letter, leftHand);				//recognizing for the chosen letter.
 			//recognizer.vectorRecognizer(letter, leftHand);
 
-			if (recognizer.getLetterWasFound() == true){				//if recognizer found the sign we looked for
+			if (recognizer.getLetterFound() == true){				//if recognizer found the sign we looked for
 				evaluator.setEuclideanDistance(recognizer.getEuclideanDistance());	//set euclidean distance
 /*CHANGE HERE*/	evaluator.stopTimer("FILENAME");						//stop timer and write to file
 			}

@@ -5,37 +5,6 @@ Recognizer::Recognizer(Detector d){
 	dt = d;
 }
 
-bool Recognizer::getLetterWasFound(){
-	return letterWasFound;
-}
-
-float Recognizer::getEuclideanDistance(){
-	return euclidianDistance;
-}
-
-Mat Recognizer::getBlueBLOBImg(){
-	return blueBLOBImg;
-}
-Mat Recognizer::getGreenBLOBImg(){
-	return greenBLOBImg;
-}
-Mat Recognizer::getPinkBLOBImg(){
-	return pinkBLOBImg;
-}
-Mat Recognizer::getRedBLOBImg(){
-	return redBLOBImg;
-}
-Mat Recognizer::getYellowBLOBImg(){
-	return yellowBLOBImg;
-}
-
-Detector Recognizer::getDetector(){
-	return dt;
-}
-void Recognizer::setDetector(Detector d){
-	dt = d;
-}
-
 //BLOB analyzes the relevant threshimages based on the char input.
 void Recognizer::BLOBAnalyze(char letter) {
 	switch (letter) {
@@ -344,8 +313,8 @@ void Recognizer::extractFeatures(char letter){
 	}
 }
 
-bool Recognizer::compareFeatures(char letter, bool leftHand){
-	bool letterFound = false;
+void Recognizer::compareFeatures(char letter, bool leftHand){
+	letterFound = false;
 	hasBeenFound = Mat::zeros(50,50, CV_8UC3);
 
 	if (leftHand){
@@ -515,8 +484,6 @@ bool Recognizer::compareFeatures(char letter, bool leftHand){
 
 	line(hasBeenFound, center, center, color, 6);
 	imshow("Found", hasBeenFound);
-
-	return letterFound;
 }
 
 void Recognizer::extractFeaturesGlove2(){
@@ -644,8 +611,8 @@ void Recognizer::extractFeaturesGlove2(){
 	yellowCenter = Point(yellowSmallestX + (yellowLargestX - yellowSmallestX) / 2, yellowSmallestY + (yellowLargestY - yellowSmallestY) / 2);
 }
 
-bool Recognizer::compareFeaturesGlove2(char letter, bool leftHand){
-	bool letterFound = false;
+void Recognizer::compareFeaturesGlove2(char letter, bool leftHand){
+	letterFound = false;
 	hasBeenFound = Mat::zeros(50, 50, CV_8UC3);
 
 	if (leftHand){
@@ -909,8 +876,6 @@ bool Recognizer::compareFeaturesGlove2(char letter, bool leftHand){
 
 	line(hasBeenFound, center, center, color, 6);
 	imshow("Found", hasBeenFound);
-
-	return letterFound;
 }
 
 void Recognizer::extractFeaturesVector(){
@@ -1058,7 +1023,7 @@ void Recognizer::vectorRecognizer(char letter, bool leftHand){
 	BLOBAnalyze(letter);
 	extractFeaturesVector();
 
-	bool letterFound = false;
+	letterFound = false;
 	hasBeenFound = Mat::zeros(50, 50, CV_8UC3);
 
 	if (leftHand){
@@ -1287,16 +1252,44 @@ vector<float> Recognizer::normalizeValues(vector<float> vc){
 }
 
 //Runs the functions in order and returns a bool based on whether it found the sign for the input char.
-bool Recognizer::recognize(char letter, bool leftHand){
+void Recognizer::recognize(char letter, bool leftHand){
 	BLOBAnalyze(letter);
 	extractFeatures(letter);
 	
-	return compareFeatures(letter, leftHand);
+	compareFeatures(letter, leftHand);
 }
 
-bool Recognizer::recognizeGlove2(char letter, bool leftHand){
+void Recognizer::recognizeGlove2(char letter, bool leftHand){
 	BLOBAnalyzeGlove2();
 	extractFeaturesGlove2();
 
-	return compareFeaturesGlove2(letter, leftHand);
+	compareFeaturesGlove2(letter, leftHand);
+}
+
+bool Recognizer::getLetterFound(){
+	return letterFound;
+}
+float Recognizer::getEuclideanDistance(){
+	return euclidianDistance;
+}
+Mat Recognizer::getBlueBLOBImg(){
+	return blueBLOBImg;
+}
+Mat Recognizer::getGreenBLOBImg(){
+	return greenBLOBImg;
+}
+Mat Recognizer::getPinkBLOBImg(){
+	return pinkBLOBImg;
+}
+Mat Recognizer::getRedBLOBImg(){
+	return redBLOBImg;
+}
+Mat Recognizer::getYellowBLOBImg(){
+	return yellowBLOBImg;
+}
+Detector Recognizer::getDetector(){
+	return dt;
+}
+void Recognizer::setDetector(Detector d){
+	dt = d;
 }
