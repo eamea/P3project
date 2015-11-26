@@ -13,6 +13,7 @@ public:
 	Evaluator();
 	void startTimer(char letter);
 	void stopTimer(string filename);
+	void setEuclideanDistance(float eud);
 private:
 	void writeToFile(string filename);
 
@@ -24,6 +25,7 @@ private:
 	clock_t endTime;
 	clock_t clockTicsTaken;
 	double timeInSeconds;
+	float euclideanDistance;
 
 };
 

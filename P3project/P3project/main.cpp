@@ -18,7 +18,7 @@ int main()
 	Detector detector(5); //instantiating a new Detector object called detector
 	Recognizer recognizer(detector); //instantiating a new Recognizer object called recognizer
 	Bounder bounder;
-	Evaluator eval;
+	Evaluator evaluator();
 
 	VideoCapture stream(1); //capturing a stream from webcam 0.
 
@@ -55,7 +55,12 @@ int main()
 			//Setting the detector for the recognizer, and recognizing for the chosen letter.
 			recognizer.setDetector(detector);
 			//recognizer.recognize('t', leftHand);
+
+			//EVALUATOR: IF TIMER ISN'T STARTED, START TIMER HERE
 			recognizer.vectorRecognizer('f', leftHand);
+
+			//EVALUATOR: IF LETTER WAS FOUND, SET EUCLIDEAN DISTANCE AND STOP TIMER
+			//To set euclidean distance: eval.setEuclideanDistance(recognizer.getEuclidianDistance());
 
 			////Showing BLOB-analyzed images.
 			//imshow("blue blob", recognizer.getBlueBLOBImg());
@@ -76,7 +81,13 @@ int main()
 			//Setting the detector for the recognizer, and recognizing for the chosen letter.
 			recognizer.setDetector(detector);
 			//recognizer.recognizeGlove2('t', leftHand);
+
+			//EVALUATOR: IF TIMER ISN'T STARTED, START TIMER HERE
+
 			recognizer.vectorRecognizer('a', leftHand);
+
+			//EVALUATOR: IF LETTER WAS FOUND, SET EUCLIDEAN DISTANCE AND STOP TIMER
+			//To set euclidean distance: eval.setEuclideanDistance(recognizer.getEuclidianDistance());
 
 			////Showing BLOB-analyzed images.
 			imshow("blue blob", recognizer.getBlueBLOBImg());
@@ -89,6 +100,8 @@ int main()
 			output = detector.segmentFrame(capturedFrame);
 			imshow("Thresholded", output);
 		}
+
+		
 
 		imshow("Original", capturedFrame);	//showing the original image
 

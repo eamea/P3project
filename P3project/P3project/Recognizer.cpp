@@ -5,6 +5,10 @@ Recognizer::Recognizer(Detector d){
 	dt = d;
 }
 
+float Recognizer::getEuclidianDistance(){
+	return euclidianDistance;
+}
+
 Mat Recognizer::getBlueBLOBImg(){
 	return blueBLOBImg;
 }

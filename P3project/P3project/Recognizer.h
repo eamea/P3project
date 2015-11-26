@@ -31,6 +31,7 @@ public:
 	Mat getPinkBLOBImg();
 	Mat getRedBLOBImg();
 	Mat getYellowBLOBImg();
+	float getEuclidianDistance();
 
 	Detector getDetector();
 	void setDetector(Detector d);

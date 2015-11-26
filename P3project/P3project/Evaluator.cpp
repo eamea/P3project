@@ -1,10 +1,12 @@
 #include "Evaluator.h"
 
-
-Evaluator::Evaluator()
-{
-
+Evaluator::Evaluator(){
 }
+
+void Evaluator::setEuclideanDistance(float eud){
+	euclideanDistance = eud;
+}
+
 
 void Evaluator::startTimer(char letter){
 	currentLetter = letter;
@@ -19,12 +21,13 @@ void Evaluator::stopTimer(string str){
 	clockTicsTaken = endTime - startTime;
 	timeInSeconds = clockTicsTaken / (double)CLOCKS_PER_SEC;
 
+
 	writeToFile(filename);
 }
 
 void Evaluator::writeToFile(string filename){
 	outputFile.open(filename);
-	dataToSend << "\nSign '" << currentLetter << "': clockTicsTaken = " << clockTicsTaken << ". timeInSeconds = " << timeInSeconds << ".";
+	dataToSend << "\nSign '" << currentLetter << "': clockTicsTaken = " << clockTicsTaken << ". timeInSeconds = " << timeInSeconds << ". euclideanDistance = " << euclideanDistance << ".";
 	outputFile << dataToSend.str();
 	outputFile.close();
 }
