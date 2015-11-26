@@ -68,6 +68,7 @@ private:
 	int blueSmallestY;
 	int blueLargestY;
 	int blueDistanceX;
+	Point blueLargestYPoint;
 	Point blueCenter;
 
 	int greenSmallestX;
@@ -87,6 +88,7 @@ private:
 	int redSmallestY;
 	int redLargestY;
 	int redDistanceX;
+	Point redLargestPoint;
 	Point redCenter;
 
 	int yellowSmallestX;
@@ -102,9 +104,13 @@ private:
 	vector<float> currentSign;
 	vector<float> idealSign;
 
+	float handRatio;
+
 	float euclidianDistance;
 
-	int lengthYelBlue;
+	float lengthYelBlue;
+	float lengthYelRed;
+	float ratio;
 
 
 	//Need variables for basic features.

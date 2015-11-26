@@ -55,7 +55,7 @@ int main()
 			//Setting the detector for the recognizer, and recognizing for the chosen letter.
 			recognizer.setDetector(detector);
 			//recognizer.recognize('t', leftHand);
-			recognizer.vectorRecognizer('b', leftHand);
+			recognizer.vectorRecognizer('f', leftHand);
 
 			////Showing BLOB-analyzed images.
 			//imshow("blue blob", recognizer.getBlueBLOBImg());

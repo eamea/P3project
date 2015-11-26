@@ -955,6 +955,7 @@ void Recognizer::extractFeaturesVector(){
 			}
 			if (blueBLOBList[i][j].y > blueLargestY){
 				blueLargestY = blueBLOBList[i][j].y;
+				blueLargestYPoint = blueBLOBList[i][j];
 			}
 		}
 	}
@@ -1011,6 +1012,7 @@ void Recognizer::extractFeaturesVector(){
 				redSmallestY = redBLOBList[i][j].y;
 			}
 			if (redBLOBList[i][j].y > redLargestY){
+				redLargestPoint = redBLOBList[i][j];
 				redLargestY = redBLOBList[i][j].y;
 			}
 		}
@@ -1081,9 +1083,6 @@ void Recognizer::vectorRecognizer(char letter, bool leftHand){
 
 			euclidianDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
 
-			if (euclidianDistance < 1 && redBLOBList.size() >= 4)
-				letterFound = true;
-
 			currentSign.empty();
 			currentSign.resize(0);
 
@@ -1094,6 +1093,27 @@ void Recognizer::vectorRecognizer(char letter, bool leftHand){
 		case 'f':
 			//length between blueMaxX and yellowCenterX 
 			//length between redCenter and blue center
+
+			//currentSign.push_back(sqrt(pow(blueLargestYPoint.x - yellowCenter.x, 2.0f) + pow(blueLargestYPoint.y - yellowCenter.y, 2.0f)));
+
+			//cout << "blueyellow distance: " << currentSign[0] << endl;
+
+			//handRatio = ((float)yellowLargestX - (float)redSmallestX) / ((float)yellowLargestY - (float)redSmallestY);
+
+			//idealSign.push_back();
+
+			lengthYelBlue = sqrt(pow(blueLargestYPoint.x - yellowCenter.x, 2.0f) + pow(blueLargestYPoint.y - yellowCenter.y, 2.0f));
+			lengthYelRed = sqrt(pow(redLargestPoint.x - yellowCenter.x, 2.0f) + pow(redLargestPoint.y - yellowCenter.y, 2.0f));
+
+			ratio = (float)lengthYelBlue / (float)lengthYelRed;
+
+			cout << "ratio: " << ratio << endl;
+
+			currentSign.empty();
+			currentSign.resize(0);
+			handRatio = 0;
+			ratio = 0;
+
 			break;
 		case 'l':
 			//length between yellow center and red center
