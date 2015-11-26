@@ -69,6 +69,9 @@ private:
 	int blueSmallestY;
 	int blueLargestY;
 	int blueDistanceX;
+	Point blueSmallestXPoint;
+	Point blueLargestXPoint;
+	Point blueSmallestYPoint;
 	Point blueLargestYPoint;
 	Point blueCenter;
 
@@ -96,6 +99,7 @@ private:
 	int yellowLargestX;
 	int yellowSmallestY;
 	int yellowLargestY;
+	Point yellowLargestXPoint;
 	Point yellowCenter;
 
 	int errorAllowance = 10;
@@ -109,8 +113,11 @@ private:
 
 	float euclidianDistance;
 
+	float lengthBlue;
 	float lengthYelBlue;
+	float lengthBlueYel;
 	float lengthYelRed;
+	float lengthBlueRed;
 	float ratio;
 
 
