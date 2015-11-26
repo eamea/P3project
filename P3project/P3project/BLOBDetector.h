@@ -12,38 +12,34 @@ using namespace std;
 class BLOBDetector
 {
 public:
-	BLOBDetector();												//Empty constructor sets the image.
-	Mat BLOBDetection(Mat img, char color);						//BLOB detection goes through rows and cols and checks for all 255 values in the inserted image.
-	void grassFire(size_t row, size_t col, Mat img, char color);//Method for detecting BLOBs.
-	void visSeqGrassFire(size_t row, size_t col, Mat img, char color);	//visual representation of labeling objects
-	void listSeqGrassFire(size_t row, size_t col, Mat img, char color);	//non-visual grassfire. Puts the objects into lists.
-	void objectPixelIn(size_t row, size_t col, char color);
-	vector<vector<Point>> getBLOBList(char color);
+	BLOBDetector();												
+	Mat BLOBDetection(Mat img, char color);								//applies grassfire to img, and parses list of BLOBs to relevant color BLOBList
+	vector<vector<Point>> getBLOBList(char color);						//returns the BLOBList for the color parsed to the function
 private:
-	Mat BLOB;			//Default BLOB image. Will mainly be used in case of an error.
-	int object = 50;		//int that categorizes the BLOBs.
-	int pointNum;
+	void seqGrassFire(size_t row, size_t col, Mat img, char color);		//sequential grassfire algorithm
+	void objectPixelIn(size_t row, size_t col, char color);				//setting current pixel in relevant BLOBImg to the current object label value
 
-	Mat blueBLOBImg;
-	Mat greenBLOBImg;
-	Mat pinkBLOBImg;
-	Mat redBLOBImg;
-	Mat yellowBLOBImg;
+	Mat BLOB;															//default BLOB image, will mainly be used in case of error
+	int object = 50;													//object label
+	int BLOBsizeToFilterOut = 80;										//BLOBs below this pixel amount will not be counted as a BLOB
 
-	int BLOBsizeToFilterOut = 80;
-
-	list<size_t> xCoor;
+	list<size_t> xCoor;													//list of coordinates for object pixels not yet checked
 	list<size_t> yCoor;
 
-	vector<vector<Point>> BLOBList;
-	vector<vector<Point>> blueBLOBList;
+	vector<Point> points;												//holds the points of a single BLOB
+
+	vector<vector<Point>> BLOBList;										//holds list of BLOBs to be parsed to a color-specific list
+
+	vector<vector<Point>> blueBLOBList;									//color-specific lists of BLOBs
 	vector<vector<Point>> greenBLOBList;
 	vector<vector<Point>> pinkBLOBList;
 	vector<vector<Point>> redBLOBList;
 	vector<vector<Point>> yellowBLOBList;
-	vector<Point> points;
 
-	int n = 0;
-	int m = 10;
+	Mat blueBLOBImg;													//Mats to hold BLOB-analyzed images
+	Mat greenBLOBImg;
+	Mat pinkBLOBImg;
+	Mat redBLOBImg;
+	Mat yellowBLOBImg;
 };
 

@@ -7,9 +7,14 @@ void Evaluator::setEuclideanDistance(float eud){
 	euclideanDistance = eud;
 }
 
+bool Evaluator::getTimerHasStarted(){
+	return timerHasStarted;
+}
+
 
 void Evaluator::startTimer(char letter){
 	currentLetter = letter;
+	timerHasStarted = true;
 	startTime = clock();
 }
 
@@ -23,6 +28,8 @@ void Evaluator::stopTimer(string str){
 
 
 	writeToFile(filename);
+
+	timerHasStarted = false;
 }
 
 void Evaluator::writeToFile(string filename){

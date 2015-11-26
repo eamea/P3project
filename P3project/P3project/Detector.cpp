@@ -1,34 +1,15 @@
 #include "Detector.h"
 
-//Default constructor
 Detector::Detector(){
 	kernelSize = 3;
 }
 
-//Constructor
 Detector::Detector(int kSize){
 	cout << "Detector: kernelSize set to " << kSize << "." << endl;
 	kernelSize = kSize;
 }
 
-//Getter functions for each thresholded image
-Mat Detector::getBlueThreshImg(){
-	return blueThreshImg;
-}
-Mat Detector::getGreenThreshImg(){
-	return greenThreshImg;
-}
-Mat Detector::getPinkThreshImg(){
-	return pinkThreshImg;
-}
-Mat Detector::getRedThreshImg(){
-	return redThreshImg;
-}
-Mat Detector::getYellowThreshImg(){
-	return yellowThreshImg;
-}
-
-//creates a windows called "control" with trackbars for setting HSV values.
+//creates a windows called "control" with trackbars for setting HSV values
 void Detector::createTrackbars()
 {
 	namedWindow("Control panel", CV_WINDOW_AUTOSIZE);
@@ -43,7 +24,7 @@ void Detector::createTrackbars()
 	cvCreateTrackbar("HighV", "Control panel", &iHighV, 255);
 }
 
-//Thresholds based on the car inserted. b = blue, g = green, p = pink, r = red, y = yellow.
+//sets thresholds based on the char inserted. b = blue, g = green, p = pink, r = red, y = yellow
 void Detector::setThreshold(char color){
 	switch (color){
 	case 'b':
@@ -107,26 +88,7 @@ void Detector::setThreshold(char color){
 	}
 }
 
-//Returns a Mat that has been segmented with HSV values.
-Mat Detector::segmentFrame(Mat src){
-	Mat result;
-
-	cvtColor(src, result, CV_BGR2HSV); //converting to HSV
-
-	inRange(result, Scalar(iLowH, iLowS, iLowV), Scalar(iHighH, iHighS, iHighV), result); //thresholding based on HSV values
-
-	//opening
-	erode(result, result, getStructuringElement(MORPH_ELLIPSE, Size(kernelSize, kernelSize)));
-	dilate(result, result, getStructuringElement(MORPH_ELLIPSE, Size(kernelSize, kernelSize)));
-
-	//closening
-	dilate(result, result, getStructuringElement(MORPH_ELLIPSE, Size(kernelSize, kernelSize)));
-	erode(result, result, getStructuringElement(MORPH_ELLIPSE, Size(kernelSize, kernelSize)));
-
-	return result;	//returning the thresholded image.
-}
-
-//Thresholds only the colors that are needed for the specific letter.
+//thresholds only the colors that are needed for the specific letter
 void Detector::thresholdImageFor(Mat src, char letter){
 	switch (letter){
 	case 'a':
@@ -198,6 +160,7 @@ void Detector::thresholdImageFor(Mat src, char letter){
 	}
 }
 
+//thresholds all images (glove2 needs all colors thresholded)
 void Detector::thresholdForGlove2(Mat src){
 
 	setThreshold('b');
@@ -214,4 +177,40 @@ void Detector::thresholdForGlove2(Mat src){
 
 	setThreshold('y');
 	yellowThreshImg = segmentFrame(src);
+}
+
+//returns a Mat that has been segmented with HSV values
+Mat Detector::segmentFrame(Mat src){
+	Mat result;
+
+	cvtColor(src, result, CV_BGR2HSV); //converting to HSV
+
+	inRange(result, Scalar(iLowH, iLowS, iLowV), Scalar(iHighH, iHighS, iHighV), result); //thresholding based on HSV values
+
+	//opening
+	erode(result, result, getStructuringElement(MORPH_ELLIPSE, Size(kernelSize, kernelSize)));
+	dilate(result, result, getStructuringElement(MORPH_ELLIPSE, Size(kernelSize, kernelSize)));
+
+	//closening
+	dilate(result, result, getStructuringElement(MORPH_ELLIPSE, Size(kernelSize, kernelSize)));
+	erode(result, result, getStructuringElement(MORPH_ELLIPSE, Size(kernelSize, kernelSize)));
+
+	return result;	//returning the thresholded image
+}
+
+//getter-functions for each thresholded image
+Mat Detector::getBlueThreshImg(){
+	return blueThreshImg;
+}
+Mat Detector::getGreenThreshImg(){
+	return greenThreshImg;
+}
+Mat Detector::getPinkThreshImg(){
+	return pinkThreshImg;
+}
+Mat Detector::getRedThreshImg(){
+	return redThreshImg;
+}
+Mat Detector::getYellowThreshImg(){
+	return yellowThreshImg;
 }

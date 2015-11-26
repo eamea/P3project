@@ -5,7 +5,11 @@ Recognizer::Recognizer(Detector d){
 	dt = d;
 }
 
-float Recognizer::getEuclidianDistance(){
+bool Recognizer::getLetterWasFound(){
+	return letterWasFound;
+}
+
+float Recognizer::getEuclideanDistance(){
 	return euclidianDistance;
 }
 

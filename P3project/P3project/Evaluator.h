@@ -14,6 +14,7 @@ public:
 	void startTimer(char letter);
 	void stopTimer(string filename);
 	void setEuclideanDistance(float eud);
+	bool getTimerHasStarted();
 private:
 	void writeToFile(string filename);
 
@@ -26,6 +27,7 @@ private:
 	clock_t clockTicsTaken;
 	double timeInSeconds;
 	float euclideanDistance;
+	bool timerHasStarted = false;
 
 };
 
