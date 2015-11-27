@@ -26,30 +26,34 @@ int main()
 	/*
 	 * FOR SETTING THRESHOLDS ONLY!
 	 */
-	Mat output;															//holds the processed frame
-	//detector.createTrackbars();										//creates a window with trackbars
+	Mat output;																//holds the processed frame
+	//detector.createTrackbars();											//creates a window with trackbars
 
-	int gloveNumber = 1;												//CHANGE BASED ON WHAT GLOVE YOU'RE TESTING!
-																		//1 = fingertip-glove, 2 = wholefinger-glove, 3 = set thresholds
+	int gloveNumber = 2;													//CHANGE BASED ON WHAT GLOVE YOU'RE TESTING!
+																			//1 = fingertip-glove, 2 = wholefinger-glove, 3 = set thresholds
 	while (true){
-		stream.read(capturedFrame);										//reading a frame from the stream
+		stream.read(capturedFrame);											//reading a frame from the stream
 
 		if (gloveNumber == 1){
 
-			detector.thresholdImageFor(capturedFrame, letter);			//thresholding for the chosen letter
+			detector.thresholdImageFor(capturedFrame, letter);				//thresholding for the chosen letter
 
-			//imshow("blue thresh", detector.getBlueThreshImg());		//showing thresholded images
+			imshow("blue thresh", detector.getBlueThreshImg());			//showing thresholded images
 			//imshow("green thresh", detector.getGreenThreshImg());
 			//imshow("red thresh", detector.getRedThreshImg());
 			//imshow("yellow thresh", detector.getYellowThreshImg());
 
-			recognizer.setDetector(detector);							//setting the detector for the recognizer
+			recognizer.setDetector(detector);								//setting the detector for the recognizer
 
-			if (evaluator.getTimerHasStarted() == false)				//if timer isn't currently going
-				evaluator.startTimer(letter);							//start timer
+			if (evaluator.getTimerHasStarted() == false)					//if timer isn't currently going
+				evaluator.startTimer(letter, capturedFrame, gloveNumber);	//start timer
+			else
+				evaluator.saveThreshVid(capturedFrame, detector.getBlueThreshImg(), detector.getGreenThreshImg(), detector.getPinkThreshImg(), detector.getRedThreshImg(), detector.getYellowThreshImg(), letter, gloveNumber);	//ensures every frame is saved to the video file
 
-			//recognizer.recognize(letter, leftHand);					//recognizing for the chosen letter.
+			//recognizer.recognize(letter, leftHand);						//recognizing for the chosen letter.
 			recognizer.vectorRecognizer(letter, leftHand);
+
+			evaluator.saveBLOBVid(recognizer.getBlueBLOBImg(), recognizer.getGreenBLOBImg(), recognizer.getPinkBLOBImg(), recognizer.getRedBLOBImg(), recognizer.getYellowBLOBImg(), letter, gloveNumber);
 
 			if (recognizer.getLetterFound() == true){				//if recognizer found the sign we looked for
 				evaluator.setEuclideanDistance(recognizer.getEuclideanDistance());	//set euclidean distance
@@ -71,13 +75,17 @@ int main()
 			//imshow("red thresh", detector.getRedThreshImg());
 			//imshow("yellow thresh", detector.getYellowThreshImg());
 
-			recognizer.setDetector(detector);							//setting the detector for the recognizer
+			recognizer.setDetector(detector);								//setting the detector for the recognizer
 
-			if (evaluator.getTimerHasStarted() == false)				//if timer isn't currently going
-				evaluator.startTimer(letter);							//start timer
+			if (evaluator.getTimerHasStarted() == false)					//if timer isn't currently going
+				evaluator.startTimer(letter, capturedFrame, gloveNumber);	//start timer
+			else
+				evaluator.saveThreshVid(capturedFrame, detector.getBlueThreshImg(), detector.getGreenThreshImg(), detector.getPinkThreshImg(), detector.getRedThreshImg(), detector.getYellowThreshImg(), letter, gloveNumber);	//ensures every frame is saved to the video file
 
-			recognizer.recognizeGlove2(letter, leftHand);				//recognizing for the chosen letter.
+			recognizer.recognizeGlove2(letter, leftHand);					//recognizing for the chosen letter
 			//recognizer.vectorRecognizer(letter, leftHand);
+
+			evaluator.saveBLOBVid(recognizer.getBlueBLOBImg(), recognizer.getGreenBLOBImg(), recognizer.getPinkBLOBImg(), recognizer.getRedBLOBImg(), recognizer.getYellowBLOBImg(), letter, gloveNumber);
 
 			if (recognizer.getLetterFound() == true){				//if recognizer found the sign we looked for
 				evaluator.setEuclideanDistance(recognizer.getEuclideanDistance());	//set euclidean distance
