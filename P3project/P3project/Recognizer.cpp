@@ -1,11 +1,11 @@
 #include "Recognizer.h"
 
-//When declaring a recognizer, tell it which detector to use (a.k.a. which thresholdImages to use)
+//when declaring a recognizer, tell it which detector to use (a.k.a. which thresholdImages to use)
 Recognizer::Recognizer(Detector d){
 	dt = d;
 }
 
-//BLOB analyzes the relevant threshimages based on the char input.
+//BLOB analyzes the relevant threshimages based on the char input
 void Recognizer::BLOBAnalyze(char letter) {
 	switch (letter) {
 	case 'a':
