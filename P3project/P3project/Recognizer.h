@@ -13,14 +13,8 @@ using namespace cv;
 class Recognizer
 {
 public:
-	Recognizer(Detector d);
-	void BLOBAnalyze(char letter);		//BLOB analyzes the relevant threshimages based on the char input.
-	void BLOBAnalyzeGlove2();
-	void extractFeatures(char letter);
-	void extractFeaturesGlove2();
-	void extractFeaturesVector();
-	void compareFeatures(char letter, bool leftHand);
-	void compareFeaturesGlove2(char letter, bool leftHand);
+	Recognizer(Detector d);								//when declaring a recognizer, tell it which detector to use (a.k.a. which thresholdImages to use)
+
 	void recognize(char letter, bool leftHand);			//Runs the functions in order and returns a bool based on whether it found the sign for the input char.
 	void recognizeGlove2(char letter, bool leftHand);
 
@@ -38,6 +32,14 @@ public:
 	Detector getDetector();
 	void setDetector(Detector d);
 private:
+	void BLOBAnalyze(char letter);		//BLOB analyzes the relevant threshimages based on the char input
+	void BLOBAnalyzeGlove2();
+	void extractFeatures(char letter);
+	void extractFeaturesGlove2();
+	void extractFeaturesVector();
+	void compareFeatures(char letter, bool leftHand);
+	void compareFeaturesGlove2(char letter, bool leftHand);
+
 	Detector dt;
 	BLOBDetector BLOBdt;
 	bool leftHanded = true;
