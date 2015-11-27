@@ -57,7 +57,7 @@ int main()
 
 			if (recognizer.getLetterFound() == true){				//if recognizer found the sign we looked for
 				evaluator.setEuclideanDistance(recognizer.getEuclideanDistance());	//set euclidean distance
-/*CHANGE HERE*/	evaluator.stopTimer("FILENAME");						//stop timer and write to file
+				evaluator.stopTimer();						//stop timer and write to file
 			}
 
 			//imshow("blue blob", recognizer.getBlueBLOBImg());			//Showing BLOB-analyzed images
@@ -89,7 +89,7 @@ int main()
 
 			if (recognizer.getLetterFound() == true){				//if recognizer found the sign we looked for
 				evaluator.setEuclideanDistance(recognizer.getEuclideanDistance());	//set euclidean distance
-/*CHANGE HERE*/	evaluator.stopTimer("FILENAME");						//stop timer and write to file
+				evaluator.stopTimer();						//stop timer and write to file
 			}
 
 			//imshow("blue blob", recognizer.getBlueBLOBImg());			//showing BLOB-analyzed images

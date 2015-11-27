@@ -14,13 +14,13 @@ class Evaluator
 public:
 	Evaluator();
 	void startTimer(char letter, Mat img, int gloveNomber);	//start the timer for the parsed char
-	void stopTimer(string filename);						//stop the timer and write to the file with the parsed name
+	void stopTimer();										//stop the timer and write to the file with the parsed name
 	void saveThreshVid(Mat img, Mat blueThreshImg, Mat greenThreshImg, Mat pinkThreshImg, Mat redThreshImg, Mat yellowThreshImg, char letter, int gloveNomber);	//Saves the current frame to a videoWriter
-	void saveBLOBVid(Mat blueThreshImg, Mat greenThreshImg, Mat pinkThreshImg, Mat redThreshImg, Mat yellowThreshImg, char letter, int gloveNomber);	//Saves the current frame to a videoWriter
+	void saveBLOBVid(Mat blueThreshImg, Mat greenThreshImg, Mat pinkThreshImg, Mat redThreshImg, Mat yellowThreshImg, char letter, int gloveNomber);			//Saves the current frame to a videoWriter
 	void setEuclideanDistance(float eud);					//set euclidean distance 
 	bool getTimerHasStarted();								//get the bool timerHasStarted
 private:
-	void writeToFile(string filename);						//writing to the specified file
+	void writeToFile();							//writing to the specified file
 
 	char currentLetter;							//the letter we're currently writing data for
 	stringstream dataToSend;					//a string-stream to send the data as a string to the text file

@@ -72,14 +72,13 @@ void Evaluator::startTimer(char letter, Mat img, int gloveNumber){
 }
 
 //stop the timer and write to the file with the parsed name
-void Evaluator::stopTimer(string str){
-	filename = str;													//saving the parsed string
+void Evaluator::stopTimer(){										//saving the parsed string
 	endTime = clock();												//check the current clock_tic and set stopTime as this
 
 	clockTicsTaken = endTime - startTime;							//calculating clockTicsTaken
 	timeInSeconds = clockTicsTaken / (double)CLOCKS_PER_SEC;		//calculating time taken in seconds
 
-	writeToFile(filename);											//writing to the specified text file
+	writeToFile();			//writing to the specified text file
 
 	timerHasStarted = false;										//"stopping" the timer
 
@@ -97,8 +96,8 @@ void Evaluator::stopTimer(string str){
 }
 
 //writing to the specified file
-void Evaluator::writeToFile(string filename){
-	outputFile.open(filename);										//"opening" the text file
+void Evaluator::writeToFile(){
+	outputFile.open("C:/Users/Patrick/Desktop/Vids/Data.txt");										//"opening" the text file
 	dataToSend << "\nSign '" << currentLetter << "': clockTicsTaken = " << clockTicsTaken << ". timeInSeconds = " << timeInSeconds << ". euclideanDistance = " << euclideanDistance << ".";	//creating a string to send to the file
 	outputFile << dataToSend.str();									//sending the created string to the file
 	outputFile.close();												//"closing" the text file
