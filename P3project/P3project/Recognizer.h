@@ -13,12 +13,13 @@ using namespace cv;
 class Recognizer
 {
 public:
-	Recognizer(Detector d);								//when declaring a recognizer, tell it which detector to use (a.k.a. which thresholdImages to use)
+	Recognizer(Detector d);									//when declaring a recognizer, tell it which detector to use (a.k.a. which thresholdImages to use)
 
-	void recognize(char letter, bool leftHand);			//Runs the functions in order and returns a bool based on whether it found the sign for the input char.
+	void recognize(char letter, bool leftHand);				//runs the functions in order and returns a bool based on whether it found the sign for the input char
 	void recognizeGlove2(char letter, bool leftHand);
 
 	void vectorRecognizer(char letter, bool leftHand);
+	void vectorRecognizerGlove2(char letter, bool leftHand);
 
 	vector<float> normalizeValues(vector<float> vc);
 
@@ -32,7 +33,7 @@ public:
 	Detector getDetector();
 	void setDetector(Detector d);
 private:
-	void BLOBAnalyze(char letter);		//BLOB analyzes the relevant threshimages based on the char input
+	void BLOBAnalyze(char letter);							//BLOB analyzes the relevant threshimages based on the char input
 	void BLOBAnalyzeGlove2();
 	void extractFeatures(char letter);
 	void extractFeaturesGlove2();
@@ -67,42 +68,36 @@ private:
 
 	Mat hasBeenFound;
 
-	int blueSmallestX;
-	int blueLargestX;
-	int blueSmallestY;
-	int blueLargestY;
+	Point blueSmallestX;
+	Point blueLargestX;
+	Point blueSmallestY;
+	Point blueLargestY;
 	int blueDistanceX;
-	Point blueSmallestXPoint;
-	Point blueLargestXPoint;
-	Point blueSmallestYPoint;
-	Point blueLargestYPoint;
 	Point blueCenter;
 
-	int greenSmallestX;
-	int greenLargestX;
-	int greenSmallestY;
-	int greenLargestY;
+	Point greenSmallestX;
+	Point greenLargestX;
+	Point greenSmallestY;
+	Point greenLargestY;
 	Point greenCenter;
 
-	int pinkSmallestX;
-	int pinkLargestX;
-	int pinkSmallestY;
-	int pinkLargestY;
+	Point pinkSmallestX;
+	Point pinkLargestX;
+	Point pinkSmallestY;
+	Point pinkLargestY;
 	Point pinkCenter;
 
-	int redSmallestX;
-	int redLargestX;
-	int redSmallestY;
-	int redLargestY;
+	Point redSmallestX;
+	Point redLargestX;
+	Point redSmallestY;
+	Point redLargestY;
 	int redDistanceX;
-	Point redLargestPoint;
 	Point redCenter;
 
-	int yellowSmallestX;
-	int yellowLargestX;
-	int yellowSmallestY;
-	int yellowLargestY;
-	Point yellowLargestXPoint;
+	Point yellowSmallestX;
+	Point yellowLargestX;
+	Point yellowSmallestY;
+	Point yellowLargestY;
 	Point yellowCenter;
 
 	int errorAllowance = 10;
@@ -114,7 +109,7 @@ private:
 
 	float handRatio;
 
-	float euclidianDistance;
+	float euclideanDistance;
 
 	float lengthBlue;
 	float lengthYelBlue;
@@ -123,8 +118,13 @@ private:
 	float lengthBlueRed;
 	float ratio;
 
-
-	//Need variables for basic features.
-	//Need variables for extracted features.
+	float lengthRedGreen;
+	float lengthGreenPink;
+	float lengthPinkBlue;
+	float lengthPinkYel;
+	float lengthGreenYel;
+	float lengthRedPink;
+	float lengthRedBlue;
+	float lengthRedYel;
 };
 

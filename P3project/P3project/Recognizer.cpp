@@ -55,29 +55,29 @@ void Recognizer::extractFeatures(char letter){
 		blueBLOBList = BLOBdt.getBLOBList('b');
 		yellowBLOBList = BLOBdt.getBLOBList('y');
 
-		blueSmallestX = blueBLOBImg.cols;
-		yellowSmallestX = yellowBLOBImg.cols;
-		blueLargestX = 0;
-		blueLargestX = 0;
+		blueSmallestX = Point(blueBLOBImg.cols, blueBLOBImg.rows / 2);
+		yellowSmallestX = Point(yellowBLOBImg.cols, yellowBLOBImg.rows / 2);
+		blueLargestX = Point(0, blueBLOBImg.rows / 2);
+		yellowLargestX = Point(0, yellowBLOBImg.rows / 2);
 
 		for (int i = 0; i < blueBLOBList.size(); i++){
 			for (int j = 1; j < blueBLOBList[i].size(); j++){
-				if (blueBLOBList[i][j].x < blueSmallestX){
-					blueSmallestX = blueBLOBList[i][j].x;
+				if (blueBLOBList[i][j].x < blueSmallestX.x){
+					blueSmallestX = blueBLOBList[i][j];
 				}
-				if (blueBLOBList[i][j].x > blueLargestX){
-					blueLargestX = blueBLOBList[i][j].x;
+				if (blueBLOBList[i][j].x > blueLargestX.x){
+					blueLargestX = blueBLOBList[i][j];
 				}
 			}
 		}
 
 		for (int i = 0; i < yellowBLOBList.size(); i++){
 			for (int j = 1; j < yellowBLOBList[i].size(); j++){
-				if (yellowBLOBList[i][j].x < yellowSmallestX){
-					yellowSmallestX = yellowBLOBList[i][j].x;
+				if (yellowBLOBList[i][j].x < yellowSmallestX.x){
+					yellowSmallestX = yellowBLOBList[i][j];
 				}
-				if (yellowBLOBList[i][j].x > yellowLargestX){
-					yellowLargestX = yellowBLOBList[i][j].x;
+				if (yellowBLOBList[i][j].x > yellowLargestX.x){
+					yellowLargestX = yellowBLOBList[i][j];
 				}
 			}
 		}
@@ -87,46 +87,46 @@ void Recognizer::extractFeatures(char letter){
 		redBLOBList = BLOBdt.getBLOBList('r');
 		yellowBLOBList = BLOBdt.getBLOBList('y');
 
-		redSmallestX = redBLOBImg.cols;
-		redLargestX = 0;
-		redLargestY = 0;
-		yellowSmallestX = yellowBLOBImg.cols;
-		yellowLargestX = 0;
-		yellowSmallestY = yellowBLOBImg.rows;
-		yellowLargestY = 0;
+		redSmallestX = Point(redBLOBImg.cols, redBLOBImg.rows / 2);
+		redLargestX = Point(0, redBLOBImg.rows / 2);
+		redLargestY = Point(redBLOBImg.cols / 2, 0);
+		yellowSmallestX = Point(yellowBLOBImg.cols, yellowBLOBImg.rows / 2);
+		yellowLargestX = Point(0, yellowBLOBImg.rows / 2);
+		yellowSmallestY = Point(yellowBLOBImg.cols / 2, yellowBLOBImg.rows);
+		yellowLargestY = Point(yellowBLOBImg.cols / 2, 0);
 
 		for (int i = 0; i < redBLOBList.size(); i++){
 			for (int j = 1; j < redBLOBList[i].size(); j++){
-				if (redBLOBList[i][j].x < redSmallestX){
-					redSmallestX = redBLOBList[i][j].x;
+				if (redBLOBList[i][j].x < redSmallestX.x){
+					redSmallestX = redBLOBList[i][j];
 				}
-				if (redBLOBList[i][j].x > redLargestX){
-					redLargestX = redBLOBList[i][j].x;
+				if (redBLOBList[i][j].x > redLargestX.x){
+					redLargestX = redBLOBList[i][j];
 				}
-				if (redBLOBList[i][j].y > redLargestY){
-					redLargestY = redBLOBList[i][j].y;
+				if (redBLOBList[i][j].y > redLargestY.y){
+					redLargestY = redBLOBList[i][j];
 				}
 			}
 		}
 
 		for (int i = 0; i < yellowBLOBList.size(); i++){
 			for (int j = 1; j < yellowBLOBList[i].size(); j++){
-				if (yellowBLOBList[i][j].x < yellowSmallestX){
-					yellowSmallestX = yellowBLOBList[i][j].x;
+				if (yellowBLOBList[i][j].x < yellowSmallestX.x){
+					yellowSmallestX = yellowBLOBList[i][j];
 				}
-				if (yellowBLOBList[i][j].x > yellowLargestX){
-					yellowLargestX = yellowBLOBList[i][j].x;
+				if (yellowBLOBList[i][j].x > yellowLargestX.x){
+					yellowLargestX = yellowBLOBList[i][j];
 				}
-				if (yellowBLOBList[i][j].y < yellowSmallestY){
-					yellowSmallestY = yellowBLOBList[i][j].y;
+				if (yellowBLOBList[i][j].y < yellowSmallestY.y){
+					yellowSmallestY = yellowBLOBList[i][j];
 				}
-				if (yellowBLOBList[i][j].y > yellowLargestY){
-					yellowLargestY = yellowBLOBList[i][j].y;
+				if (yellowBLOBList[i][j].y > yellowLargestY.y){
+					yellowLargestY = yellowBLOBList[i][j];
 				}
 			}
 		}
 
-		yellowCenter = Point(yellowSmallestX + (yellowLargestX-yellowSmallestX)/2, yellowSmallestY + (yellowLargestY-yellowSmallestY)/2);
+		yellowCenter = Point(yellowSmallestX.x + (yellowLargestX.x - yellowSmallestX.x) / 2, yellowSmallestY.y + (yellowLargestY.y - yellowSmallestY.y) / 2);
 
 		break;
 	case 'f':
@@ -135,50 +135,50 @@ void Recognizer::extractFeatures(char letter){
 		redBLOBList = BLOBdt.getBLOBList('r');
 		yellowBLOBList = BLOBdt.getBLOBList('y');
 
-		blueSmallestX = blueBLOBImg.cols;
-		blueLargestX = 0;
-		blueLargestY = 0;
-		redLargestX = 0;
-		redLargestY = 0;
-		yellowSmallestX = yellowBLOBImg.cols;
-		yellowLargestX = 0;
-		yellowSmallestY = yellowBLOBImg.rows;
+		blueSmallestX = Point(blueBLOBImg.cols, blueBLOBImg.rows / 2);
+		blueLargestX = Point(0, blueBLOBImg.rows / 2);
+		blueLargestY = Point(blueBLOBImg.cols / 2, 0);
+		redLargestX = Point(0, redBLOBImg.rows / 2);
+		redLargestY = Point(redBLOBImg.cols / 2, 0);
+		yellowSmallestX = Point(yellowBLOBImg.cols, yellowBLOBImg.rows / 2);
+		yellowLargestX = Point(0, yellowBLOBImg.rows / 2);
+		yellowSmallestY = Point(yellowBLOBImg.cols / 2, yellowBLOBImg.rows);
 
 		for (int i = 0; i < blueBLOBList.size(); i++){
 			for (int j = 1; j < blueBLOBList[i].size(); j++){
-				if (blueBLOBList[i][j].x < blueSmallestX){
-					blueSmallestX = blueBLOBList[i][j].x;
+				if (blueBLOBList[i][j].x < blueSmallestX.x){
+					blueSmallestX = blueBLOBList[i][j];
 				}
-				if (blueBLOBList[i][j].x > blueLargestX){
-					blueLargestX = blueBLOBList[i][j].x;
+				if (blueBLOBList[i][j].x > blueLargestX.x){
+					blueLargestX = blueBLOBList[i][j];
 				}
-				if (blueBLOBList[i][j].y > blueLargestY){
-					blueLargestY = blueBLOBList[i][j].y;
+				if (blueBLOBList[i][j].y > blueLargestY.y){
+					blueLargestY = blueBLOBList[i][j];
 				}
 			}
 		}
 
 		for (int i = 0; i < redBLOBList.size(); i++){
 			for (int j = 1; j < redBLOBList[i].size(); j++){
-				if (redBLOBList[i][j].x > redLargestX){
-					redLargestX = redBLOBList[i][j].x;
+				if (redBLOBList[i][j].x > redLargestX.x){
+					redLargestX = redBLOBList[i][j];
 				}
-				if (redBLOBList[i][j].y > redLargestY){
-					redLargestY = redBLOBList[i][j].y;
+				if (redBLOBList[i][j].y > redLargestY.y){
+					redLargestY = redBLOBList[i][j];
 				}
 			}
 		}
 
 		for (int i = 0; i < yellowBLOBList.size(); i++){
 			for (int j = 1; j < yellowBLOBList[i].size(); j++){
-				if (yellowBLOBList[i][j].x < yellowSmallestX){
-					yellowSmallestX = yellowBLOBList[i][j].x;
+				if (yellowBLOBList[i][j].x < yellowSmallestX.x){
+					yellowSmallestX = yellowBLOBList[i][j];
 				}
-				if (yellowBLOBList[i][j].x > yellowLargestX){
-					yellowLargestX = yellowBLOBList[i][j].x;
+				if (yellowBLOBList[i][j].x > yellowLargestX.x){
+					yellowLargestX = yellowBLOBList[i][j];
 				}
-				if (yellowBLOBList[i][j].y < yellowSmallestY){
-					yellowSmallestY = yellowBLOBList[i][j].y;
+				if (yellowBLOBList[i][j].y < yellowSmallestY.y){
+					yellowSmallestY = yellowBLOBList[i][j];
 				}
 			}
 		}
@@ -190,38 +190,38 @@ void Recognizer::extractFeatures(char letter){
 		redBLOBList = BLOBdt.getBLOBList('r');
 		yellowBLOBList = BLOBdt.getBLOBList('y');
 
-		blueLargestX = 0;
-		blueSmallestY = blueBLOBImg.rows;
-		redLargestX = 0;
-		yellowSmallestX = yellowBLOBImg.cols;
-		yellowSmallestY = yellowBLOBImg.rows;
+		blueLargestX = Point(0, blueBLOBImg.rows / 2);
+		blueSmallestY = Point(blueBLOBImg.cols / 2, blueBLOBImg.rows);
+		redLargestX = Point(0, redBLOBImg.rows / 2);
+		yellowSmallestX = Point(yellowBLOBImg.cols, yellowBLOBImg.rows / 2);
+		yellowSmallestY = Point(yellowBLOBImg.cols / 2, yellowBLOBImg.rows);
 
 		for (int i = 0; i < blueBLOBList.size(); i++){
 			for (int j = 1; j < blueBLOBList[i].size(); j++){
-				if (blueBLOBList[i][j].x > blueLargestX){
-					blueLargestX = blueBLOBList[i][j].x;
+				if (blueBLOBList[i][j].x > blueLargestX.x){
+					blueLargestX = blueBLOBList[i][j];
 				}
-				if (blueBLOBList[i][j].y < blueSmallestY){
-					blueSmallestY = blueBLOBList[i][j].y;
+				if (blueBLOBList[i][j].y < blueSmallestY.y){
+					blueSmallestY = blueBLOBList[i][j];
 				}
 			}
 		}
 
 		for (int i = 0; i < redBLOBList.size(); i++){
 			for (int j = 1; j < redBLOBList[i].size(); j++){
-				if (redBLOBList[i][j].x > redLargestX){
-					redLargestX = redBLOBList[i][j].x;
+				if (redBLOBList[i][j].x > redLargestX.x){
+					redLargestX = redBLOBList[i][j];
 				}
 			}
 		}
 
 		for (int i = 0; i < yellowBLOBList.size(); i++){
 			for (int j = 1; j < yellowBLOBList[i].size(); j++){
-				if (yellowBLOBList[i][j].x < yellowSmallestX){
-					yellowSmallestX = yellowBLOBList[i][j].x;
+				if (yellowBLOBList[i][j].x < yellowSmallestX.x){
+					yellowSmallestX = yellowBLOBList[i][j];
 				}
-				if (yellowBLOBList[i][j].y < yellowSmallestY){
-					yellowSmallestY = yellowBLOBList[i][j].y;
+				if (yellowBLOBList[i][j].y < yellowSmallestY.y){
+					yellowSmallestY = yellowBLOBList[i][j];
 				}
 			}
 		}
@@ -231,33 +231,33 @@ void Recognizer::extractFeatures(char letter){
 		blueBLOBList = BLOBdt.getBLOBList('b');
 		yellowBLOBList = BLOBdt.getBLOBList('y');
 
-		blueLargestX = 0;
-		blueSmallestY = blueBLOBImg.rows;
-		blueLargestY = 0;
-		yellowLargestX = 0;
-		yellowSmallestY = yellowBLOBImg.rows;
+		blueLargestX = Point(0, blueBLOBImg.rows / 2);
+		blueSmallestY = Point(blueBLOBImg.cols / 2,blueBLOBImg.rows);
+		blueLargestY = Point(blueBLOBImg.cols / 2, 0);
+		yellowLargestX = Point(0, yellowBLOBImg.rows / 2);
+		yellowSmallestY = Point(yellowBLOBImg.cols / 2, yellowBLOBImg.rows);
 
 		for (int i = 0; i < blueBLOBList.size(); i++){
 			for (int j = 1; j < blueBLOBList[i].size(); j++){
-				if (blueBLOBList[i][j].x > blueLargestX){
-					blueLargestX = blueBLOBList[i][j].x;
+				if (blueBLOBList[i][j].x > blueLargestX.x){
+					blueLargestX = blueBLOBList[i][j];
 				}
-				if (blueBLOBList[i][j].y < blueSmallestY){
-					blueSmallestY = blueBLOBList[i][j].y;
+				if (blueBLOBList[i][j].y < blueSmallestY.y){
+					blueSmallestY = blueBLOBList[i][j];
 				}
-				if (blueBLOBList[i][j].y > blueLargestY){
-					blueLargestY = blueBLOBList[i][j].y;
+				if (blueBLOBList[i][j].y > blueLargestY.y){
+					blueLargestY = blueBLOBList[i][j];
 				}
 			}
 		}
 
 		for (int i = 0; i < yellowBLOBList.size(); i++){
 			for (int j = 1; j < yellowBLOBList[i].size(); j++){
-				if (yellowBLOBList[i][j].x > yellowLargestX){
-					yellowLargestX = yellowBLOBList[i][j].x;
+				if (yellowBLOBList[i][j].x > yellowLargestX.x){
+					yellowLargestX = yellowBLOBList[i][j];
 				}
-				if (yellowBLOBList[i][j].y < yellowSmallestY){
-					yellowSmallestY = yellowBLOBList[i][j].y;
+				if (yellowBLOBList[i][j].y < yellowSmallestY.y){
+					yellowSmallestY = yellowBLOBList[i][j];
 				}
 			}
 		}
@@ -267,47 +267,47 @@ void Recognizer::extractFeatures(char letter){
 		blueBLOBList = BLOBdt.getBLOBList('b');
 		yellowBLOBList = BLOBdt.getBLOBList('y');
 
-		blueSmallestX = blueBLOBImg.cols;
-		blueLargestX = 0;
-		blueLargestY = 0;
-		blueDistanceX = blueLargestX - blueSmallestX;
-		yellowSmallestX = yellowBLOBImg.cols;
-		yellowLargestX = 0;
-		yellowSmallestY = yellowBLOBImg.rows;
-		yellowLargestY = 0;
+		blueSmallestX = Point(blueBLOBImg.cols, blueBLOBImg.rows / 2);
+		blueLargestX = Point(0, blueBLOBImg.rows / 2);
+		blueLargestY = Point(blueBLOBImg.cols / 2, 0);
+		blueDistanceX = blueLargestX.x - blueSmallestX.x;
+		yellowSmallestX = Point(yellowBLOBImg.cols, yellowBLOBImg.rows / 2);
+		yellowLargestX = Point(0, yellowBLOBImg.rows / 2);
+		yellowSmallestY = Point(yellowBLOBImg.cols / 2, yellowBLOBImg.rows);
+		yellowLargestY = Point(yellowBLOBImg.cols / 2, 0);
 
 		for (int i = 0; i < blueBLOBList.size(); i++){
 			for (int j = 1; j < blueBLOBList[i].size(); j++){
-				if (blueBLOBList[i][j].x < blueSmallestX){
-					blueSmallestX = blueBLOBList[i][j].x;
+				if (blueBLOBList[i][j].x < blueSmallestX.x){
+					blueSmallestX = blueBLOBList[i][j];
 				}
-				if (blueBLOBList[i][j].x > blueLargestX){
-					blueLargestX = blueBLOBList[i][j].x;
+				if (blueBLOBList[i][j].x > blueLargestX.x){
+					blueLargestX = blueBLOBList[i][j];
 				}
-				if (blueBLOBList[i][j].y > blueLargestY){
-					blueLargestY = blueBLOBList[i][j].y;
+				if (blueBLOBList[i][j].y > blueLargestY.y){
+					blueLargestY = blueBLOBList[i][j];
 				}
 			}
 		}
 
 		for (int i = 0; i < yellowBLOBList.size(); i++){
 			for (int j = 1; j < yellowBLOBList[i].size(); j++){
-				if (yellowBLOBList[i][j].x < yellowSmallestX){
-					yellowSmallestX = yellowBLOBList[i][j].x;
+				if (yellowBLOBList[i][j].x < yellowSmallestX.x){
+					yellowSmallestX = yellowBLOBList[i][j];
 				}
-				if (yellowBLOBList[i][j].x > yellowLargestX){
-					yellowLargestX = yellowBLOBList[i][j].x;
+				if (yellowBLOBList[i][j].x > yellowLargestX.x){
+					yellowLargestX = yellowBLOBList[i][j];
 				}
-				if (yellowBLOBList[i][j].y < yellowSmallestY){
-					yellowSmallestY = yellowBLOBList[i][j].y;
+				if (yellowBLOBList[i][j].y < yellowSmallestY.y){
+					yellowSmallestY = yellowBLOBList[i][j];
 				}
-				if (yellowBLOBList[i][j].y > yellowLargestY){
-					yellowLargestY = yellowBLOBList[i][j].y;
+				if (yellowBLOBList[i][j].y > yellowLargestY.y){
+					yellowLargestY = yellowBLOBList[i][j];
 				}
 			}
 		}
 
-		yellowCenter = Point(yellowSmallestX + (yellowLargestX - yellowSmallestX) / 2, yellowSmallestY + (yellowLargestY - yellowSmallestY) / 2);
+		yellowCenter = Point(yellowSmallestX.x + (yellowLargestX.x - yellowSmallestX.x) / 2, yellowSmallestY.y + (yellowLargestY.y - yellowSmallestY.y) / 2);
 
 		break;
 	}
@@ -320,74 +320,74 @@ void Recognizer::compareFeatures(char letter, bool leftHand){
 	if (leftHand){
 		switch (letter){
 		case 'a':
-			if (blueLargestX > yellowSmallestX)
+			if (blueLargestX.x > yellowSmallestX.x)
 				cout << "Your thumb has to be on the right side of your index finger" << endl;
-			if ((yellowSmallestX - blueLargestX) > 50)
+			if ((yellowSmallestX.x - blueLargestX.x) > 50)
 				cout << "move your thumb closer to your index finger" << endl;
-			if (blueLargestX <= yellowSmallestX && (yellowSmallestX - blueLargestX) <= 50)
+			if (blueLargestX.x <= yellowSmallestX.x && (yellowSmallestX.x - blueLargestX.x) <= 50)
 				letterFound = true;
 			break;
 		case 'b':
-			redDistanceX = redLargestX - redSmallestX;
-			if (yellowCenter.x > redLargestX - redDistanceX / 4)
+			redDistanceX = redLargestX.x - redSmallestX.x;
+			if (yellowCenter.x > redLargestX.x - redDistanceX / 4)
 				cout << "move your thumb to the other side of the index finger" << endl;
-			if (yellowCenter.x < redSmallestX + redDistanceX / 4)
+			if (yellowCenter.x < redSmallestX.x + redDistanceX / 4)
 				cout << "how did you do this? O.O" << endl;
-			if (yellowCenter.x < redLargestX - redDistanceX / 4 && yellowCenter.x > redSmallestX + redDistanceX / 4)
+			if (yellowCenter.x < redLargestX.x - redDistanceX / 4 && yellowCenter.x > redSmallestX.x + redDistanceX / 4)
 				letterFound = true;
 			break;
 		case 'f':
-			if (yellowSmallestY > blueLargestY)
+			if (yellowSmallestY.y > blueLargestY.y)
 				cout << "your thumb has to be below your index finger" << endl;
-			if (yellowLargestX > blueLargestX + 50)
+			if (yellowLargestX.x > blueLargestX.x + 50)
 				cout << "move your thumb closer to your index finger" << endl;
-			if (yellowLargestX < blueLargestX - 50)
+			if (yellowLargestX.x < blueLargestX.x - 50)
 				cout << "move your thumb closer to your index finger" << endl;
-			if (yellowSmallestY < redLargestY)
+			if (yellowSmallestY.y < redLargestY.y)
 				cout << "strecth out your middle, ring and little finger" << endl;
-			if (redLargestX > blueLargestX)
+			if (redLargestX.x > blueLargestX.x)
 				cout << "your index finger has to be below your little finger" << endl;
 			if (redBLOBList.size() < 3)
 				cout << "make sure all your fingers are visible in the image" << endl;
-			if (yellowSmallestY > blueLargestY && (yellowLargestX < blueLargestX + 50 && yellowLargestX > blueLargestX - 50) && yellowSmallestY > redLargestY && redLargestX < blueLargestX && redBLOBList.size() >= 3)
+			if (yellowSmallestY.y > blueLargestY.y && (yellowLargestX.x < blueLargestX.x + 50 && yellowLargestX.x > blueLargestX.x - 50) && yellowSmallestY.y > redLargestY.y && redLargestX.x < blueLargestX.x && redBLOBList.size() >= 3)
 				letterFound = true;
 			break;
 		case 'l':
-			if (blueLargestX > redLargestX)
+			if (blueLargestX.x > redLargestX.x)
 				cout << "move your index finger more to your right" << endl;
-			if (redLargestX > yellowSmallestX)
+			if (redLargestX.x > yellowSmallestX.x)
 				cout << "strecth your thumb" << endl;
-			if (yellowSmallestY < blueSmallestY)
+			if (yellowSmallestY.y < blueSmallestY.y)
 				cout << "strecth your thumb" << endl;
 			if (blueBLOBList.size() < 4)
 				cout << "make sure all your finger are visible in the image" << endl;
 			if (redBLOBList.size() < 2)
 				cout << "make sure all your finger are visible in the image" << endl;
-			if (blueLargestX < redLargestX && redLargestX < yellowSmallestX && yellowSmallestY > blueSmallestY && blueBLOBList.size() >= 4 && redBLOBList.size() >= 2)
+			if (blueLargestX.x < redLargestX.x && redLargestX.x < yellowSmallestX.x && yellowSmallestY.y > blueSmallestY.y && blueBLOBList.size() >= 4 && redBLOBList.size() >= 2)
 				letterFound = true;
 			break;
 		case 's':
-			if (yellowLargestX > blueLargestX)
+			if (yellowLargestX.x > blueLargestX.x)
 				cout << "move your thumb in front of your index finger" << endl;
-			if (yellowSmallestY < blueSmallestY)
+			if (yellowSmallestY.y < blueSmallestY.y)
 				cout << "move your thumb down" << endl;
-			if (yellowSmallestY > blueLargestY)
+			if (yellowSmallestY.y > blueLargestY.y)
 				cout << "move your thumb up" << endl;
 			if (blueBLOBList.size() < 3)
 				cout << "make sure all your finger are visible in the image" << endl;
-			if (yellowLargestX < blueLargestX && yellowSmallestY > blueSmallestY && yellowSmallestY < blueLargestY && blueBLOBList.size() >= 3)
+			if (yellowLargestX.x < blueLargestX.x && yellowSmallestY.y > blueSmallestY.y && yellowSmallestY.y < blueLargestY.y && blueBLOBList.size() >= 3)
 				letterFound = true;
 			break;
 		case 't':
-			if (yellowLargestY > blueLargestY)
+			if (yellowLargestY.y > blueLargestY.y)
 				cout << "move your thumb up a bit" << endl;
-			if (yellowCenter.x < blueSmallestX + 3 * (blueDistanceX / 4) - 10)
+			if (yellowCenter.x < blueSmallestX.x + 3 * (blueDistanceX / 4) - 10)
 				cout << "move your thumb in between your index and middle finger" << endl;
-			if (yellowCenter.x > blueLargestX)
+			if (yellowCenter.x > blueLargestX.x)
 				cout << "move your thumb in between your index and middle finger" << endl;
 			if (blueBLOBList.size() < 5)
 				cout << "make sure all your finger are visible in the image" << endl;
-			if (yellowLargestY < blueLargestY && yellowCenter.x > blueSmallestX + 3 * (blueDistanceX / 4) - 10 && yellowCenter.x < blueLargestX && blueBLOBList.size() >= 5)
+			if (yellowLargestY.y < blueLargestY.y && yellowCenter.x > blueSmallestX.x + 3 * (blueDistanceX / 4) - 10 && yellowCenter.x < blueLargestX.x && blueBLOBList.size() >= 5)
 				letterFound = true;
 			break;
 		default:
@@ -397,74 +397,74 @@ void Recognizer::compareFeatures(char letter, bool leftHand){
 	else{
 		switch (letter){
 		case 'a':
-			if (blueLargestX < yellowSmallestX)
+			if (blueLargestX.x < yellowSmallestX.x)
 				cout << "Your thumb has to be on the left side of your index finger" << endl;
-			if ((blueSmallestX - yellowLargestX) > 50)
+			if ((blueSmallestX.x - yellowLargestX.x) > 50)
 				cout << "move your thumb closer to your index finger" << endl;
-			if (blueSmallestX >= yellowLargestX && (blueSmallestX - yellowLargestX) <= 50)
+			if (blueSmallestX.x >= yellowLargestX.x && (blueSmallestX.x - yellowLargestX.x) <= 50)
 				letterFound = true;
 			break;
 		case 'b':
-			redDistanceX = redLargestX - redSmallestX;
-			if (yellowCenter.x > redLargestX - redDistanceX / 4)
+			redDistanceX = redLargestX.x - redSmallestX.x;
+			if (yellowCenter.x > redLargestX.x - redDistanceX / 4)
 				cout << "How did you do this? o.O" << endl;
-			if (yellowCenter.x < redSmallestX + redDistanceX / 4)
+			if (yellowCenter.x < redSmallestX.x + redDistanceX / 4)
 				cout << "move your thumb to the other side of your index finger" << endl;
-			if (yellowCenter.x < redLargestX - redDistanceX / 4 && yellowCenter.x > redSmallestX + redDistanceX / 4)
+			if (yellowCenter.x < redLargestX.x - redDistanceX / 4 && yellowCenter.x > redSmallestX.x + redDistanceX / 4)
 				letterFound = true;
 			break;
 		case 'f':
-			if (yellowSmallestY > blueLargestY)
+			if (yellowSmallestY.y > blueLargestY.y)
 				cout << "your thumb has to be below your index finger" << endl;
-			if (yellowLargestX > blueLargestX + 50)
+			if (yellowLargestX.x > blueLargestX.x + 50)
 				cout << "move your thumb closer to your index finger" << endl;
-			if (yellowLargestX < blueLargestX - 50)
+			if (yellowLargestX.x < blueLargestX.x - 50)
 				cout << "move your thumb closer to your index finger" << endl;
-			if (yellowSmallestY < redLargestY)
+			if (yellowSmallestY.y < redLargestY.y)
 				cout << "strecth out your middle, ring and little finger" << endl;
-			if (redSmallestX < blueLargestX)
+			if (redSmallestX.x < blueLargestX.x)
 				cout << "your index finger has to be left of your ring finger" << endl;
 			if (redBLOBList.size() < 3)
 				cout << "make sure all your fingers are visible in the image" << endl;
-			if (yellowSmallestY > blueLargestY && (yellowLargestX < blueLargestX + 50 && yellowLargestX > blueLargestX - 50) && yellowSmallestY > redLargestY && redSmallestX > blueLargestX && redBLOBList.size() >= 3)
+			if (yellowSmallestY.y > blueLargestY.y && (yellowLargestX.x < blueLargestX.x + 50 && yellowLargestX.x > blueLargestX.x - 50) && yellowSmallestY.y > redLargestY.y && redSmallestX.x > blueLargestX.x && redBLOBList.size() >= 3)
 				letterFound = true;
 			break;
 		case 'l':
-			if (blueSmallestX < redSmallestX)
+			if (blueSmallestX.x < redSmallestX.x)
 				cout << "move your index finger more to your left" << endl;
-			if (redSmallestX < yellowLargestX)
+			if (redSmallestX.x < yellowLargestX.x)
 				cout << "strecth your thumb" << endl;
-			if (yellowSmallestY < blueSmallestY)
+			if (yellowSmallestY.y < blueSmallestY.y)
 				cout << "strecth your thumb" << endl;
 			if (blueBLOBList.size() < 4)
 				cout << "make sure all your finger are visible in the image" << endl;
 			if (redBLOBList.size() < 2)
 				cout << "make sure all your finger are visible in the image" << endl;
-			if (blueSmallestX > redSmallestX && redSmallestX > yellowLargestX && yellowSmallestY > blueSmallestY && blueBLOBList.size() >= 4 && redBLOBList.size() >= 2)
+			if (blueSmallestX.x > redSmallestX.x && redSmallestX.x > yellowLargestX.x && yellowSmallestY.y > blueSmallestY.y && blueBLOBList.size() >= 4 && redBLOBList.size() >= 2)
 				letterFound = true;
 			break;
 		case 's':
-			if (yellowLargestX > blueLargestX)
+			if (yellowLargestX.x > blueLargestX.x)
 				cout << "move your thumb in front of your index finger" << endl;
-			if (yellowSmallestY < blueSmallestY)
+			if (yellowSmallestY.y < blueSmallestY.y)
 				cout << "move your thumb down" << endl;
-			if (yellowSmallestY > blueLargestY)
+			if (yellowSmallestY.y > blueLargestY.y)
 				cout << "move your thumb up" << endl;
 			if (blueBLOBList.size() < 3)
 				cout << "make sure all your finger are visible in the image" << endl;
-			if (yellowLargestX < blueLargestX && yellowSmallestY > blueSmallestY && yellowSmallestY < blueLargestY && blueBLOBList.size() >= 3)
+			if (yellowLargestX.x < blueLargestX.x && yellowSmallestY.y > blueSmallestY.y && yellowSmallestY.y < blueLargestY.y && blueBLOBList.size() >= 3)
 				letterFound = true;
 			break;
 		case 't':
-			if (yellowLargestY > blueLargestY)
+			if (yellowLargestY.y > blueLargestY.y)
 				cout << "move your thumb up a bit" << endl;
-			if (yellowCenter.x > blueLargestX - 2 * (blueDistanceX / 4) + 10)
+			if (yellowCenter.x > blueLargestX.x - 2 * (blueDistanceX / 4) + 10)
 				cout << "move your thumb in between your index and middle finger" << endl;
-			if (yellowCenter.x < blueSmallestX)
+			if (yellowCenter.x < blueSmallestX.x)
 				cout << "move your thumb in between your index and middle finger" << endl;
 			if (blueBLOBList.size() < 5)
 				cout << "make sure all your finger are visible in the image" << endl;
-			if (yellowLargestY < blueLargestY && yellowCenter.x < blueLargestX - 2 * (blueDistanceX / 4) + 10 && yellowCenter.x > blueSmallestX && blueBLOBList.size() >= 5)
+			if (yellowLargestY.y < blueLargestY.y && yellowCenter.x < blueLargestX.x - 2 * (blueDistanceX / 4) + 10 && yellowCenter.x > blueSmallestX.x && blueBLOBList.size() >= 5)
 				letterFound = true;
 			break;
 		default:
@@ -493,122 +493,122 @@ void Recognizer::extractFeaturesGlove2(){
 	redBLOBList = BLOBdt.getBLOBList('r');
 	yellowBLOBList = BLOBdt.getBLOBList('y');
 
-	blueSmallestX = blueBLOBImg.cols;
-	blueSmallestY = blueBLOBImg.rows;
-	greenSmallestX = greenBLOBImg.cols;
-	greenSmallestY = greenBLOBImg.rows;
-	pinkSmallestX = pinkBLOBImg.cols;
-	pinkSmallestY = pinkBLOBImg.rows;
-	redSmallestX = redBLOBImg.cols;
-	redSmallestY = redBLOBImg.rows;
-	yellowSmallestX = yellowBLOBImg.cols;
-	yellowSmallestY = yellowBLOBImg.rows;
+	blueSmallestX = Point(blueBLOBImg.cols, blueBLOBImg.rows / 2);
+	blueSmallestY = Point(blueBLOBImg.cols / 2, blueBLOBImg.rows);
+	greenSmallestX = Point(greenBLOBImg.cols, greenBLOBImg.rows / 2);
+	greenSmallestY = Point(greenBLOBImg.cols / 2, greenBLOBImg.rows);
+	pinkSmallestX = Point(pinkBLOBImg.cols, pinkBLOBImg.rows / 2);
+	pinkSmallestY = Point(pinkBLOBImg.cols / 2, pinkBLOBImg.rows);
+	redSmallestX = Point(redBLOBImg.cols, redBLOBImg.rows / 2);
+	redSmallestY = Point(redBLOBImg.cols / 2, redBLOBImg.rows);
+	yellowSmallestX = Point(yellowBLOBImg.cols, yellowBLOBImg.rows / 2);
+	yellowSmallestY = Point(yellowBLOBImg.cols / 2, yellowBLOBImg.rows);
 
-	blueLargestX = 0;
-	blueLargestY = 0;
-	greenLargestX = 0;
-	greenLargestY = 0;
-	pinkLargestX = 0;
-	pinkLargestY = 0;
-	redLargestX = 0;
-	redLargestY = 0;
-	yellowLargestX = 0;
-	yellowLargestY = 0;
+	blueLargestX = Point(0, blueBLOBImg.rows / 2);
+	blueLargestY = Point(blueBLOBImg.cols / 2, 0);
+	greenLargestX = Point(0, greenBLOBImg.rows / 2);
+	greenLargestY = Point(greenBLOBImg.cols / 2, 0);
+	pinkLargestX = Point(0, greenBLOBImg.rows / 2);
+	pinkLargestY = Point(greenBLOBImg.cols / 2, 0);
+	redLargestX = Point(0, redBLOBImg.rows / 2);
+	redLargestY = Point(redBLOBImg.cols / 2, 0);
+	yellowLargestX = Point(0, yellowBLOBImg.rows / 2);
+	yellowLargestY = Point(yellowBLOBImg.cols / 2, 0);
 
 	for (int i = 0; i < blueBLOBList.size(); i++){
 		for (int j = 1; j < blueBLOBList[i].size(); j++){
-			if (blueBLOBList[i][j].x < blueSmallestX){
-				blueSmallestX = blueBLOBList[i][j].x;
+			if (blueBLOBList[i][j].x < blueSmallestX.x){
+				blueSmallestX = blueBLOBList[i][j];
 			}
-			if (blueBLOBList[i][j].x > blueLargestX){
-				blueLargestX = blueBLOBList[i][j].x;
+			if (blueBLOBList[i][j].x > blueLargestX.x){
+				blueLargestX = blueBLOBList[i][j];
 			}
-			if (blueBLOBList[i][j].y < blueSmallestY){
-				blueSmallestY = blueBLOBList[i][j].y;
+			if (blueBLOBList[i][j].y < blueSmallestY.y){
+				blueSmallestY = blueBLOBList[i][j];
 			}
-			if (blueBLOBList[i][j].y > blueLargestY){
-				blueLargestY = blueBLOBList[i][j].y;
+			if (blueBLOBList[i][j].y > blueLargestY.y){
+				blueLargestY = blueBLOBList[i][j];
 			}
 		}
 	}
 
-	blueCenter = Point(blueSmallestX + (blueLargestX - blueSmallestX) / 2, blueSmallestY + (blueLargestY - blueSmallestY) / 2);
+	blueCenter = Point(blueSmallestX.x + (blueLargestX.x - blueSmallestX.x) / 2, blueSmallestY.y + (blueLargestY.y - blueSmallestY.y) / 2);
 
 	for (int i = 0; i < greenBLOBList.size(); i++){
 		for (int j = 1; j < greenBLOBList[i].size(); j++){
-			if (greenBLOBList[i][j].x < greenSmallestX){
-				greenSmallestX = greenBLOBList[i][j].x;
+			if (greenBLOBList[i][j].x < greenSmallestX.x){
+				greenSmallestX = greenBLOBList[i][j];
 			}
-			if (greenBLOBList[i][j].x > greenLargestX){
-				greenLargestX = greenBLOBList[i][j].x;
+			if (greenBLOBList[i][j].x > greenLargestX.x){
+				greenLargestX = greenBLOBList[i][j];
 			}
-			if (greenBLOBList[i][j].y < greenSmallestY){
-				greenSmallestY = greenBLOBList[i][j].y;
+			if (greenBLOBList[i][j].y < greenSmallestY.y){
+				greenSmallestY = greenBLOBList[i][j];
 			}
-			if (greenBLOBList[i][j].y > greenLargestY){
-				greenLargestY = greenBLOBList[i][j].y;
+			if (greenBLOBList[i][j].y > greenLargestY.y){
+				greenLargestY = greenBLOBList[i][j];
 			}
 		}
 	}
 
-	greenCenter = Point(greenSmallestX + (greenLargestX - greenSmallestX) / 2, greenSmallestY + (greenLargestY - greenSmallestY) / 2);
+	greenCenter = Point(greenSmallestX.x + (greenLargestX.x - greenSmallestX.x) / 2, greenSmallestY.y + (greenLargestY.y - greenSmallestY.y) / 2);
 
 	for (int i = 0; i < pinkBLOBList.size(); i++){
 		for (int j = 1; j < pinkBLOBList[i].size(); j++){
-			if (pinkBLOBList[i][j].x < pinkSmallestX){
-				pinkSmallestX = pinkBLOBList[i][j].x;
+			if (pinkBLOBList[i][j].x < pinkSmallestX.x){
+				pinkSmallestX = pinkBLOBList[i][j];
 			}
-			if (pinkBLOBList[i][j].x > pinkLargestX){
-				pinkLargestX = pinkBLOBList[i][j].x;
+			if (pinkBLOBList[i][j].x > pinkLargestX.x){
+				pinkLargestX = pinkBLOBList[i][j];
 			}
-			if (pinkBLOBList[i][j].y < pinkSmallestY){
-				pinkSmallestY = pinkBLOBList[i][j].y;
+			if (pinkBLOBList[i][j].y < pinkSmallestY.y){
+				pinkSmallestY = pinkBLOBList[i][j];
 			}
-			if (pinkBLOBList[i][j].y > pinkLargestY){
-				pinkLargestY = pinkBLOBList[i][j].y;
+			if (pinkBLOBList[i][j].y > pinkLargestY.y){
+				pinkLargestY = pinkBLOBList[i][j];
 			}
 		}
 	}
 
-	pinkCenter = Point(pinkSmallestX + (pinkLargestX - pinkSmallestX) / 2, pinkSmallestY + (pinkLargestY - pinkSmallestY) / 2);
+	pinkCenter = Point(pinkSmallestX.x + (pinkLargestX.x - pinkSmallestX.x) / 2, pinkSmallestY.y + (pinkLargestY.y - pinkSmallestY.y) / 2);
 
 	for (int i = 0; i < redBLOBList.size(); i++){
 		for (int j = 1; j < redBLOBList[i].size(); j++){
-			if (redBLOBList[i][j].x < redSmallestX){
-				redSmallestX = redBLOBList[i][j].x;
+			if (redBLOBList[i][j].x < redSmallestX.x){
+				redSmallestX = redBLOBList[i][j];
 			}
-			if (redBLOBList[i][j].x > redLargestX){
-				redLargestX = redBLOBList[i][j].x;
+			if (redBLOBList[i][j].x > redLargestX.x){
+				redLargestX = redBLOBList[i][j];
 			}
-			if (redBLOBList[i][j].y < redSmallestY){
-				redSmallestY = redBLOBList[i][j].y;
+			if (redBLOBList[i][j].y < redSmallestY.y){
+				redSmallestY = redBLOBList[i][j];
 			}
-			if (redBLOBList[i][j].y > redLargestY){
-				redLargestY = redBLOBList[i][j].y;
+			if (redBLOBList[i][j].y > redLargestY.y){
+				redLargestY = redBLOBList[i][j];
 			}
 		}
 	}
 
-	redCenter = Point(redSmallestX + (redLargestX - redSmallestX) / 2, redSmallestY + (redLargestY - redSmallestY) / 2);
+	redCenter = Point(redSmallestX.x + (redLargestX.x - redSmallestX.x) / 2, redSmallestY.y + (redLargestY.y - redSmallestY.y) / 2);
 
 	for (int i = 0; i < yellowBLOBList.size(); i++){
 		for (int j = 1; j < yellowBLOBList[i].size(); j++){
-			if (yellowBLOBList[i][j].x < yellowSmallestX){
-				yellowSmallestX = yellowBLOBList[i][j].x;
+			if (yellowBLOBList[i][j].x < yellowSmallestX.x){
+				yellowSmallestX = yellowBLOBList[i][j];
 			}
-			if (yellowBLOBList[i][j].x > yellowLargestX){
-				yellowLargestX = yellowBLOBList[i][j].x;
+			if (yellowBLOBList[i][j].x > yellowLargestX.x){
+				yellowLargestX = yellowBLOBList[i][j];
 			}
-			if (yellowBLOBList[i][j].y < yellowSmallestY){
-				yellowSmallestY = yellowBLOBList[i][j].y;
+			if (yellowBLOBList[i][j].y < yellowSmallestY.y){
+				yellowSmallestY = yellowBLOBList[i][j];
 			}
-			if (yellowBLOBList[i][j].y > yellowLargestY){
-				yellowLargestY = yellowBLOBList[i][j].y;
+			if (yellowBLOBList[i][j].y > yellowLargestY.y){
+				yellowLargestY = yellowBLOBList[i][j];
 			}
 		}
 	}
 
-	yellowCenter = Point(yellowSmallestX + (yellowLargestX - yellowSmallestX) / 2, yellowSmallestY + (yellowLargestY - yellowSmallestY) / 2);
+	yellowCenter = Point(yellowSmallestX.x + (yellowLargestX.x - yellowSmallestX.x) / 2, yellowSmallestY.y + (yellowLargestY.y - yellowSmallestY.y) / 2);
 }
 
 void Recognizer::compareFeaturesGlove2(char letter, bool leftHand){
@@ -659,13 +659,13 @@ void Recognizer::compareFeaturesGlove2(char letter, bool leftHand){
 		case 'f':
 			if (yellowCenter.x > blueCenter.x || blueCenter.x > pinkCenter.x || pinkCenter.x > greenCenter.x)
 				cout << "please make sure your fingers are in the right succession" << endl;
-			if (greenLargestY < redSmallestY - errorAllowance)
+			if (greenLargestY.y < redSmallestY.y - errorAllowance)
 				cout << "make sure your tumb is below your index finger" << endl;
-			if (greenLargestY > redSmallestY + errorAllowance)
+			if (greenLargestY.y > redSmallestY.y + errorAllowance)
 				cout << "move your thumb closer to your index finger" << endl;
 
 			if (yellowCenter.x < blueCenter.x && blueCenter.x < pinkCenter.x && pinkCenter.x < greenCenter.x /*if the fingers are in the right succession*/
-				&& greenLargestY > redSmallestY - errorAllowance && greenLargestY < redSmallestY + errorAllowance)
+				&& greenLargestY.y > redSmallestY.y - errorAllowance && greenLargestY.y < redSmallestY.y + errorAllowance)
 				letterFound = true;
 			break;
 		case 'l':
@@ -683,56 +683,56 @@ void Recognizer::compareFeaturesGlove2(char letter, bool leftHand){
 		case 's':
 			if (yellowCenter.x > blueCenter.x || blueCenter.x > pinkCenter.x || pinkCenter.x > greenCenter.x)
 				cout << "please make sure your fingers are in the right succession" << endl;
-			if (yellowSmallestY < blueSmallestY - errorAllowance*multiplier)
+			if (yellowSmallestY.y < blueSmallestY.y - errorAllowance*multiplier)
 				cout << "make sure your fingers are alligned" << endl;
-			if (yellowSmallestY > blueSmallestY + errorAllowance*multiplier)
+			if (yellowSmallestY.y > blueSmallestY.y + errorAllowance*multiplier)
 				cout << "make sure your fingers are alligned" << endl;
-			if (blueSmallestY < pinkSmallestY - errorAllowance*multiplier)
+			if (blueSmallestY.y < pinkSmallestY.y - errorAllowance*multiplier)
 				cout << "make sure your fingers are alligned" << endl;
-			if (blueSmallestY > pinkSmallestY + errorAllowance*multiplier)
+			if (blueSmallestY.y > pinkSmallestY.y + errorAllowance*multiplier)
 				cout << "make sure your fingers are alligned" << endl;
-			if (pinkSmallestY < greenSmallestY - errorAllowance*multiplier)
+			if (pinkSmallestY.y < greenSmallestY.y - errorAllowance*multiplier)
 				cout << "make sure your fingers are alligned" << endl;
-			if (pinkSmallestY > greenSmallestY + errorAllowance*multiplier)
+			if (pinkSmallestY.y > greenSmallestY.y + errorAllowance*multiplier)
 				cout << "make sure your fingers are alligned" << endl;
-			if (redCenter.x > greenLargestX)
+			if (redCenter.x > greenLargestX.x)
 				cout << "move your thumb in front of your index finger" << endl;
-			if (redCenter.x < pinkSmallestX)
+			if (redCenter.x < pinkSmallestX.x)
 				cout << "move your thumb in front of your index finger" << endl;
 			if (greenCenter.y > yellowCenter.y)
 				cout << "move your thumb in front of your index finger" << endl;
 
 			if (yellowCenter.x < blueCenter.x && blueCenter.x < pinkCenter.x && pinkCenter.x < greenCenter.x /*if the fingers are in the right succession*/
-				&& yellowSmallestY > blueSmallestY - errorAllowance*multiplier && yellowSmallestY < blueSmallestY + errorAllowance*multiplier
-				&& blueSmallestY > pinkSmallestY - errorAllowance*multiplier && blueSmallestY < pinkSmallestY + errorAllowance*multiplier
-				&& pinkSmallestY > greenSmallestY - errorAllowance*multiplier && pinkSmallestY < greenSmallestY + errorAllowance*multiplier
-				&& redCenter.x < greenLargestX && redCenter.x > pinkSmallestX
+				&& yellowSmallestY.y > blueSmallestY.y - errorAllowance*multiplier && yellowSmallestY.y < blueSmallestY.y + errorAllowance*multiplier
+				&& blueSmallestY.y > pinkSmallestY.y - errorAllowance*multiplier && blueSmallestY.y < pinkSmallestY.y + errorAllowance*multiplier
+				&& pinkSmallestY.y > greenSmallestY.y - errorAllowance*multiplier && pinkSmallestY.y < greenSmallestY.y + errorAllowance*multiplier
+				&& redCenter.x < greenLargestX.x && redCenter.x > pinkSmallestX.x
 				&& greenCenter.y < yellowCenter.y)
 				letterFound = true;
 			break;
 		case 't':
 			if (yellowCenter.x > blueCenter.x || blueCenter.x > pinkCenter.x || pinkCenter.x > greenCenter.x)
 				cout << "please make sure your fingers are in the right succession" << endl;
-			if (yellowSmallestY < blueSmallestY - errorAllowance*multiplier)
+			if (yellowSmallestY.y < blueSmallestY.y - errorAllowance*multiplier)
 				cout << "make sure your fingers are alligned" << endl;
-			if (yellowSmallestY > blueSmallestY + errorAllowance*multiplier)
+			if (yellowSmallestY.y > blueSmallestY.y + errorAllowance*multiplier)
 				cout << "make sure your fingers are alligned" << endl;
-			if (blueSmallestY < pinkSmallestY - errorAllowance*multiplier)
+			if (blueSmallestY.y < pinkSmallestY.y - errorAllowance*multiplier)
 				cout << "make sure your fingers are alligned" << endl;
-			if (blueSmallestY > pinkSmallestY + errorAllowance*multiplier)
+			if (blueSmallestY.y > pinkSmallestY.y + errorAllowance*multiplier)
 				cout << "make sure your fingers are alligned" << endl;
-			if (pinkSmallestY < greenSmallestY - errorAllowance*multiplier)
+			if (pinkSmallestY.y < greenSmallestY.y - errorAllowance*multiplier)
 				cout << "make sure your fingers are alligned" << endl;
-			if (pinkSmallestY > greenSmallestY + errorAllowance*multiplier)
+			if (pinkSmallestY.y > greenSmallestY.y + errorAllowance*multiplier)
 				cout << "make sure your fingers are alligned" << endl;
-			if (redCenter.x > greenLargestX || redCenter.x < pinkSmallestX)
+			if (redCenter.x > greenLargestX.x || redCenter.x < pinkSmallestX.x)
 				cout << "move your thumb between your index and middle finger" << endl;
 
 			if (yellowCenter.x < blueCenter.x && blueCenter.x < pinkCenter.x && pinkCenter.x < greenCenter.x /*if the fingers are in the right succession*/
-				&& yellowSmallestY > blueSmallestY - errorAllowance*multiplier && yellowSmallestY < blueSmallestY + errorAllowance*multiplier
-				&& blueSmallestY > pinkSmallestY - errorAllowance*multiplier && blueSmallestY < pinkSmallestY + errorAllowance*multiplier
-				&& pinkSmallestY > greenSmallestY - errorAllowance*multiplier && pinkSmallestY < greenSmallestY + errorAllowance*multiplier
-				&& redCenter.x < greenLargestX && redCenter.x > pinkSmallestX)
+				&& yellowSmallestY.y > blueSmallestY.y - errorAllowance*multiplier && yellowSmallestY.y < blueSmallestY.y + errorAllowance*multiplier
+				&& blueSmallestY.y > pinkSmallestY.y - errorAllowance*multiplier && blueSmallestY.y < pinkSmallestY.y + errorAllowance*multiplier
+				&& pinkSmallestY.y > greenSmallestY.y - errorAllowance*multiplier && pinkSmallestY.y < greenSmallestY.y + errorAllowance*multiplier
+				&& redCenter.x < greenLargestX.x && redCenter.x > pinkSmallestX.x)
 				letterFound = true;
 			break;
 		default:
@@ -783,13 +783,13 @@ void Recognizer::compareFeaturesGlove2(char letter, bool leftHand){
 		case 'f':
 			if (yellowCenter.x < blueCenter.x || blueCenter.x < pinkCenter.x || pinkCenter.x < greenCenter.x)
 				cout << "please make sure your fingers are in the right succession" << endl;
-			if (greenLargestY < redSmallestY - errorAllowance)
+			if (greenLargestY.y < redSmallestY.y - errorAllowance)
 				cout << "make sure your tumb is below your index finger" << endl;
-			if (greenLargestY > redSmallestY + errorAllowance)
+			if (greenLargestY.y > redSmallestY.y + errorAllowance)
 				cout << "move your thumb closer to your index finger" << endl;
 
 			if (yellowCenter.x > blueCenter.x && blueCenter.x > pinkCenter.x && pinkCenter.x > greenCenter.x /*if the fingers are in the right succession*/
-				&& greenLargestY > redSmallestY - errorAllowance && greenLargestY < redSmallestY + errorAllowance)
+				&& greenLargestY.y > redSmallestY.y - errorAllowance && greenLargestY.y < redSmallestY.y + errorAllowance)
 				letterFound = true;
 			break;
 		case 'l':
@@ -807,56 +807,56 @@ void Recognizer::compareFeaturesGlove2(char letter, bool leftHand){
 		case 's':
 			if (yellowCenter.x < blueCenter.x || blueCenter.x < pinkCenter.x || pinkCenter.x < greenCenter.x)
 				cout << "please make sure your fingers are in the right succession" << endl;
-			if (yellowSmallestY < blueSmallestY - errorAllowance*multiplier)
+			if (yellowSmallestY.y < blueSmallestY.y - errorAllowance*multiplier)
 				cout << "make sure your fingers are alligned" << endl;
-			if (yellowSmallestY > blueSmallestY + errorAllowance*multiplier)
+			if (yellowSmallestY.y > blueSmallestY.y + errorAllowance*multiplier)
 				cout << "make sure your fingers are alligned" << endl;
-			if (blueSmallestY < pinkSmallestY - errorAllowance*multiplier)
+			if (blueSmallestY.y < pinkSmallestY.y - errorAllowance*multiplier)
 				cout << "make sure your fingers are alligned" << endl;
-			if (blueSmallestY > pinkSmallestY + errorAllowance*multiplier)
+			if (blueSmallestY.y > pinkSmallestY.y + errorAllowance*multiplier)
 				cout << "make sure your fingers are alligned" << endl;
-			if (pinkSmallestY < greenSmallestY - errorAllowance*multiplier)
+			if (pinkSmallestY.y < greenSmallestY.y - errorAllowance*multiplier)
 				cout << "make sure your fingers are alligned" << endl;
-			if (pinkSmallestY > greenSmallestY + errorAllowance*multiplier)
+			if (pinkSmallestY.y > greenSmallestY.y + errorAllowance*multiplier)
 				cout << "make sure your fingers are alligned" << endl;
-			if (redCenter.x < greenSmallestX)
+			if (redCenter.x < greenSmallestX.x)
 				cout << "move your thumb in front of your index finger" << endl;
-			if (redCenter.x > pinkLargestX)
+			if (redCenter.x > pinkLargestX.x)
 				cout << "move your thumb in front of your index finger" << endl;
 			if (greenCenter.y > yellowCenter.y)
 				cout << "move your thumb in front of your index finger" << endl;
 
 			if (yellowCenter.x > blueCenter.x && blueCenter.x > pinkCenter.x && pinkCenter.x > greenCenter.x /*if the fingers are in the right succession*/
-				&& yellowSmallestY > blueSmallestY - errorAllowance*multiplier && yellowSmallestY < blueSmallestY + errorAllowance*multiplier
-				&& blueSmallestY > pinkSmallestY - errorAllowance*multiplier && blueSmallestY < pinkSmallestY + errorAllowance*multiplier
-				&& pinkSmallestY > greenSmallestY - errorAllowance*multiplier && pinkSmallestY < greenSmallestY + errorAllowance*multiplier
-				&& redCenter.x > greenSmallestX && redCenter.x < pinkLargestX
+				&& yellowSmallestY.y > blueSmallestY.y - errorAllowance*multiplier && yellowSmallestY.y < blueSmallestY.y + errorAllowance*multiplier
+				&& blueSmallestY.y > pinkSmallestY.y - errorAllowance*multiplier && blueSmallestY.y < pinkSmallestY.y + errorAllowance*multiplier
+				&& pinkSmallestY.y > greenSmallestY.y - errorAllowance*multiplier && pinkSmallestY.y < greenSmallestY.y + errorAllowance*multiplier
+				&& redCenter.x > greenSmallestX.x && redCenter.x < pinkLargestX.x
 				&& greenCenter.y < yellowCenter.y)
 				letterFound = true;
 			break;
 		case 't':
 			if (yellowCenter.x < blueCenter.x || blueCenter.x < pinkCenter.x || pinkCenter.x < greenCenter.x)
 				cout << "please make sure your fingers are in the right succession" << endl;
-			if (yellowSmallestY < blueSmallestY - errorAllowance*multiplier)
+			if (yellowSmallestY.y < blueSmallestY.y - errorAllowance*multiplier)
 				cout << "make sure your fingers are alligned" << endl;
-			if (yellowSmallestY > blueSmallestY + errorAllowance*multiplier)
+			if (yellowSmallestY.y > blueSmallestY.y + errorAllowance*multiplier)
 				cout << "make sure your fingers are alligned" << endl;
-			if (blueSmallestY < pinkSmallestY - errorAllowance*multiplier)
+			if (blueSmallestY.y < pinkSmallestY.y - errorAllowance*multiplier)
 				cout << "make sure your fingers are alligned" << endl;
-			if (blueSmallestY > pinkSmallestY + errorAllowance*multiplier)
+			if (blueSmallestY.y > pinkSmallestY.y + errorAllowance*multiplier)
 				cout << "make sure your fingers are alligned" << endl;
-			if (pinkSmallestY < greenSmallestY - errorAllowance*multiplier)
+			if (pinkSmallestY.y < greenSmallestY.y - errorAllowance*multiplier)
 				cout << "make sure your fingers are alligned" << endl;
-			if (pinkSmallestY > greenSmallestY + errorAllowance*multiplier)
+			if (pinkSmallestY.y > greenSmallestY.y + errorAllowance*multiplier)
 				cout << "make sure your fingers are alligned" << endl;
-			if (redCenter.x < greenSmallestX || redCenter.x > pinkLargestX)
+			if (redCenter.x < greenSmallestX.x || redCenter.x > pinkLargestX.x)
 				cout << "move your thumb between your index and middle finger" << endl;
 
 			if (yellowCenter.x > blueCenter.x && blueCenter.x > pinkCenter.x && pinkCenter.x > greenCenter.x /*if the fingers are in the right succession*/
-				&& yellowSmallestY > blueSmallestY - errorAllowance*multiplier && yellowSmallestY < blueSmallestY + errorAllowance*multiplier
-				&& blueSmallestY > pinkSmallestY - errorAllowance*multiplier && blueSmallestY < pinkSmallestY + errorAllowance*multiplier
-				&& pinkSmallestY > greenSmallestY - errorAllowance*multiplier && pinkSmallestY < greenSmallestY + errorAllowance*multiplier
-				&& redCenter.x > greenSmallestX && redCenter.x < pinkLargestX)
+				&& yellowSmallestY.y > blueSmallestY.y - errorAllowance*multiplier && yellowSmallestY.y < blueSmallestY.y + errorAllowance*multiplier
+				&& blueSmallestY.y > pinkSmallestY.y - errorAllowance*multiplier && blueSmallestY.y < pinkSmallestY.y + errorAllowance*multiplier
+				&& pinkSmallestY.y > greenSmallestY.y - errorAllowance*multiplier && pinkSmallestY.y < greenSmallestY.y + errorAllowance*multiplier
+				&& redCenter.x > greenSmallestX.x && redCenter.x < pinkLargestX.x)
 				letterFound = true;
 			break;
 		default:
@@ -891,132 +891,124 @@ void Recognizer::extractFeaturesVector(){
 	redBLOBList = BLOBdt.getBLOBList('r');
 	yellowBLOBList = BLOBdt.getBLOBList('y');
 
-	blueSmallestX = blueBLOBImg.cols;
-	blueSmallestY = blueBLOBImg.rows;
-	greenSmallestX = greenBLOBImg.cols;
-	greenSmallestY = greenBLOBImg.rows;
-	pinkSmallestX = pinkBLOBImg.cols;
-	pinkSmallestY = pinkBLOBImg.rows;
-	redSmallestX = redBLOBImg.cols;
-	redSmallestY = redBLOBImg.rows;
-	yellowSmallestX = yellowBLOBImg.cols;
-	yellowSmallestY = yellowBLOBImg.rows;
+	blueSmallestX = Point(blueBLOBImg.cols, blueBLOBImg.rows / 2);
+	blueSmallestY = Point(blueBLOBImg.cols / 2, blueBLOBImg.rows);
+	greenSmallestX = Point(greenBLOBImg.cols, greenBLOBImg.rows / 2);
+	greenSmallestY = Point(greenBLOBImg.cols / 2, greenBLOBImg.rows);
+	pinkSmallestX = Point(pinkBLOBImg.cols, pinkBLOBImg.rows / 2);
+	pinkSmallestY = Point(pinkBLOBImg.cols / 2, pinkBLOBImg.rows);
+	redSmallestX = Point(redBLOBImg.cols, redBLOBImg.rows / 2);
+	redSmallestY = Point(redBLOBImg.cols / 2, redBLOBImg.rows);
+	yellowSmallestX = Point(yellowBLOBImg.cols, yellowBLOBImg.rows / 2);
+	yellowSmallestY = Point(yellowBLOBImg.cols / 2, yellowBLOBImg.rows);
 
-	blueLargestX = 0;
-	blueLargestY = 0;
-	greenLargestX = 0;
-	greenLargestY = 0;
-	pinkLargestX = 0;
-	pinkLargestY = 0;
-	redLargestX = 0;
-	redLargestY = 0;
-	yellowLargestX = 0;
-	yellowLargestY = 0;
+	blueLargestX = Point(0, blueBLOBImg.rows / 2);
+	blueLargestY = Point(blueBLOBImg.cols / 2, 0);
+	greenLargestX = Point(0, greenBLOBImg.rows / 2);
+	greenLargestY = Point(greenBLOBImg.cols / 2, 0);
+	pinkLargestX = Point(0, pinkBLOBImg.rows / 2);
+	pinkLargestY = Point(pinkBLOBImg.cols / 2, 0);
+	redLargestX = Point(0, redBLOBImg.rows / 2);
+	redLargestY = Point(redBLOBImg.cols / 2, 0);
+	yellowLargestX = Point(0, yellowBLOBImg.rows / 2);
+	yellowLargestY = Point(yellowBLOBImg.cols / 2, 0);
 
 	lengthYelBlue = 0;
 
 	for (int i = 0; i < blueBLOBList.size(); i++){
 		for (int j = 1; j < blueBLOBList[i].size(); j++){
-			if (blueBLOBList[i][j].x < blueSmallestX){
-				blueSmallestXPoint = blueBLOBList[i][j];
-				blueSmallestX = blueBLOBList[i][j].x;
+			if (blueBLOBList[i][j].x < blueSmallestX.x){
+				blueSmallestX = blueBLOBList[i][j];
 			}
-			if (blueBLOBList[i][j].x > blueLargestX){
-				blueLargestXPoint = blueBLOBList[i][j];
-				blueLargestX = blueBLOBList[i][j].x;
+			if (blueBLOBList[i][j].x > blueLargestX.x){
+				blueLargestX = blueBLOBList[i][j];
 			}
-			if (blueBLOBList[i][j].y < blueSmallestY){
-				blueSmallestYPoint = blueBLOBList[i][j];
-				blueSmallestY = blueBLOBList[i][j].y;
+			if (blueBLOBList[i][j].y < blueSmallestY.y){
+				blueSmallestY = blueBLOBList[i][j];
 			}
-			if (blueBLOBList[i][j].y > blueLargestY){
-				blueLargestY = blueBLOBList[i][j].y;
-				blueLargestYPoint = blueBLOBList[i][j];
+			if (blueBLOBList[i][j].y > blueLargestY.y){
+				blueLargestY = blueBLOBList[i][j];
 			}
 		}
 	}
 
-	blueCenter = Point(blueSmallestX + (blueLargestX - blueSmallestX) / 2, blueSmallestY + (blueLargestY - blueSmallestY) / 2);
+	blueCenter = Point(blueSmallestX.x + (blueLargestX.x - blueSmallestX.x) / 2, blueSmallestY.y + (blueLargestY.y - blueSmallestY.y) / 2);
 
 	for (int i = 0; i < greenBLOBList.size(); i++){
 		for (int j = 1; j < greenBLOBList[i].size(); j++){
-			if (greenBLOBList[i][j].x < greenSmallestX){
-				greenSmallestX = greenBLOBList[i][j].x;
+			if (greenBLOBList[i][j].x < greenSmallestX.x){
+				greenSmallestX = greenBLOBList[i][j];
 			}
-			if (greenBLOBList[i][j].x > greenLargestX){
-				greenLargestX = greenBLOBList[i][j].x;
+			if (greenBLOBList[i][j].x > greenLargestX.x){
+				greenLargestX = greenBLOBList[i][j];
 			}
-			if (greenBLOBList[i][j].y < greenSmallestY){
-				greenSmallestY = greenBLOBList[i][j].y;
+			if (greenBLOBList[i][j].y < greenSmallestY.x){
+				greenSmallestY = greenBLOBList[i][j];
 			}
-			if (greenBLOBList[i][j].y > greenLargestY){
-				greenLargestY = greenBLOBList[i][j].y;
+			if (greenBLOBList[i][j].y > greenLargestY.y){
+				greenLargestY = greenBLOBList[i][j];
 			}
 		}
 	}
 
-	greenCenter = Point(greenSmallestX + (greenLargestX - greenSmallestX) / 2, greenSmallestY + (greenLargestY - greenSmallestY) / 2);
+	greenCenter = Point(greenSmallestX.x + (greenLargestX.x - greenSmallestX.x) / 2, greenSmallestY.y + (greenLargestY.y - greenSmallestY.y) / 2);
 
 	for (int i = 0; i < pinkBLOBList.size(); i++){
 		for (int j = 1; j < pinkBLOBList[i].size(); j++){
-			if (pinkBLOBList[i][j].x < pinkSmallestX){
-				pinkSmallestX = pinkBLOBList[i][j].x;
+			if (pinkBLOBList[i][j].x < pinkSmallestX.x){
+				pinkSmallestX = pinkBLOBList[i][j];
 			}
-			if (pinkBLOBList[i][j].x > pinkLargestX){
-				pinkLargestX = pinkBLOBList[i][j].x;
+			if (pinkBLOBList[i][j].x > pinkLargestX.x){
+				pinkLargestX = pinkBLOBList[i][j];
 			}
-			if (pinkBLOBList[i][j].y < pinkSmallestY){
-				pinkSmallestY = pinkBLOBList[i][j].y;
+			if (pinkBLOBList[i][j].y < pinkSmallestY.y){
+				pinkSmallestY = pinkBLOBList[i][j];
 			}
-			if (pinkBLOBList[i][j].y > pinkLargestY){
-				pinkLargestY = pinkBLOBList[i][j].y;
+			if (pinkBLOBList[i][j].y > pinkLargestY.y){
+				pinkLargestY = pinkBLOBList[i][j];
 			}
 		}
 	}
 
-	pinkCenter = Point(pinkSmallestX + (pinkLargestX - pinkSmallestX) / 2, pinkSmallestY + (pinkLargestY - pinkSmallestY) / 2);
+	pinkCenter = Point(pinkSmallestX.x + (pinkLargestX.x - pinkSmallestX.x) / 2, pinkSmallestY.y + (pinkLargestY.y - pinkSmallestY.y) / 2);
 
 	for (int i = 0; i < redBLOBList.size(); i++){
 		for (int j = 1; j < redBLOBList[i].size(); j++){
-			if (redBLOBList[i][j].x < redSmallestX){
-				redSmallestX = redBLOBList[i][j].x;
+			if (redBLOBList[i][j].x < redSmallestX.x){
+				redSmallestX = redBLOBList[i][j];
 			}
-			if (redBLOBList[i][j].x > redLargestX){
-				redLargestX = redBLOBList[i][j].x;
+			if (redBLOBList[i][j].x > redLargestX.x){
+				redLargestX = redBLOBList[i][j];
 			}
-			if (redBLOBList[i][j].y < redSmallestY){
-				redSmallestY = redBLOBList[i][j].y;
+			if (redBLOBList[i][j].y < redSmallestY.y){
+				redSmallestY = redBLOBList[i][j];
 			}
-			if (redBLOBList[i][j].y > redLargestY){
-				redLargestPoint = redBLOBList[i][j];
-				redLargestY = redBLOBList[i][j].y;
+			if (redBLOBList[i][j].y > redLargestY.y){
+				redLargestY = redBLOBList[i][j];
 			}
 		}
 	}
 
-	redCenter = Point(redSmallestX + (redLargestX - redSmallestX) / 2, redSmallestY + (redLargestY - redSmallestY) / 2);
+	redCenter = Point(redSmallestX.x + (redLargestX.x - redSmallestX.x) / 2, redSmallestY.y + (redLargestY.y - redSmallestY.y) / 2);
 
 	for (int i = 0; i < yellowBLOBList.size(); i++){
 		for (int j = 1; j < yellowBLOBList[i].size(); j++){
-			if (yellowBLOBList[i][j].x < yellowSmallestX){
-				yellowSmallestX = yellowBLOBList[i][j].x;
+			if (yellowBLOBList[i][j].x < yellowSmallestX.x){
+				yellowSmallestX = yellowBLOBList[i][j];
 			}
-			if (yellowBLOBList[i][j].x > yellowLargestX){
-				yellowLargestXPoint = yellowBLOBList[i][j];
-				yellowLargestX = yellowBLOBList[i][j].x;
+			if (yellowBLOBList[i][j].x > yellowLargestX.x){
+				yellowLargestX = yellowBLOBList[i][j];
 			}
-			if (yellowBLOBList[i][j].y < yellowSmallestY){
-				yellowSmallestY = yellowBLOBList[i][j].y;
+			if (yellowBLOBList[i][j].y < yellowSmallestY.y){
+				yellowSmallestY = yellowBLOBList[i][j];
 			}
-			if (yellowBLOBList[i][j].y > yellowLargestY){
-				yellowLargestY = yellowBLOBList[i][j].y;
+			if (yellowBLOBList[i][j].y > yellowLargestY.y){
+				yellowLargestY = yellowBLOBList[i][j];
 			}
 		}
 	}
 
-	yellowCenter = Point(yellowSmallestX + (yellowLargestX - yellowSmallestX) / 2, yellowSmallestY + (yellowLargestY - yellowSmallestY) / 2);
-
-	lengthYelBlue = yellowSmallestX - blueLargestX;
+	yellowCenter = Point(yellowSmallestX.x + (yellowLargestX.x - yellowSmallestX.x) / 2, yellowSmallestY.y + (yellowLargestY.y - yellowSmallestY.y) / 2);
 }
 
 void Recognizer::vectorRecognizer(char letter, bool leftHand){
@@ -1029,18 +1021,20 @@ void Recognizer::vectorRecognizer(char letter, bool leftHand){
 	if (leftHand){
 		switch (letter){
 		case 'a':
+			lengthYelBlue = yellowSmallestX.x - blueLargestX.x;
+
 			currentSign.push_back((float) lengthYelBlue);
 			currentSign.push_back((float) blueBLOBList.size());
 			
-			idealSign.push_back (7);
-			idealSign.push_back(4);
+			idealSign.push_back (7.0f);
+			idealSign.push_back(4.0f);
 			
-			euclidianDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f) + pow(idealSign[1] - currentSign[1], 2.0f));
+			euclideanDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f) + pow(idealSign[1] - currentSign[1], 2.0f));
 
 			cout << "length : " << currentSign[0] << ", Number of BLOBS: " << currentSign[1] << endl;
-			cout << "euclidian distance: " << euclidianDistance << endl;
-
-			if (euclidianDistance < 5 && blueBLOBList.size() >= 4)
+			cout << "euclidean distance: " << euclideanDistance << endl;
+			
+			if (euclideanDistance < 5 && blueBLOBList.size() >= 4)
 				letterFound = true;
 
 			currentSign.empty();
@@ -1051,18 +1045,20 @@ void Recognizer::vectorRecognizer(char letter, bool leftHand){
 
 			break;
 		case 'b':
-			if (yellowCenter.x < redLargestX - redDistanceX / 4 && yellowCenter.x > redSmallestX + redDistanceX / 4)
-				currentSign.push_back(1);
+			redDistanceX = redLargestX.x - redSmallestX.x;
+
+			if (yellowCenter.x < redLargestX.x - redDistanceX / 4 && yellowCenter.x > redSmallestX.x + redDistanceX / 4)
+				currentSign.push_back(1.0f);
 			else
-				currentSign.push_back(0);
+				currentSign.push_back(0.0f);
 
-			idealSign.push_back(1);
+			idealSign.push_back(1.0f);
 
-			euclidianDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
+			euclideanDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
 
-			cout << euclidianDistance << endl;
+			cout << euclideanDistance << endl;
 
-			if (euclidianDistance < 1)
+			if (euclideanDistance < 1.0f)
 				letterFound = true;
 
 			currentSign.empty();
@@ -1073,123 +1069,428 @@ void Recognizer::vectorRecognizer(char letter, bool leftHand){
 				
 			break;
 		case 'f':
-			lengthYelBlue = sqrt(pow(blueLargestYPoint.x - yellowCenter.x, 2.0f) + pow(blueLargestYPoint.y - yellowCenter.y, 2.0f));
-			lengthYelRed = sqrt(pow(redLargestPoint.x - yellowCenter.x, 2.0f) + pow(redLargestPoint.y - yellowCenter.y, 2.0f));
+			lengthYelBlue = sqrt(pow(blueLargestY.x - yellowCenter.x, 2.0f) + pow(blueLargestY.y - yellowCenter.y, 2.0f));
+			lengthYelRed = sqrt(pow(redLargestY.x - yellowCenter.x, 2.0f) + pow(redLargestY.y - yellowCenter.y, 2.0f));
 
 			ratio = (float)lengthYelBlue / (float)lengthYelRed;
 
 			currentSign.push_back(ratio);
 			idealSign.push_back(0.3f);
 
-			euclidianDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
+			euclideanDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
 
-			cout << "ratio: " << ratio << " | euc: " << euclidianDistance << endl;
+			cout << "ratio: " << ratio << " | euc: " << euclideanDistance << endl;
 
-			if (euclidianDistance < 0.09f)
+			if (euclideanDistance < 0.09f)
 				letterFound = true;
 
 			currentSign.empty();
 			currentSign.resize(0);
+
 			idealSign.empty();
 			idealSign.resize(0);
-			lengthYelBlue = 0;
-			lengthYelRed = 0;
-			ratio = 0;
 
 			break;
 		case 'l':
-			//length between yellow center and red center
-			//distance between blue cebter and red center
-
 			lengthYelRed = sqrt(pow(redCenter.x - yellowCenter.x, 2.0f) + pow(redCenter.y - yellowCenter.y, 2.0f));
-			lengthBlueRed = sqrt(pow(redCenter.x - blueSmallestXPoint.x, 2.0f) + pow(redCenter.y - blueSmallestXPoint.y, 2.0f));
+			lengthBlueRed = sqrt(pow(redCenter.x - blueSmallestX.x, 2.0f) + pow(redCenter.y - blueSmallestX.y, 2.0f));
 
 			ratio = lengthYelRed / lengthBlueRed;
 
 			currentSign.push_back(ratio);
 			idealSign.push_back(1.0f);
 
-			euclidianDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
+			euclideanDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
 
-			if (euclidianDistance < 0.5f)
+			if (euclideanDistance < 0.5f)
 				letterFound = true;
 
-			cout << euclidianDistance << endl;
+			cout << euclideanDistance << endl;
 			
 			currentSign.empty();
 			currentSign.resize(0);
+
 			idealSign.empty();
 			idealSign.resize(0);
-			ratio = 0;
-			lengthYelRed = 0;
-			lengthBlueRed = 0;
 
 			break;
 		case 's':
-			//length between yellowMinX and blueMinX
-			//length between yellowMinY and blueMinY
+			lengthYelBlue = sqrt(pow(yellowCenter.x - blueSmallestX.x, 2.0f) + pow(yellowCenter.y - blueSmallestX.y, 2.0f));
 
-			lengthYelBlue = sqrt(pow(yellowCenter.x - blueSmallestXPoint.x, 2.0f) + pow(yellowCenter.y - blueSmallestXPoint.y, 2.0f));
-			//lengthBlueYel = sqrt(pow(yellowLargestXPoint.x - blueSmallestXPoint.x, 2.0f) + pow(yellowLargestXPoint.y - blueSmallestXPoint.y, 2.0f));
+			blueSmallestY.x = yellowCenter.x;
+			blueLargestY.x = yellowCenter.x;
 
-			blueSmallestYPoint.x = yellowCenter.x;
-			blueLargestYPoint.x = yellowCenter.x;
-
-			lengthBlue = sqrt(pow(yellowCenter.x - blueCenter.x, 2.0f) + pow(yellowCenter.y - blueCenter.y, 2.0f));
-
-			//lengthBlueYel = sqrt(pow(yellowCenter.x - blueCenter.x, 2.0f) + pow(yellowCenter.y - blueCenter.y, 2.0f));
+			lengthBlue = sqrt(pow(blueLargestY.x - blueSmallestY.x, 2.0f) + pow(blueLargestY.y - blueSmallestY.y, 2.0f));
 
 			ratio = lengthYelBlue / lengthBlue;
 
 			currentSign.push_back(ratio);
 			idealSign.push_back(1.6f);
 
-			euclidianDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
+			euclideanDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
 
-			if (euclidianDistance < 0.03f)
+			if (euclideanDistance < 0.03f)
 				letterFound = true;
 
-			cout << "ratio: " << ratio << " | euc: " << euclidianDistance << endl;
+			cout << "ratio: " << ratio << " | euc: " << euclideanDistance << endl;
 
 			currentSign.empty();
 			currentSign.resize(0);
+
 			idealSign.empty();
 			idealSign.resize(0);
-			ratio = 0;
-			lengthYelBlue = 0;
-			lengthBlueYel = 0;
-			euclidianDistance = 0;
 
 			break;
 		case 't':
-			//ratio between yellowCenter/blueLargestX and yellowCenter/blueSmallestX
+			yellowCenter.y = blueSmallestX.y;
+			blueLargestX.y = blueSmallestX.y;
 
-			yellowCenter.y = blueSmallestXPoint.y;
-			blueLargestXPoint.y = blueSmallestXPoint.y;
-
-			lengthYelBlue = sqrt(pow(yellowCenter.x - blueSmallestXPoint.x, 2.0f) + pow(yellowCenter.y - blueSmallestXPoint.y, 2.0f));
-			lengthBlueYel = sqrt(pow(yellowCenter.x - blueLargestXPoint.x, 2.0f) + pow(yellowCenter.y - blueLargestXPoint.y, 2.0f));
+			lengthYelBlue = sqrt(pow(yellowCenter.x - blueSmallestX.x, 2.0f) + pow(yellowCenter.y - blueSmallestX.y, 2.0f));
+			lengthBlueYel = sqrt(pow(yellowCenter.x - blueLargestX.x, 2.0f) + pow(yellowCenter.y - blueLargestX.y, 2.0f));
 
 			ratio = lengthYelBlue / lengthBlueYel;
 
 			currentSign.push_back(ratio);
 			idealSign.push_back(3.7f);
 
-			euclidianDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
+			euclideanDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
 
-			if (euclidianDistance < 0.03f)
+			if (euclideanDistance < 0.03f)
 				letterFound = true;
 
-			cout << "ratio: " << ratio << " | euc: " << euclidianDistance << endl;
+			cout << "ratio: " << ratio << " | euc: " << euclideanDistance << endl;
 
 			currentSign.empty();
 			currentSign.resize(0);
+
 			idealSign.empty();
 			idealSign.resize(0);
-			ratio = 0;
-			lengthYelBlue = 0;
-			lengthBlueYel = 0;
-			euclidianDistance = 0;
+
+			break;
+		default:
+			cout << "vectorRecognizer was not passed a valid letter" << endl;
+		}
+	}
+	else{
+		switch (letter){
+		case 'a':
+			lengthYelBlue = blueSmallestX.x - yellowLargestX.x;
+
+			currentSign.push_back((float)lengthYelBlue);
+			currentSign.push_back((float)blueBLOBList.size());
+
+			idealSign.push_back(7.0f);
+			idealSign.push_back(4.0f);
+
+			euclideanDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f) + pow(idealSign[1] - currentSign[1], 2.0f));
+
+			cout << "length : " << currentSign[0] << ", Number of BLOBS: " << currentSign[1] << endl;
+			cout << "euclidean distance: " << euclideanDistance << endl;
+
+			if (euclideanDistance < 5 && blueBLOBList.size() >= 4)
+				letterFound = true;
+
+			currentSign.empty();
+			currentSign.resize(0);
+
+			idealSign.empty();
+			idealSign.resize(0);
+
+			break;
+		case 'b':
+			redDistanceX = redLargestX.x - redSmallestX.x;
+
+			if (yellowCenter.x < redLargestX.x - redDistanceX / 4 && yellowCenter.x > redSmallestX.x + redDistanceX / 4)
+				currentSign.push_back(1.0f);
+			else
+				currentSign.push_back(0.0f);
+
+			idealSign.push_back(1.0f);
+
+			euclideanDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
+
+			cout << euclideanDistance << endl;
+
+			if (euclideanDistance < 1.0f)
+				letterFound = true;
+
+			currentSign.empty();
+			currentSign.resize(0);
+
+			idealSign.empty();
+			idealSign.resize(0);
+
+			break;
+		case 'f':
+			lengthYelBlue = sqrt(pow(blueLargestY.x - yellowCenter.x, 2.0f) + pow(blueLargestY.y - yellowCenter.y, 2.0f));
+			lengthYelRed = sqrt(pow(redLargestY.x - yellowCenter.x, 2.0f) + pow(redLargestY.y - yellowCenter.y, 2.0f));
+
+			ratio = (float)lengthYelBlue / (float)lengthYelRed;
+
+			currentSign.push_back(ratio);
+			idealSign.push_back(0.3f);
+
+			euclideanDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
+
+			cout << "ratio: " << ratio << " | euc: " << euclideanDistance << endl;
+
+			if (euclideanDistance < 0.09f)
+				letterFound = true;
+
+			currentSign.empty();
+			currentSign.resize(0);
+
+			idealSign.empty();
+			idealSign.resize(0);
+
+			break;
+		case 'l':
+			lengthYelRed = sqrt(pow(redCenter.x - yellowCenter.x, 2.0f) + pow(redCenter.y - yellowCenter.y, 2.0f));
+			lengthBlueRed = sqrt(pow(redCenter.x - blueLargestX.x, 2.0f) + pow(redCenter.y - blueLargestX.y, 2.0f));
+
+			ratio = lengthYelRed / lengthBlueRed;
+
+			currentSign.push_back(ratio);
+			idealSign.push_back(1.0f);
+
+			euclideanDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
+
+			if (euclideanDistance < 0.5f)
+				letterFound = true;
+
+			cout << euclideanDistance << endl;
+
+			currentSign.empty();
+			currentSign.resize(0);
+
+			idealSign.empty();
+			idealSign.resize(0);
+
+			break;
+		case 's':
+			lengthYelBlue = sqrt(pow(yellowCenter.x - blueLargestX.x, 2.0f) + pow(yellowCenter.y - blueLargestX.y, 2.0f));
+
+			blueSmallestY.x = yellowCenter.x;
+			blueLargestY.x = yellowCenter.x;
+
+			lengthBlue = sqrt(pow(blueLargestY.x - blueSmallestY.x, 2.0f) + pow(blueSmallestY.y - blueLargestY.y, 2.0f));
+
+			ratio = lengthYelBlue / lengthBlue;
+
+			currentSign.push_back(ratio);
+			idealSign.push_back(1.6f);
+
+			euclideanDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
+
+			if (euclideanDistance < 0.03f)
+				letterFound = true;
+
+			cout << "ratio: " << ratio << " | euc: " << euclideanDistance << endl;
+
+			currentSign.empty();
+			currentSign.resize(0);
+
+			idealSign.empty();
+			idealSign.resize(0);
+
+			break;
+		case 't':
+			yellowCenter.y = blueSmallestX.y;
+			blueLargestX.y = blueSmallestX.y;
+
+			lengthYelBlue = sqrt(pow(yellowCenter.x - blueSmallestX.x, 2.0f) + pow(yellowCenter.y - blueSmallestX.y, 2.0f));
+			lengthBlueYel = sqrt(pow(yellowCenter.x - blueLargestX.x, 2.0f) + pow(yellowCenter.y - blueLargestX.y, 2.0f));
+
+			ratio = lengthYelBlue / lengthBlueYel;
+
+			currentSign.push_back(ratio);
+			idealSign.push_back(3.7f);
+
+			euclideanDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
+
+			if (euclideanDistance < 0.03f)
+				letterFound = true;
+
+			cout << "ratio: " << ratio << " | euc: " << euclideanDistance << endl;
+
+			currentSign.empty();
+			currentSign.resize(0);
+
+			idealSign.empty();
+			idealSign.resize(0);
+
+			break;
+		default:
+			cout << "vectorRecognizer was not passed a valid letter" << endl;
+		}
+	}
+
+	Point center;
+	center.x = hasBeenFound.cols / 2;
+	center.y = hasBeenFound.rows / 2;
+
+	Scalar color;
+	if (letterFound)
+		color = CV_RGB(0, 255, 0);
+	else
+		color = CV_RGB(255, 0, 0);
+
+	line(hasBeenFound, center, center, color, 6);
+	imshow("Found", hasBeenFound);
+}
+
+void Recognizer::vectorRecognizerGlove2(char letter, bool leftHand){
+	BLOBAnalyze(letter);
+	extractFeaturesVector();
+
+	letterFound = false;
+	hasBeenFound = Mat::zeros(50, 50, CV_8UC3);
+
+	if (leftHand){
+		switch (letter){
+		case 'a':
+			lengthRedGreen = sqrt(pow(redCenter.x - greenCenter.x, 2.0f) + pow(redCenter.y - greenCenter.y, 2.0f));
+			lengthPinkYel = sqrt(pow(pinkCenter.x - yellowCenter.x, 2.0f) + pow(pinkCenter.y - yellowCenter.y, 2.0f));
+
+			ratio = lengthRedGreen / lengthPinkYel;
+
+			currentSign.push_back(ratio);
+
+			//idealSign.push_back(x);
+			
+
+			euclideanDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
+
+			cout << "ratio: " << ratio << " | euc: " << euclideanDistance << endl;
+
+			/*if (euclideanDistance < x)
+				letterFound = true;*/
+
+			currentSign.empty();
+			currentSign.resize(0);
+
+			idealSign.empty();
+			idealSign.resize(0);
+
+			break;
+		case 'b':
+			lengthRedGreen = sqrt(pow(redCenter.x - greenCenter.x, 2.0f) + pow(redCenter.y - greenCenter.y, 2.0f));
+			lengthGreenYel = sqrt(pow(greenCenter.x - yellowCenter.x, 2.0f) + pow(greenCenter.y - yellowCenter.y, 2.0f));
+
+			ratio = lengthGreenYel / lengthRedGreen;
+
+			currentSign.push_back(ratio);
+
+			//idealSign.push_back(x);
+
+			euclideanDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
+
+			cout << "ratio: " << ratio << " | euc: " << euclideanDistance << endl;
+
+			/*if (euclideanDistance < x)
+				letterFound = true;*/
+
+			currentSign.empty();
+			currentSign.resize(0);
+
+			idealSign.empty();
+			idealSign.resize(0);
+
+			break;
+		case 'f':
+			lengthRedGreen = sqrt(pow(redCenter.x - greenCenter.x, 2.0f) + pow(redCenter.y - greenCenter.y, 2.0f));
+			lengthRedPink = sqrt(pow(redLargestY.x - pinkCenter.x, 2.0f) + pow(redLargestY.y - pinkCenter.y, 2.0f));
+
+			ratio = lengthRedGreen / lengthRedPink;
+
+			currentSign.push_back(ratio);
+
+			//idealSign.push_back(x);
+
+			euclideanDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
+
+			cout << "ratio: " << ratio << " | euc: " << euclideanDistance << endl;
+
+			/*if (euclideanDistance < x)
+				letterFound = true;*/
+
+			currentSign.empty();
+			currentSign.resize(0);
+
+			idealSign.empty();
+			idealSign.resize(0);
+
+			break;
+		case 'l':
+			lengthRedGreen = sqrt(pow(redCenter.x - greenCenter.x, 2.0f) + pow(redCenter.y - greenCenter.y, 2.0f));
+			lengthGreenYel = sqrt(pow(greenCenter.x - yellowCenter.x, 2.0f) + pow(greenCenter.y - yellowCenter.y, 2.0f));
+
+			ratio = lengthRedGreen / lengthGreenYel;
+
+			currentSign.push_back(ratio);
+
+			//idealSign.push_back(x);
+
+			euclideanDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
+
+			/*if (euclideanDistance < x)
+				letterFound = true;*/
+
+			cout << "ratio: " << ratio << " | euc: " << euclideanDistance << endl;
+
+			currentSign.empty();
+			currentSign.resize(0);
+
+			idealSign.empty();
+			idealSign.resize(0);
+
+			break;
+		case 's':
+			lengthRedBlue = sqrt(pow(redCenter.x - blueCenter.x, 2.0f) + pow(redCenter.y - blueCenter.y, 2.0f));
+			lengthRedYel = sqrt(pow(redCenter.x - yellowCenter.x, 2.0f) + pow(redCenter.y - yellowCenter.y, 2.0f));
+
+			ratio = lengthRedBlue / lengthRedYel;
+
+			currentSign.push_back(ratio);
+
+			//idealSign.push_back(x);
+
+			euclideanDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
+
+			/*if (euclideanDistance < x)
+				letterFound = true;*/
+
+			cout << "ratio: " << ratio << " | euc: " << euclideanDistance << endl;
+
+			currentSign.empty();
+			currentSign.resize(0);
+
+			idealSign.empty();
+			idealSign.resize(0);
+
+			break;
+		case 't':
+			lengthRedGreen = sqrt(pow(redSmallestY.x - greenCenter.x, 2.0f) + pow(redSmallestY.y - greenCenter.y, 2.0f));
+			lengthRedYel = sqrt(pow(redSmallestY.x - yellowCenter.x, 2.0f) + pow(redSmallestY.y - yellowCenter.y, 2.0f));
+
+			ratio = lengthRedGreen / lengthRedYel;
+
+			currentSign.push_back(ratio);
+
+			//idealSign.push_back(x);
+
+			euclideanDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
+
+			/*if (euclideanDistance < x)
+				letterFound = true;*/
+
+			cout << "ratio: " << ratio << " | euc: " << euclideanDistance << endl;
+
+			currentSign.empty();
+			currentSign.resize(0);
+
+			idealSign.empty();
+			idealSign.resize(0);
 
 			break;
 		default:
@@ -1270,7 +1571,7 @@ bool Recognizer::getLetterFound(){
 	return letterFound;
 }
 float Recognizer::getEuclideanDistance(){
-	return euclidianDistance;
+	return euclideanDistance;
 }
 Mat Recognizer::getBlueBLOBImg(){
 	return blueBLOBImg;
