@@ -46,7 +46,9 @@ int main()
 			recognizer.setDetector(detector);							//setting the detector for the recognizer
 
 			if (evaluator.getTimerHasStarted() == false)				//if timer isn't currently going
-				evaluator.startTimer(letter);							//start timer
+				evaluator.startTimer(letter, capturedFrame);			//start timer
+			else
+				evaluator.saveVideo(capturedFrame);						//ensures every frame is saved to the video file
 
 			//recognizer.recognize(letter, leftHand);					//recognizing for the chosen letter.
 			recognizer.vectorRecognizer(letter, leftHand);
@@ -74,9 +76,11 @@ int main()
 			recognizer.setDetector(detector);							//setting the detector for the recognizer
 
 			if (evaluator.getTimerHasStarted() == false)				//if timer isn't currently going
-				evaluator.startTimer(letter);							//start timer
+				evaluator.startTimer(letter, capturedFrame);			//start timer
+			else
+				evaluator.saveVideo(capturedFrame);						//ensures that every frame is save to the file
 
-			recognizer.recognizeGlove2(letter, leftHand);				//recognizing for the chosen letter.
+			recognizer.recognizeGlove2(letter, leftHand);				//recognizing for the chosen letter
 			//recognizer.vectorRecognizer(letter, leftHand);
 
 			if (recognizer.getLetterFound() == true){				//if recognizer found the sign we looked for
