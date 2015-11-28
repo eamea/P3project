@@ -23,6 +23,9 @@ int main()
 	bool leftHand = true;												//true if the user chose left hand, false if they chose right hand
 	char letter = 'a';													//the letter to sign
 
+	stream.read(capturedFrame);											//loads the first image so we can get the width and height of the video
+	evaluator.openFiles(capturedFrame);									//opens all files so we can save the evaluation data
+
 	/*
 	 * FOR SETTING THRESHOLDS ONLY!
 	 */
@@ -38,7 +41,7 @@ int main()
 
 			detector.thresholdImageFor(capturedFrame, letter);				//thresholding for the chosen letter
 
-			imshow("blue thresh", detector.getBlueThreshImg());			//showing thresholded images
+			//imshow("blue thresh", detector.getBlueThreshImg());			//showing thresholded images
 			//imshow("green thresh", detector.getGreenThreshImg());
 			//imshow("red thresh", detector.getRedThreshImg());
 			//imshow("yellow thresh", detector.getYellowThreshImg());
@@ -47,12 +50,12 @@ int main()
 
 			if (evaluator.getTimerHasStarted() == false)					//if timer isn't currently going
 				evaluator.startTimer(letter, capturedFrame, gloveNumber);	//start timer
-			else
+			else															//saves the thresholded videos to a file
 				evaluator.saveThreshVid(capturedFrame, detector.getBlueThreshImg(), detector.getGreenThreshImg(), detector.getPinkThreshImg(), detector.getRedThreshImg(), detector.getYellowThreshImg(), letter, gloveNumber);	//ensures every frame is saved to the video file
 
 			//recognizer.recognize(letter, leftHand);						//recognizing for the chosen letter.
 			recognizer.vectorRecognizer(letter, leftHand);
-
+			//saves the BLOB videos to files
 			evaluator.saveBLOBVid(recognizer.getBlueBLOBImg(), recognizer.getGreenBLOBImg(), recognizer.getPinkBLOBImg(), recognizer.getRedBLOBImg(), recognizer.getYellowBLOBImg(), letter, gloveNumber);
 
 			if (recognizer.getLetterFound() == true){				//if recognizer found the sign we looked for
@@ -79,12 +82,12 @@ int main()
 
 			if (evaluator.getTimerHasStarted() == false)					//if timer isn't currently going
 				evaluator.startTimer(letter, capturedFrame, gloveNumber);	//start timer
-			else
+			else															//saves the thresholded videos to files
 				evaluator.saveThreshVid(capturedFrame, detector.getBlueThreshImg(), detector.getGreenThreshImg(), detector.getPinkThreshImg(), detector.getRedThreshImg(), detector.getYellowThreshImg(), letter, gloveNumber);	//ensures every frame is saved to the video file
 
 			recognizer.recognizeGlove2(letter, leftHand);					//recognizing for the chosen letter
 			//recognizer.vectorRecognizer(letter, leftHand);
-
+			//saves the BLOB videos to files
 			evaluator.saveBLOBVid(recognizer.getBlueBLOBImg(), recognizer.getGreenBLOBImg(), recognizer.getPinkBLOBImg(), recognizer.getRedBLOBImg(), recognizer.getYellowBLOBImg(), letter, gloveNumber);
 
 			if (recognizer.getLetterFound() == true){				//if recognizer found the sign we looked for
@@ -105,8 +108,10 @@ int main()
 
 		imshow("Original", capturedFrame);								//showing the original image
 		
-		if (waitKey(30) == 27)											//(check every 30 ms) if 'esc'-key has been pressed by user
+		if (waitKey(30) == 27)	{										//(check every 30 ms) if 'esc'-key has been pressed by user
+			evaluator.stopVid();
 			break;														//break the loop
+		}
 	}
 
 	return 0;
