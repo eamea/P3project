@@ -1,7 +1,6 @@
 #pragma once
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
-#include "opencv2/features2d.hpp"
 #include "BLOBDetector.h"
 #include "Detector.h"
 #include <vector>
