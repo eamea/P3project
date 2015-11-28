@@ -14,6 +14,7 @@ class Evaluator
 public:
 	Evaluator();
 	void startTimer(char letter, Mat img, int gloveNomber);	//start the timer for the parsed char
+	void openFiles(Mat img);
 	void stopTimer();										//stop the timer and write to the file with the parsed name
 	void stopVid();
 	void saveThreshVid(Mat img, Mat blueThreshImg, Mat greenThreshImg, Mat pinkThreshImg, Mat redThreshImg, Mat yellowThreshImg, char letter, int gloveNomber);	//Saves the current frame to a videoWriter
