@@ -1362,14 +1362,14 @@ void Recognizer::vectorRecognizerGlove2(char letter, bool leftHand){
 
 			currentSign.push_back(ratio);
 
-			idealSign.push_back(1.0f);
+			idealSign.push_back(1.26f);
 			
 
 			euclideanDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
 
 			cout << "ratio: " << ratio << " | euc: " << euclideanDistance << endl;
 
-			if (euclideanDistance < 1.0f)
+			if (euclideanDistance < 0.1f)
 				letterFound = true;
 
 			currentSign.empty();

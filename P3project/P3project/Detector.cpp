@@ -50,21 +50,21 @@ void Detector::setThreshold(char color){
 
 		break;
 	case 'p':
-		iLowH = 135;
+		iLowH = 166;
 		iHighH = 179;
 
-		iLowS = 126;
-		iHighS = 187;
+		iLowS = 79;
+		iHighS = 140;
 
-		iLowV = 72;
-		iHighV = 223;
+		iLowV = 0;
+		iHighV = 255;
 
 		break;
 	case 'r':
 		iLowH = 0;
-		iHighH = 9;
+		iHighH = 5;
 
-		iLowS = 182;
+		iLowS = 155;
 		iHighS = 255;
 
 		iLowV = 0;

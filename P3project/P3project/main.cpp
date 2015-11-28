@@ -20,8 +20,8 @@ int main()
 	VideoCapture stream(1);												//capturing a stream from webcam (x)
 
 	Mat capturedFrame;													//for holding the current frame
-	bool leftHand = false;												//true if the user chose left hand, false if they chose right hand
-	char letter = 't';													//the letter to sign
+	bool leftHand = true;												//true if the user chose left hand, false if they chose right hand
+	char letter = 'a';													//the letter to sign
 
 	stream.read(capturedFrame);											//loads the first image so we can get the width and height of the video
 	evaluator.openFiles(capturedFrame);									//opens all files so we can save the evaluation data
@@ -30,9 +30,9 @@ int main()
 	 * FOR SETTING THRESHOLDS ONLY!
 	 */
 	Mat output;																//holds the processed frame
-	//detector.createTrackbars();											//creates a window with trackbars
+	detector.createTrackbars();											//creates a window with trackbars
 
-	int gloveNumber = 1;													//CHANGE BASED ON WHAT GLOVE YOU'RE TESTING!
+	int gloveNumber = 3;													//CHANGE BASED ON WHAT GLOVE YOU'RE TESTING!
 																			//1 = fingertip-glove, 2 = wholefinger-glove, 3 = set thresholds
 	while (true){
 		stream.read(capturedFrame);											//reading a frame from the stream
@@ -76,11 +76,11 @@ int main()
 			detector.thresholdForGlove2(capturedFrame);					//thresholding
 
 			
-			//imshow("blue thresh", detector.getBlueThreshImg());		//showing thresholded images
-			//imshow("green thresh", detector.getGreenThreshImg());
-			//imshow("pink thresh", detector.getPinkThreshImg());
-			//imshow("red thresh", detector.getRedThreshImg());
-			//imshow("yellow thresh", detector.getYellowThreshImg());
+			imshow("blue thresh", detector.getBlueThreshImg());		//showing thresholded images
+			imshow("green thresh", detector.getGreenThreshImg());
+			imshow("pink thresh", detector.getPinkThreshImg());
+			imshow("red thresh", detector.getRedThreshImg());
+			imshow("yellow thresh", detector.getYellowThreshImg());
 
 			recognizer.setDetector(detector);								//setting the detector for the recognizer
 
@@ -89,8 +89,8 @@ int main()
 			else															//saves the thresholded videos to files
 				evaluator.saveThreshVid(capturedFrame, detector.getBlueThreshImg(), detector.getGreenThreshImg(), detector.getPinkThreshImg(), detector.getRedThreshImg(), detector.getYellowThreshImg(), letter, gloveNumber);	//ensures every frame is saved to the video file
 
-			recognizer.recognizeGlove2(letter, leftHand);					//recognizing for the chosen letter
-			//recognizer.vectorRecognizer(letter, leftHand);
+			//recognizer.recognizeGlove2(letter, leftHand);					//recognizing for the chosen letter
+			recognizer.vectorRecognizer(letter, leftHand);
 			//saves the BLOB videos to files
 			evaluator.saveBLOBVid(recognizer.getBlueBLOBImg(), recognizer.getGreenBLOBImg(), recognizer.getPinkBLOBImg(), recognizer.getRedBLOBImg(), recognizer.getYellowBLOBImg(), letter, gloveNumber);
 
