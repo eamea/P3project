@@ -21,7 +21,7 @@ int main()
 
 	Mat capturedFrame;													//for holding the current frame
 	bool leftHand = false;												//true if the user chose left hand, false if they chose right hand
-	char letter = 'a';													//the letter to sign
+	char letter = 't';													//the letter to sign
 
 	stream.read(capturedFrame);											//loads the first image so we can get the width and height of the video
 	evaluator.openFiles(capturedFrame);									//opens all files so we can save the evaluation data
@@ -63,10 +63,14 @@ int main()
 				evaluator.stopTimer();						//stop timer and write to file
 			}
 
-			//imshow("blue blob", recognizer.getBlueBLOBImg());			//Showing BLOB-analyzed images
-			//imshow("green blob", recognizer.getGreenBLOBImg());
-			//imshow("red blob", recognizer.getRedBLOBImg());
-			//imshow("yellow blob", recognizer.getYellowBLOBImg());
+			if (!recognizer.getBlueBLOBImg().empty())
+				imshow("blue blob", recognizer.getBlueBLOBImg());			//Showing BLOB-analyzed images
+			if (!recognizer.getGreenBLOBImg().empty())
+				imshow("green blob", recognizer.getGreenBLOBImg());
+			if (!recognizer.getRedBLOBImg().empty())
+				imshow("red blob", recognizer.getRedBLOBImg());
+			if (!recognizer.getYellowBLOBImg().empty())
+				imshow("yellow blob", recognizer.getYellowBLOBImg());
 		}
 		else if (gloveNumber == 2){
 			detector.thresholdForGlove2(capturedFrame);					//thresholding
