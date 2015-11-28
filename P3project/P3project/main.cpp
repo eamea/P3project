@@ -20,7 +20,7 @@ int main()
 	VideoCapture stream(1);												//capturing a stream from webcam (x)
 
 	Mat capturedFrame;													//for holding the current frame
-	bool leftHand = true;												//true if the user chose left hand, false if they chose right hand
+	bool leftHand = false;												//true if the user chose left hand, false if they chose right hand
 	char letter = 'a';													//the letter to sign
 
 	stream.read(capturedFrame);											//loads the first image so we can get the width and height of the video
@@ -32,7 +32,7 @@ int main()
 	Mat output;																//holds the processed frame
 	//detector.createTrackbars();											//creates a window with trackbars
 
-	int gloveNumber = 2;													//CHANGE BASED ON WHAT GLOVE YOU'RE TESTING!
+	int gloveNumber = 1;													//CHANGE BASED ON WHAT GLOVE YOU'RE TESTING!
 																			//1 = fingertip-glove, 2 = wholefinger-glove, 3 = set thresholds
 	while (true){
 		stream.read(capturedFrame);											//reading a frame from the stream

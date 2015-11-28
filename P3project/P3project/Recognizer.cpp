@@ -1028,14 +1028,14 @@ void Recognizer::vectorRecognizer(char letter, bool leftHand){
 
 			currentSign.push_back(ratio);
 			
-			//idealSign.push_back (x);
+			idealSign.push_back (1.0f);
 			
 			euclideanDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f) + pow(idealSign[1] - currentSign[1], 2.0f));
 
 			cout << "ratio: " << ratio << " | euc: " << euclideanDistance << endl;
 			
-			/*if (euclideanDistance < x)
-				letterFound = true;*/
+			if (euclideanDistance < 1.0f)
+				letterFound = true;
 
 			currentSign.empty();
 			currentSign.resize(0);
@@ -1052,14 +1052,14 @@ void Recognizer::vectorRecognizer(char letter, bool leftHand){
 
 			currentSign.push_back(ratio);
 
-			//idealSign.push_back(x);
+			idealSign.push_back(1.0f);
 
 			euclideanDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
 
 			cout << "ratio: " << ratio << " | euc: " << euclideanDistance << endl;
 
-			/*if (euclideanDistance < x)
-				letterFound = true;*/
+			if (euclideanDistance < 1.0f)
+				letterFound = true;
 
 			currentSign.empty();
 			currentSign.resize(0);
@@ -1181,14 +1181,14 @@ void Recognizer::vectorRecognizer(char letter, bool leftHand){
 
 			currentSign.push_back(ratio);
 
-			//idealSign.push_back (x);
+			idealSign.push_back (1.0f);
 
 			euclideanDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f) + pow(idealSign[1] - currentSign[1], 2.0f));
 
 			cout << "ratio: " << ratio << " | euc: " << euclideanDistance << endl;
 
-			/*if (euclideanDistance < x)
-			letterFound = true;*/
+			if (euclideanDistance < 1.0f)
+			letterFound = true;
 
 			currentSign.empty();
 			currentSign.resize(0);
@@ -1198,21 +1198,21 @@ void Recognizer::vectorRecognizer(char letter, bool leftHand){
 
 			break;
 		case 'b':
-			lengthRedYel = sqrt(pow(redSmallestX.x - yellowCenter.x, 2.0f) + pow(redSmallestX.y - yellowCenter.y, 2.0f));
 			lengthYelRed = sqrt(pow(redLargestX.x - yellowCenter.x, 2.0f) + pow(redLargestX.y - yellowCenter.y, 2.0f));
+			lengthRedYel = sqrt(pow(redSmallestX.x - yellowCenter.x, 2.0f) + pow(redSmallestX.y - yellowCenter.y, 2.0f));
 
 			ratio = lengthYelRed / lengthRedYel;
 
 			currentSign.push_back(ratio);
 
-			//idealSign.push_back(x);
+			idealSign.push_back(1.0f);
 
 			euclideanDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
 
 			cout << "ratio: " << ratio << " | euc: " << euclideanDistance << endl;
 
-			/*if (euclideanDistance < x)
-			letterFound = true;*/
+			if (euclideanDistance < 1.0f)
+			letterFound = true;
 
 			currentSign.empty();
 			currentSign.resize(0);
