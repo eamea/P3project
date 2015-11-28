@@ -105,8 +105,10 @@ int main()
 
 		imshow("Original", capturedFrame);								//showing the original image
 		
-		if (waitKey(30) == 27)											//(check every 30 ms) if 'esc'-key has been pressed by user
+		if (waitKey(30) == 27)	{										//(check every 30 ms) if 'esc'-key has been pressed by user
+			evaluator.stopVid();
 			break;														//break the loop
+		}
 	}
 
 	return 0;

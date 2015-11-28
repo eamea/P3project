@@ -9,7 +9,17 @@ void Evaluator::startTimer(char letter, Mat img, int gloveNumber){
 	timerHasStarted = true;											//"starting" timer
 	startTime = clock();											//check the current clock_tic and set startTime as this
 	NormalVid.open("C:/Users/Patrick/Desktop/Vids/NormalVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols, img.rows), true); //the videoWriter opens the specified file, descripes the type each frame is, decides the frame reate, declares the size of the video, and wether or not it's a colour picture
-	if (gloveNumber == 1){
+	blueBLOBVid.open("C:/Users/Patrick/Desktop/Vids/BlueBLOBVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols, img.rows), false);
+	blueTreshVid.open("C:/Users/Patrick/Desktop/Vids/BlueThreshVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols, img.rows), false);
+	greenBLOBVid.open("C:/Users/Patrick/Desktop/Vids/GreenBLOBVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols, img.rows), false);
+	greenTreshVid.open("C:/Users/Patrick/Desktop/Vids/GreenThreshVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols, img.rows), false);
+	pinkBLOBVid.open("C:/Users/Patrick/Desktop/Vids/PinkBLOBVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols, img.rows), false);
+	pinkTreshVid.open("C:/Users/Patrick/Desktop/Vids/PinkThreshVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols, img.rows), false);
+	redBLOBVid.open("C:/Users/Patrick/Desktop/Vids/RedBLOBVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols, img.rows), false);
+	redTreshVid.open("C:/Users/Patrick/Desktop/Vids/RedThreshVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols, img.rows), false);
+	yellowBLOBVid.open("C:/Users/Patrick/Desktop/Vids/YellowBLOBVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols, img.rows), false);
+	yellowTreshVid.open("C:/Users/Patrick/Desktop/Vids/YellowThreshVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols, img.rows), false);
+	/*if (gloveNumber == 1){
 		switch (letter){
 		case 'a':
 			blueBLOBVid.open("C:/Users/Patrick/Desktop/Vids/BlueBLOBVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols, img.rows), false);
@@ -68,7 +78,7 @@ void Evaluator::startTimer(char letter, Mat img, int gloveNumber){
 		yellowTreshVid.open("C:/Users/Patrick/Desktop/Vids/YellowThreshVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols, img.rows), false);
 	}
 	else
-		cout << "guess we're setting thresholds" << endl;
+		cout << "guess we're setting thresholds" << endl;*/
 }
 
 //stop the timer and write to the file with the parsed name
@@ -81,7 +91,9 @@ void Evaluator::stopTimer(){										//saving the parsed string
 	writeToFile();			//writing to the specified text file
 
 	timerHasStarted = false;										//"stopping" the timer
+}
 
+void Evaluator::stopVid(){
 	NormalVid.release();											//stops the video streams
 	blueBLOBVid.release();
 	blueTreshVid.release();
