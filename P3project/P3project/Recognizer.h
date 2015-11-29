@@ -22,6 +22,8 @@ public:
 
 	vector<float> normalizeValues(vector<float> vc);
 
+	int percentage(float x);
+
 	bool getLetterFound();									//getters and setters for various variables
 	float getEuclideanDistance();
 	Mat getBlueBLOBImg();

@@ -942,7 +942,7 @@ void Recognizer::extractFeaturesVector(){
 			if (greenBLOBList[i][j].x > greenLargestX.x){
 				greenLargestX = greenBLOBList[i][j];
 			}
-			if (greenBLOBList[i][j].y < greenSmallestY.x){
+			if (greenBLOBList[i][j].y < greenSmallestY.y){
 				greenSmallestY = greenBLOBList[i][j];
 			}
 			if (greenBLOBList[i][j].y > greenLargestY.y){
@@ -1346,13 +1346,23 @@ void Recognizer::vectorRecognizer(char letter, bool leftHand){
 }
 
 void Recognizer::vectorRecognizerGlove2(char letter, bool leftHand){
-	BLOBAnalyze(letter);
+	blueBLOBImg = BLOBdt.BLOBDetection(dt.getBlueThreshImg(), 'b');
+	greenBLOBImg = BLOBdt.BLOBDetection(dt.getGreenThreshImg(), 'g');
+	pinkBLOBImg = BLOBdt.BLOBDetection(dt.getPinkThreshImg(), 'p');
+	redBLOBImg = BLOBdt.BLOBDetection(dt.getRedThreshImg(), 'r');
+	yellowBLOBImg = BLOBdt.BLOBDetection(dt.getYellowThreshImg(), 'y');
+
 	extractFeaturesVector();
 
 	letterFound = false;
 	hasBeenFound = Mat::zeros(50, 50, CV_8UC3);
 
-	if (leftHand){
+	currentSign.empty();
+	currentSign.resize(0);
+
+	idealSign.empty();
+	idealSign.resize(0);
+
 		switch (letter){
 		case 'a':
 			lengthRedGreen = sqrt(pow(redCenter.x - greenCenter.x, 2.0f) + pow(redCenter.y - greenCenter.y, 2.0f));
@@ -1362,12 +1372,12 @@ void Recognizer::vectorRecognizerGlove2(char letter, bool leftHand){
 
 			currentSign.push_back(ratio);
 
-			idealSign.push_back(1.26f);
-			
+			idealSign.push_back(0.41f);
 
 			euclideanDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
 
 			cout << "ratio: " << ratio << " | euc: " << euclideanDistance << endl;
+			cout << "You are " << percentage(euclideanDistance) << "% correct" << endl;
 
 			if (euclideanDistance < 0.1f)
 				letterFound = true;
@@ -1387,13 +1397,13 @@ void Recognizer::vectorRecognizerGlove2(char letter, bool leftHand){
 
 			currentSign.push_back(ratio);
 
-			idealSign.push_back(1.0f);
+			idealSign.push_back(1.28f);
 
 			euclideanDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
 
 			cout << "ratio: " << ratio << " | euc: " << euclideanDistance << endl;
 
-			if (euclideanDistance < 1.0f)
+			if (euclideanDistance < 0.1f)
 				letterFound = true;
 
 			currentSign.empty();
@@ -1411,13 +1421,13 @@ void Recognizer::vectorRecognizerGlove2(char letter, bool leftHand){
 
 			currentSign.push_back(ratio);
 
-			idealSign.push_back(1.0f);
+			idealSign.push_back(0.395f);
 
 			euclideanDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
 
 			cout << "ratio: " << ratio << " | euc: " << euclideanDistance << endl;
 
-			if (euclideanDistance < 1.0f)
+			if (euclideanDistance < 0.1f)
 				letterFound = true;
 
 			currentSign.empty();
@@ -1439,7 +1449,7 @@ void Recognizer::vectorRecognizerGlove2(char letter, bool leftHand){
 
 			euclideanDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
 
-			if (euclideanDistance < 1.0f)
+			if (euclideanDistance < 0.1f)
 				letterFound = true;
 
 			cout << "ratio: " << ratio << " | euc: " << euclideanDistance << endl;
@@ -1459,11 +1469,11 @@ void Recognizer::vectorRecognizerGlove2(char letter, bool leftHand){
 
 			currentSign.push_back(ratio);
 
-			idealSign.push_back(1.0f);
+			idealSign.push_back(0.59f);
 
 			euclideanDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
 
-			if (euclideanDistance < 1.0f)
+			if (euclideanDistance < 0.1f)
 				letterFound = true;
 
 			cout << "ratio: " << ratio << " | euc: " << euclideanDistance << endl;
@@ -1476,18 +1486,18 @@ void Recognizer::vectorRecognizerGlove2(char letter, bool leftHand){
 
 			break;
 		case 't':
-			lengthRedGreen = sqrt(pow(redSmallestY.x - greenCenter.x, 2.0f) + pow(redSmallestY.y - greenCenter.y, 2.0f));
-			lengthRedYel = sqrt(pow(redSmallestY.x - yellowCenter.x, 2.0f) + pow(redSmallestY.y - yellowCenter.y, 2.0f));
+			lengthRedBlue = sqrt(pow(redSmallestY.x - blueCenter.x, 2.0f) + pow(redSmallestY.y - blueCenter.y, 2.0f));
+			lengthBlueYel = sqrt(pow(blueSmallestY.x - yellowCenter.x, 2.0f) + pow(blueSmallestY.y - yellowCenter.y, 2.0f));
 
-			ratio = lengthRedGreen / lengthRedYel;
+			ratio = lengthRedBlue / lengthBlueYel;
 
 			currentSign.push_back(ratio);
 
-			idealSign.push_back(1.0f);
+			idealSign.push_back(1.6f);
 
 			euclideanDistance = sqrt(pow(idealSign[0] - currentSign[0], 2.0f));
 
-			if (euclideanDistance < 1.0f)
+			if (euclideanDistance < 0.13f)
 				letterFound = true;
 
 			cout << "ratio: " << ratio << " | euc: " << euclideanDistance << endl;
@@ -1502,25 +1512,6 @@ void Recognizer::vectorRecognizerGlove2(char letter, bool leftHand){
 		default:
 			cout << "vectorRecognizer was not passed a valid letter" << endl;
 		}
-	}
-	else{
-		switch (letter){
-		case 'a':
-			break;
-		case 'b':
-			break;
-		case 'f':
-			break;
-		case 'l':
-			break;
-		case 's':
-			break;
-		case 't':
-			break;
-		default:
-			cout << "vectorRecognizer was not passed a valid letter" << endl;
-		}
-	}
 
 	Point center;
 	center.x = hasBeenFound.cols / 2;
@@ -1571,6 +1562,16 @@ void Recognizer::recognizeGlove2(char letter, bool leftHand){
 	extractFeaturesGlove2();
 
 	compareFeaturesGlove2(letter, leftHand);
+}
+
+int Recognizer::percentage(float x){
+	int result;
+	result = 100 - (x * 100);
+
+	if (result < 0)
+		result = 0;
+
+	return result;
 }
 
 bool Recognizer::getLetterFound(){

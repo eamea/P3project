@@ -28,43 +28,43 @@ void Detector::createTrackbars()
 void Detector::setThreshold(char color){
 	switch (color){
 	case 'b':
-		iLowH = 105;
-		iHighH = 120;
+		iLowH = 86;
+		iHighH = 130;
 
-		iLowS = 0;
+		iLowS = 145;
 		iHighS = 255;
 
-		iLowV = 0;
+		iLowV = 77;
 		iHighV = 255;
 
 		break;
 	case 'g':
-		iLowH = 32;
-		iHighH = 45;
+		iLowH = 43;
+		iHighH = 82;
 
-		iLowS = 121;
-		iHighS = 238;
+		iLowS = 105;
+		iHighS = 255;
 
-		iLowV = 0;
+		iLowV = 79;
 		iHighV = 255;
 
 		break;
 	case 'p':
-		iLowH = 166;
-		iHighH = 179;
+		iLowH = 143;
+		iHighH = 166;
 
-		iLowS = 79;
-		iHighS = 140;
+		iLowS = 24;
+		iHighS = 121;
 
-		iLowV = 0;
+		iLowV = 5;
 		iHighV = 255;
 
 		break;
 	case 'r':
-		iLowH = 0;
-		iHighH = 5;
+		iLowH = 168;
+		iHighH = 179;
 
-		iLowS = 155;
+		iLowS = 103;
 		iHighS = 255;
 
 		iLowV = 0;
@@ -72,13 +72,13 @@ void Detector::setThreshold(char color){
 
 		break;
 	case 'y':
-		iLowH = 26;
-		iHighH = 31;
+		iLowH = 0;
+		iHighH = 51;
 
-		iLowS = 200;
+		iLowS = 140;
 		iHighS = 255;
 
-		iLowV = 0;
+		iLowV = 168;
 		iHighV = 255;
 
 		break;
