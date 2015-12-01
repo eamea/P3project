@@ -47,6 +47,9 @@ private:
 	bool leftHanded = true;
 	bool letterFound = false;
 
+	int frameCounter = 0;
+	int frames = 10;
+
 	vector<vector<Point>> blueBLOBList;
 	vector<vector<Point>> greenBLOBList;
 	vector<vector<Point>> pinkBLOBList;
@@ -127,5 +130,6 @@ private:
 	float lengthRedPink;
 	float lengthRedBlue;
 	float lengthRedYel;
+	float lengthGreenBlue;
 };
 

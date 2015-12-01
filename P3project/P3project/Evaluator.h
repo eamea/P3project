@@ -47,6 +47,8 @@ private:
 	VideoWriter redTreshVid;
 	VideoWriter yellowTreshVid;
 
+	int scale = 3;
+
 
 };
 

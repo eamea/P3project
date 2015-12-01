@@ -13,17 +13,17 @@ void Evaluator::startTimer(char letter, Mat img, int gloveNumber){
 void Evaluator::openFiles(Mat img){//opens all the video files, and the .txt file so we can save images and strings to these files
 	outputFile.open("C:/Users/Patrick/Desktop/Vids/Data.txt");
 
-	NormalVid.open("C:/Users/Patrick/Desktop/Vids/NormalVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols, img.rows), true); 
-	blueBLOBVid.open("C:/Users/Patrick/Desktop/Vids/BlueBLOBVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols, img.rows), false);
-	blueTreshVid.open("C:/Users/Patrick/Desktop/Vids/BlueThreshVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols, img.rows), false);
-	greenBLOBVid.open("C:/Users/Patrick/Desktop/Vids/GreenBLOBVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols, img.rows), false);
-	greenTreshVid.open("C:/Users/Patrick/Desktop/Vids/GreenThreshVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols, img.rows), false);
-	pinkBLOBVid.open("C:/Users/Patrick/Desktop/Vids/PinkBLOBVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols, img.rows), false);
-	pinkTreshVid.open("C:/Users/Patrick/Desktop/Vids/PinkThreshVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols, img.rows), false);
-	redBLOBVid.open("C:/Users/Patrick/Desktop/Vids/RedBLOBVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols, img.rows), false);
-	redTreshVid.open("C:/Users/Patrick/Desktop/Vids/RedThreshVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols, img.rows), false);
-	yellowBLOBVid.open("C:/Users/Patrick/Desktop/Vids/YellowBLOBVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols, img.rows), false);
-	yellowTreshVid.open("C:/Users/Patrick/Desktop/Vids/YellowThreshVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols, img.rows), false);
+	NormalVid.open("C:/Users/Patrick/Desktop/Vids/NormalVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols / scale, img.rows / scale), true); 
+	blueBLOBVid.open("C:/Users/Patrick/Desktop/Vids/BlueBLOBVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols / scale, img.rows /scale), false);
+	blueTreshVid.open("C:/Users/Patrick/Desktop/Vids/BlueThreshVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols / scale, img.rows / scale), false);
+	greenBLOBVid.open("C:/Users/Patrick/Desktop/Vids/GreenBLOBVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols / scale, img.rows / scale), false);
+	greenTreshVid.open("C:/Users/Patrick/Desktop/Vids/GreenThreshVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols / scale, img.rows / scale), false);
+	pinkBLOBVid.open("C:/Users/Patrick/Desktop/Vids/PinkBLOBVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols / scale, img.rows / scale), false);
+	pinkTreshVid.open("C:/Users/Patrick/Desktop/Vids/PinkThreshVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols / scale, img.rows / scale), false);
+	redBLOBVid.open("C:/Users/Patrick/Desktop/Vids/RedBLOBVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols / scale, img.rows / scale), false);
+	redTreshVid.open("C:/Users/Patrick/Desktop/Vids/RedThreshVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols / scale, img.rows / scale), false);
+	yellowBLOBVid.open("C:/Users/Patrick/Desktop/Vids/YellowBLOBVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols / scale, img.rows / scale), false);
+	yellowTreshVid.open("C:/Users/Patrick/Desktop/Vids/YellowThreshVid.avi", CV_FOURCC('M', 'J', 'P', 'G'), 5, Size(img.cols / scale, img.rows / scale), false);
 }
 
 //stop the timer and write to the file with the parsed name
@@ -39,6 +39,8 @@ void Evaluator::stopTimer(){										//saving the parsed string
 }
 
 void Evaluator::stopVid(){
+	outputFile.close();												//"closing" the text file
+
 	NormalVid.release();											//stops the video streams
 	blueBLOBVid.release();
 	blueTreshVid.release();
@@ -56,7 +58,9 @@ void Evaluator::stopVid(){
 void Evaluator::writeToFile(){
 	dataToSend << "\nSign '" << currentLetter << "': clockTicsTaken = " << clockTicsTaken << ". timeInSeconds = " << timeInSeconds << ". euclideanDistance = " << euclideanDistance << ".";	//creating a string to send to the file
 	outputFile << dataToSend.str();									//sending the created string to the file
-	outputFile.close();												//"closing" the text file
+	dataToSend.str("");
+	dataToSend.clear();
+
 }
 
 //save Thresholded videoStream to file

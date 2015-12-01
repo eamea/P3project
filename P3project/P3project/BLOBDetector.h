@@ -21,7 +21,7 @@ private:
 
 	Mat BLOB;															//default BLOB image, will mainly be used in case of error
 	int object = 50;													//object label
-	int BLOBsizeToFilterOut = 80;										//BLOBs below this pixel amount will not be counted as a BLOB
+	int BLOBsizeToFilterOut = 5;										//BLOBs below this pixel amount will not be counted as a BLOB
 
 	list<size_t> xCoor;													//list of coordinates for object pixels not yet checked
 	list<size_t> yCoor;
