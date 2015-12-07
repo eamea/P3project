@@ -34,12 +34,12 @@ Mat BLOBDetector::BLOBDetection(Mat img, char color){
 	points.empty();
 	points.resize(0);
 	
-	for (size_t row = 0; row < img.rows; row++){						//runs sequential grassfire algorithm on the image
+	for (size_t row = 0; row < img.rows; row++){								//runs sequential grassfire algorithm on the image
 		for (size_t col = 0; col < img.cols; col++){
 			if (img.at<unsigned char>(row, col) == 255){
-				seqGrassFire(row, col, img, color);					//call seqGrassFire on the first object pixel we hit
-				while (!xCoor.empty() && !yCoor.empty()){				//as long as there are still pixels to check
-					seqGrassFire(yCoor.front(), xCoor.front(), img, color); //call seqGrassFire on the first element in the lists
+				seqGrassFire(row, col, img, color);								//call seqGrassFire on the first object pixel we hit
+				while (!xCoor.empty() && !yCoor.empty()){						//as long as there are still pixels to check
+					seqGrassFire(yCoor.front(), xCoor.front(), img, color);		//call seqGrassFire on the first element in the lists
 					
 					Point point;										//converting the coordinates to a single point
 					point.x = xCoor.front();							
